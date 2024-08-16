@@ -28,7 +28,7 @@ const Login = ({ setCurrentView }: Props) => {
           <span className="link-animation font-normal after:bg-primary text-primary inline-block">
             contact us
           </span>
-          . We'll set up your account and help you get started.
+          . We&apos;ll set up your account and help you get started.
         </p>
       </div>
 
