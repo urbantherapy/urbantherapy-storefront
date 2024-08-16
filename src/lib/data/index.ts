@@ -267,6 +267,16 @@ export const getSession = cache(async function getSession() {
     .catch((err) => medusaError(err))
 })
 
+// export async function fetchSalesChannels() {
+//   const headers = getMedusaHeaders(["sales_channels"])
+//   console.log(headers)
+//   const { sales_channels } = await medusaClient.admin.salesChannels.list(
+//     headers
+//   )
+//   // return sales_channels.length
+//   return 0
+// }
+
 // Customer actions
 export async function getCustomer() {
   const headers = getMedusaHeaders(["customer"])
@@ -455,6 +465,7 @@ export const getProductsList = cache(async function ({
   nextPage: number | null
   queryParams?: StoreGetProductsParams
 }> {
+  await setPublishableKey()
   const limit = queryParams?.limit || 12
 
   const region = await getRegion(countryCode)
@@ -755,3 +766,23 @@ export const getProductsByCategoryHandle = cache(async function ({
     nextPage,
   }
 })
+
+const B2B_PUBLISHABLE_API_KEY = "pk_01J50DP80TCA1ASJ0CECQYZ035"
+const B2C_PUBLISHABLE_API_KEY = "pk_01J04CSWXKH0ZDKGC9KSZQJSVS"
+
+async function isUserLoggedIn(): Promise<boolean> {
+  try {
+    const customer = await getSession()
+    return !!customer
+  } catch {
+    return false
+  }
+}
+
+async function setPublishableKey() {
+  // const loggedIn = await isUserLoggedIn()
+  // const publishableApiKey = loggedIn
+  //   ? B2B_PUBLISHABLE_API_KEY
+  //   : B2C_PUBLISHABLE_API_KEY
+  // medusaClient.setPublishableKey(publishableApiKey)
+}

@@ -43,8 +43,10 @@ export default async function ProductPreview({
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">{productPreview.title}</Text>
+        <div className="flex flex-col justify-center items-center mt-4 text-primary">
+          <Text className="text-md font-light" data-testid="product-title">
+            {productPreview.title}
+          </Text>
           <div className="flex items-center gap-x-2">
             {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
           </div>

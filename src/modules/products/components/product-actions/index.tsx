@@ -165,16 +165,16 @@ export default function ProductActions({
         <Button
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
-          variant="primary"
-          className="w-full h-10"
+          variant="secondary"
+          className="bg-primary/10 px-4 py-2 rounded-none text-primary"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {!variant
             ? "Select variant"
             : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "Out of Stock"
+            : "Add to Cart"}
         </Button>
         <MobileActions
           product={product}

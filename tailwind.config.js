@@ -21,6 +21,11 @@ module.exports = {
         padding: "padding-top padding-right padding-bottom padding-left",
       },
       colors: {
+        // "custom-bg": "#E7E9E1",
+        "custom-bg": "#EEEEEC",
+        primary: "#A1A78F",
+        secondary: "#DDDFD2",
+        tertiary: "#E9EAE5",
         grey: {
           0: "#FFFFFF",
           5: "#F9FAFB",
@@ -158,5 +163,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-radix")()],
+  plugins: [
+    require("tailwindcss-radix")(),
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/forms"),
+  ],
 }

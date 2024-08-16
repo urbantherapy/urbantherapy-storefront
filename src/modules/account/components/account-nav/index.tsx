@@ -41,7 +41,7 @@ const AccountNav = ({
         ) : (
           <>
             <div className="text-xl-semi mb-4 px-8">
-              Hello {customer?.first_name}
+              Hello, {customer?.first_name}!
             </div>
             <div className="text-base-regular">
               <ul>
@@ -109,10 +109,10 @@ const AccountNav = ({
       </div>
       <div className="hidden small:block" data-testid="account-nav">
         <div>
-          <div className="pb-4">
-            <h3 className="text-base-semi">Account</h3>
-          </div>
-          <div className="text-base-regular">
+          {/* <div className="pb-4">
+            <h3 className="text-base-semi font-normal">Account</h3>
+          </div> */}
+          <div className="text-lg">
             <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
               <li>
                 <AccountNavLink
@@ -171,18 +171,23 @@ type AccountNavLinkProps = {
   href: string
   route: string
   children: React.ReactNode
-  'data-testid'?: string
+  "data-testid"?: string
 }
 
-const AccountNavLink = ({ href, route, children, 'data-testid': dataTestId }: AccountNavLinkProps) => {
+const AccountNavLink = ({
+  href,
+  route,
+  children,
+  "data-testid": dataTestId,
+}: AccountNavLinkProps) => {
   const { countryCode }: { countryCode: string } = useParams()
 
   const active = route.split(countryCode)[1] === href
   return (
     <LocalizedClientLink
       href={href}
-      className={clx("text-ui-fg-subtle hover:text-ui-fg-base", {
-        "text-ui-fg-base font-semibold": active,
+      className={clx("hover:text-ui-fg-base", {
+        "font-medium": active,
       })}
       data-testid={dataTestId}
     >

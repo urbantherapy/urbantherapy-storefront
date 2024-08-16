@@ -14,15 +14,29 @@ const Login = ({ setCurrentView }: Props) => {
   const [message, formAction] = useFormState(logCustomerIn, null)
 
   return (
-    <div className="max-w-sm w-full flex flex-col items-center" data-testid="login-page">
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
-      </p>
+    <div
+      className="flex flex-col items-center max-w-xl w-full"
+      data-testid="login-page"
+    >
+      <div className="mb-12">
+        <h2 className="mt-8 text-5xl font-extralight leading-tight tracking-tigh text-center">
+          Welcome to Urban Therapy B2B
+        </h2>
+        <p className="mt-12 text-lg font-thin leading-tigh text-primary/75">
+          Our platform is exclusively for businesses. To access our curated
+          collections and special wholesale offers, please{" "}
+          <span className="link-animation font-normal after:bg-primary text-primary inline-block">
+            contact us
+          </span>
+          . We'll set up your account and help you get started.
+        </p>
+      </div>
+
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
           <Input
-            label="Email"
+            // className="bg-secondary block w-full border-0 py-1.5 text-primary shadow-sm  placeholder:text-gray-400  sm:text-sm sm:leading-6 h-14 rounded-md"
+            label="Email address"
             name="email"
             type="email"
             title="Enter a valid email address."
@@ -40,10 +54,15 @@ const Login = ({ setCurrentView }: Props) => {
           />
         </div>
         <ErrorMessage error={message} data-testid="login-error-message" />
-        <SubmitButton data-testid="sign-in-button" className="w-full mt-6">Sign in</SubmitButton>
+        <SubmitButton
+          variant="secondary"
+          data-testid="sign-in-button"
+          className="w-full mt-6 bg-primary rounded-md border-none text-tertiary hover:bg-primary/75"
+        >
+          Sign in
+        </SubmitButton>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Not a member?{" "}
+      {/* <span className="text-center text-ui-fg-base text-small-regular mt-6">
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
           className="underline"
@@ -52,7 +71,7 @@ const Login = ({ setCurrentView }: Props) => {
           Join us
         </button>
         .
-      </span>
+      </span> */}
     </div>
   )
 }

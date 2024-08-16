@@ -4,13 +4,19 @@ import { Metadata } from "next"
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import OurMission from "@modules/home/components/our-mission"
+import OurValues from "@modules/home/components/our-values"
+
 import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
+import Slider from "@modules/home/components/slider"
+import Quote from "@modules/home/components/quote"
+import InstagramWidget from "@modules/home/components/instagram-widget"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Urban Therapy | Empowering the Makers",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "Discover unique, handcrafted gifts made with love for the planet. Explore eco-friendly homeware, fashion, and more from passionate artisans. Shop consciously, feel good.",
 }
 
 const getCollectionsWithProducts = cache(
@@ -69,11 +75,16 @@ export default async function Home({
   return (
     <>
       <Hero />
-      <div className="py-12">
+      <OurMission />
+      <OurValues />
+      <Slider />
+      <Quote />
+      <InstagramWidget />
+      {/* <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
         </ul>
-      </div>
+      </div> */}
     </>
   )
 }

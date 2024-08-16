@@ -21,14 +21,17 @@ const LineItemUnitPrice = ({
   const reducedPrice = (item.total || 0) / item.quantity!
 
   return (
-    <div className="flex flex-col text-ui-fg-muted justify-center h-full">
+    <div className="flex flex-col text-primary/50 justify-center h-full">
       {hasReducedPrice && (
         <>
           <p>
             {style === "default" && (
               <span className="text-ui-fg-muted">Original: </span>
             )}
-            <span className="line-through" data-testid="product-unit-original-price">
+            <span
+              className="line-through"
+              data-testid="product-unit-original-price"
+            >
               {formatAmount({
                 amount: originalPrice,
                 region: region,
