@@ -70,7 +70,7 @@ const filters = [
 ]
 const activeFilters = [{ value: "objects", label: "Objects" }]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ")
 }
 

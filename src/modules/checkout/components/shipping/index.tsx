@@ -105,7 +105,10 @@ const Shipping: React.FC<ShippingProps> = ({
               {availableShippingMethods ? (
                 availableShippingMethods.map((option) => {
                   return (
-                    <div className="rounded-lg border border-gray-200 bg-sage-1 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                    <div
+                      className="rounded-lg border border-gray-200 bg-sage-1 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800"
+                      key={option.id}
+                    >
                       <RadioGroup.Option
                         key={option.id}
                         value={option.id}

@@ -124,11 +124,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 {formatStatus(order.fulfillment_status)}
               </td>
               <td className="whitespace-nowrap py-6 text-right font-medium">
-                <a href={i.href} className="text-sage-8">
+                <span className="text-sage-8">
                   View
                   <span className="hidden lg:inline"> Product</span>
-                  <span className="sr-only">, {i.name}</span>
-                </a>
+                </span>
               </td>
             </tr>
           ))}

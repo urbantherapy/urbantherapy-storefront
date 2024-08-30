@@ -182,9 +182,9 @@ const AboutPage: React.FC = () => {
             </h2>
             <p className="mt-2 text-5xl font-thin tracking-tight">Our Values</p>
             <p className="mt-4 text-lg font-thin leading-snug text-sage-8">
-              Focus allows you to plan 10 daily tasks, while also thinking ahead
+              {`Focus allows you to plan 10 daily tasks, while also thinking ahead
               about what's next. Forget distracting digital apps and embrace
-              these small, sturdy pieces of paper.
+              these small, sturdy pieces of paper.`}
             </p>
           </div>
 
