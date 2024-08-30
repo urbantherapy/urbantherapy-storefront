@@ -39,6 +39,34 @@ module.exports = {
           80: "#1F2937",
           90: "#111827",
         },
+        gold: {
+          1: "#FDFDFC",
+          2: "#FAF9F2",
+          3: "#F2F0E7",
+          4: "#EAE6DB",
+          5: "#E1DCCF",
+          6: "#D8D0BF",
+          7: "#CBC0AA",
+          8: "#B9A88D",
+          9: "#978365",
+          10: "#8C7A5E",
+          11: "#71624B",
+          12: "#3B352B",
+        },
+        sage: {
+          1: "#F7F7F4", // Very light, almost white
+          2: "#EBEDE5", // A soft, light grey-green
+          3: "#DFE1D7", // Light, muted sage
+          4: "#D3D6C9", // Soft, natural greenish-gray
+          5: "#C7CAB8", // Muted green-beige
+          6: "#BABEA6", // Soft, sage gray
+          7: "#AEB294", // Slightly deeper sage
+          8: "#A1A78F", // Central color, a balanced sage
+          9: "#888F75", // Muted olive green
+          10: "#7D836D", // Slightly darker, muted green
+          11: "#636751", // Dark, earthy olive
+          12: "#383B2F", // Deep, almost black green
+        },
       },
       borderRadius: {
         none: "0px",

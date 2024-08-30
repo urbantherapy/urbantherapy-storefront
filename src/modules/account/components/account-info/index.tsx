@@ -13,7 +13,7 @@ type AccountInfoProps = {
   errorMessage?: string
   clearState: () => void
   children?: React.ReactNode
-  'data-testid'?: string
+  "data-testid"?: string
 }
 
 const AccountInfo = ({
@@ -24,7 +24,7 @@ const AccountInfo = ({
   clearState,
   errorMessage = "An error occurred, please try again",
   children,
-  'data-testid': dataTestid
+  "data-testid": dataTestid,
 }: AccountInfoProps) => {
   const { state, close, toggle } = useToggleState()
 
@@ -42,30 +42,30 @@ const AccountInfo = ({
   }, [isSuccess, close])
 
   return (
-    <div className="text-small-regular" data-testid={dataTestid}>
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col">
-          <span className="uppercase text-ui-fg-base">{label}</span>
-          <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
-            {typeof currentInfo === "string" ? (
-              <span className="font-semibold" data-testid="current-info">{currentInfo}</span>
-            ) : (
-              currentInfo
-            )}
+    <div className="" data-testid={dataTestid}>
+      <div className="pt-6 sm:flex">
+        <dt className="font-medium sm:w-64 sm:flex-none sm:pr-6">{label}</dt>
+        <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+          {typeof currentInfo === "string" ? (
+            <span className="" data-testid="current-info">
+              {currentInfo}
+            </span>
+          ) : (
+            currentInfo
+          )}
+          <div>
+            <Button
+              variant="secondary"
+              className="w-[100px] min-h-[25px] py-1"
+              onClick={handleToggle}
+              type={state ? "reset" : "button"}
+              data-testid="edit-button"
+              data-active={state}
+            >
+              {state ? "Cancel" : "Edit"}
+            </Button>
           </div>
-        </div>
-        <div>
-          <Button
-            variant="secondary"
-            className="w-[100px] min-h-[25px] py-1"
-            onClick={handleToggle}
-            type={state ? "reset" : "button"}
-            data-testid="edit-button"
-            data-active={state}
-          >
-            {state ? "Cancel" : "Edit"}
-          </Button>
-        </div>
+        </dd>
       </div>
 
       {/* Success state */}

@@ -22,7 +22,7 @@ const slides = [
     text: "Nurturing creativity and joy with our children's collection.",
     ctaText: "Explore Kids",
     imageUrl: kidsCollection,
-    bgColor: "bg-secondary/25", // Example background color
+    bgColor: "bg-sage-1", // Example background color
   },
   {
     id: 2,
@@ -30,7 +30,7 @@ const slides = [
     text: "This is a small text for Slide 1",
     ctaText: "Learn More",
     imageUrl: kidsCollection,
-    bgColor: "bg-blue-500", // Example background color
+    bgColor: "bg-sage-4", // Example background color
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const slides = [
     text: "This is a small text for Slide 1",
     ctaText: "Learn More",
     imageUrl: kidsCollection,
-    bgColor: "bg-blue-500", // Example background color
+    bgColor: "bg-sage-2", // Example background color
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ const slides = [
     text: "This is a small text for Slide 1",
     ctaText: "Learn More",
     imageUrl: kidsCollection,
-    bgColor: "bg-blue-500", // Example background color
+    bgColor: "bg-sage-6", // Example background color
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ const slides = [
     text: "This is a small text for Slide 1",
     ctaText: "Learn More",
     imageUrl: kidsCollection,
-    bgColor: "bg-blue-500", // Example background color
+    bgColor: "bg-sage-8", // Example background color
   },
 ]
 
@@ -73,23 +73,23 @@ const Slide: React.FC<SlideProps> = ({
   imageUrl,
   bgColor,
 }) => (
-  <div className="flex w-full text-primary">
+  <div className="flex flex-col md:flex-row md:h-[60vh] text-primary md:px-0 mx-auto bg-sage-2">
     <div
-      className={`flex-1 ${bgColor} flex flex-col items-center justify-center p-4`}
+      className={`flex-1 ${bgColor} flex flex-col items-center justify-center p-4 order-2 md:order-1 py-16`}
     >
-      <Image src={doodle} alt="Doodle" className="mb-4 w-1/2" />
-      <h2 className="text-5xl font-extralight tracking-tight">{heading}</h2>
-      <p className="mt-10 font-thin text-2xl text-center max-w-md text-primary/75">
+      <Image src={doodle} alt="Doodle" className="mb-4 w-40" />
+      <h2 className="text-5xl font-thin tracking-tight">{heading}</h2>
+      <p className="mt-10 font-thin text-lg text-center max-w-md text-primary/75">
         {text}
       </p>
       <button className="mt-10 bg-primary/10 font-medium px-4 py-2 rounded-md">
         {ctaText} →
       </button>
     </div>
-    <div className="flex-1 relative">
+    <div className="flex-1 relative order-1 md:order-2">
       <Image
         src={imageUrl}
-        className="w-full h-full object-cover saturate-[.70]"
+        className="w-full h-full object-cover saturate-[.70] max-h-[30vh] md:max-h-[60vh]"
         alt={heading}
         placeholder="blur"
       />
@@ -100,8 +100,8 @@ const Slide: React.FC<SlideProps> = ({
 
 const Slider = () => {
   return (
-    <div className="mx-auto max-w-7xl">
-      <Carousel Indicators={MyIndicators} className="relative mt-4">
+    <div className="mx-auto h-full w-full">
+      <Carousel Indicators={MyIndicators} className="relative">
         {slides.map((slide) => (
           <Carousel.Slide key={slide.id}>
             <Slide {...slide} />

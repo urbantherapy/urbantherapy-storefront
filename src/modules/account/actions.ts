@@ -50,6 +50,8 @@ export async function logCustomerIn(
 
   try {
     await getToken({ email, password }).then(() => {
+      cookies().set("_medusa_cart_id", "", { maxAge: -1 })
+
       revalidateTag("customer")
     })
   } catch (error: any) {
@@ -266,6 +268,8 @@ export async function signOut(countryCode: string) {
   cookies().set("_medusa_jwt", "", {
     maxAge: -1,
   })
+  cookies().set("_medusa_cart_id", "", { maxAge: -1 })
+
   revalidateTag("auth")
   revalidateTag("customer")
   redirect(`/${countryCode}/account`)

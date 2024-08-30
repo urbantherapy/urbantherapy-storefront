@@ -27,7 +27,7 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
         </Heading>
 
         <Text
-          className="text-medium text-primary"
+          className="font-extralight text-md text-primary"
           data-testid="product-description"
         >
           {product.description}

@@ -5,6 +5,7 @@ import {
   getCollectionByHandle,
   getCollectionsList,
   listRegions,
+  getCustomer,
 } from "@lib/data"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -65,6 +66,12 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const collection = await getCollectionByHandle(params.handle).then(
     (collection) => collection
   )
+
+  // const customer = await getCustomer().catch(() => null)
+
+  // if (!customer) {
+  //   notFound()
+  // }
 
   if (!collection) {
     notFound()

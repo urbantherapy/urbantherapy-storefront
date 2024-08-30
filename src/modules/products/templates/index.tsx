@@ -1,4 +1,4 @@
-import { Region } from "@medusajs/medusa"
+import { Customer, Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import React, { Suspense } from "react"
 
@@ -16,12 +16,14 @@ type ProductTemplateProps = {
   product: PricedProduct
   region: Region
   countryCode: string
+  customer: Omit<Customer, "password_hash"> | null
 }
 
 const ProductTemplate: React.FC<ProductTemplateProps> = ({
   product,
   region,
   countryCode,
+  customer,
 }) => {
   if (!product || !product.id) {
     return notFound()
@@ -40,20 +42,22 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         <div className="block w-full relative">
           <ImageGallery images={product?.images || []} />
         </div>
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          <ProductOnboardingCta />
-          <Suspense
-            fallback={
-              <ProductActions
-                disabled={true}
-                product={product}
-                region={region}
-              />
-            }
-          >
-            <ProductActionsWrapper id={product.id} region={region} />
-          </Suspense>
-        </div>
+        {customer && (
+          <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
+            <ProductOnboardingCta />
+            <Suspense
+              fallback={
+                <ProductActions
+                  disabled={true}
+                  product={product}
+                  region={region}
+                />
+              }
+            >
+              <ProductActionsWrapper id={product.id} region={region} />
+            </Suspense>
+          </div>
+        )}
       </div>
       {/* <div
         className="content-container my-16 small:my-32"

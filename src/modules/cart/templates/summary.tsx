@@ -15,20 +15,23 @@ type SummaryProps = {
 const Summary = ({ cart }: SummaryProps) => {
   return (
     <div className="flex flex-col gap-y-4">
-      <Heading level="h2" className="text-[2rem] leading-[2.75rem]">
+      <Heading level="h2" className="text-lg font-medium text-sage-10">
         Summary
       </Heading>
-      <DiscountCode cart={cart} />
-      <Divider />
-      <CartTotals data={cart} />
-      <LocalizedClientLink
-        href={"/checkout?step=" + cart.checkout_step}
-        data-testid="checkout-button"
-      >
-        <Button className="w-full h-10 bg-primary/20 text-primary rounded-md hover:bg-primary/50 border-none shadow-none">
-          Go to Checkout
-        </Button>
-      </LocalizedClientLink>
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+        <DiscountCode cart={cart} />
+        <CartTotals data={cart} />
+        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <LocalizedClientLink
+            href={"/checkout?step=" + cart.checkout_step}
+            data-testid="checkout-button"
+          >
+            <Button className="w-full h-10 bg-primary/20 text-primary rounded-md hover:bg-primary/50 border-none shadow-none">
+              Go to Checkout
+            </Button>
+          </LocalizedClientLink>
+        </div>
+      </div>
     </div>
   )
 }

@@ -55,8 +55,18 @@ const getMedusaHeaders = (tags: string[] = []) => {
 export async function createCart(data = {}) {
   const headers = getMedusaHeaders(["cart"])
 
+  const customer = await isUserLoggedIn()
+  const salesChannelId = customer
+    ? "sc_01J50DF236A46JMW25Y8R24942"
+    : "sc_01J04CSTYRWK38ANPX32H1AZ9G"
+
+  const cartData = {
+    ...data,
+    sales_channel_id: salesChannelId,
+  }
+
   return medusaClient.carts
-    .create(data, headers)
+    .create(cartData, headers)
     .then(({ cart }) => cart)
     .catch((err) => {
       console.log(err)
@@ -75,6 +85,16 @@ export async function updateCart(cartId: string, data: StorePostCartsCartReq) {
 
 export const getCart = cache(async function (cartId: string) {
   const headers = getMedusaHeaders(["cart"])
+
+  const customer = await isUserLoggedIn()
+  const salesChannelId = customer
+    ? "sc_01J50DF236A46JMW25Y8R24942"
+    : "sc_01J04CSTYRWK38ANPX32H1AZ9G"
+
+  medusaClient.carts
+    .update(cartId, { sales_channel_id: salesChannelId }, headers)
+    .then(({ cart }) => cart)
+    .catch((error) => medusaError(error))
 
   return medusaClient.carts
     .retrieve(cartId, headers)
@@ -267,19 +287,10 @@ export const getSession = cache(async function getSession() {
     .catch((err) => medusaError(err))
 })
 
-// export async function fetchSalesChannels() {
-//   const headers = getMedusaHeaders(["sales_channels"])
-//   console.log(headers)
-//   const { sales_channels } = await medusaClient.admin.salesChannels.list(
-//     headers
-//   )
-//   // return sales_channels.length
-//   return 0
-// }
-
-// Customer actions
 export async function getCustomer() {
   const headers = getMedusaHeaders(["customer"])
+
+  console.log(headers, "headers")
 
   return medusaClient.customers
     .retrieve(headers)
@@ -442,8 +453,13 @@ export const getProductByHandle = cache(async function (
 ): Promise<{ product: PricedProduct }> {
   const headers = getMedusaHeaders(["products"])
 
+  const customer = await getCustomer().catch(() => null)
+  const salesChannelId = customer
+    ? ["sc_01J50DF236A46JMW25Y8R24942"]
+    : ["sc_01J04CSTYRWK38ANPX32H1AZ9G"]
+
   const product = await medusaClient.products
-    .list({ handle }, headers)
+    .list({ handle, sales_channel_id: salesChannelId }, headers)
     .then(({ products }) => products[0])
     .catch((err) => {
       throw err
@@ -465,7 +481,8 @@ export const getProductsList = cache(async function ({
   nextPage: number | null
   queryParams?: StoreGetProductsParams
 }> {
-  await setPublishableKey()
+  // await setPublishableKey()
+
   const limit = queryParams?.limit || 12
 
   const region = await getRegion(countryCode)
@@ -474,12 +491,19 @@ export const getProductsList = cache(async function ({
     return emptyResponse
   }
 
+  const customer = await getCustomer().catch(() => null)
+  console.log("Customer:", customer)
+  const salesChannelId = customer
+    ? ["sc_01J50DF236A46JMW25Y8R24942"]
+    : ["sc_01J04CSTYRWK38ANPX32H1AZ9G"]
+
   const { products, count } = await medusaClient.products
     .list(
       {
         limit,
         offset: pageParam,
         region_id: region.id,
+        sales_channel_id: salesChannelId,
         ...queryParams,
       },
       { next: { tags: ["products"] } }
@@ -768,13 +792,19 @@ export const getProductsByCategoryHandle = cache(async function ({
 })
 
 const B2B_PUBLISHABLE_API_KEY = "pk_01J50DP80TCA1ASJ0CECQYZ035"
-const B2C_PUBLISHABLE_API_KEY = "pk_01J04CSWXKH0ZDKGC9KSZQJSVS"
+const B2C_PUBLISHABLE_API_KEY = "sc_01J04CSTYRWK38ANPX32H1AZ9G"
 
 async function isUserLoggedIn(): Promise<boolean> {
   try {
-    const customer = await getSession()
+    const headers = getMedusaHeaders(["customer"])
+    const customer = await medusaClient.customers
+      .retrieve(headers)
+      .then(({ customer }) => customer)
+      .catch((err) => null)
+
     return !!customer
-  } catch {
+  } catch (error) {
+    console.error("Error retrieving session:", error)
     return false
   }
 }

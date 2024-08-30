@@ -132,18 +132,18 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             </div>
           </div>
         ) : (
-          <form action={formAction} className="w-full">
+          <form action={formAction} className="w-full p-4">
             <Label className="flex gap-x-1 my-2 items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
-                className="txt-medium text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                className="text-sm text-sage-10 hover:text-sage-11"
                 data-testid="add-discount-button"
               >
-                Add gift card or discount code
+                Enter a gift card, voucher or promotional code
               </button>
               <Tooltip content="You can add multiple gift cards, but only one discount code.">
-                <InformationCircleSolid color="var(--fg-muted)" />
+                <InformationCircleSolid color="#D3D6C9" />
               </Tooltip>
             </Label>
             {isOpen && (
@@ -151,6 +151,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                 <div className="flex w-full gap-x-2 items-center">
                   <Input
                     label="Please enter code"
+                    className="block w-full rounded-md border border-sage-3 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-sage-8 focus:ring-sage-8"
                     name="code"
                     type="text"
                     autoFocus={false}
@@ -158,6 +159,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                   />
                   <SubmitButton
                     variant="secondary"
+                    className="flex items-center justify-center rounded-md bg-sage-6 px-5 py-2.5 text-sm font-medium text-white hover:bg-sage-7 focus:outline-none focus:ring-4 focus:ring-primary-300"
                     data-testid="discount-apply-button"
                   >
                     Apply

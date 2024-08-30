@@ -166,7 +166,7 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !variant || !!disabled || isAdding}
           variant="secondary"
-          className="bg-primary/10 px-4 py-2 rounded-none text-primary"
+          className="bg-sage-6 rounded-md px-4 py-2 text-sage-1 w-full hover:bg-sage-7 text-base font-normal"
           isLoading={isAdding}
           data-testid="add-product-button"
         >

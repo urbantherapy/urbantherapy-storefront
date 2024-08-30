@@ -22,15 +22,13 @@ const LineItemPrice = ({
 
   return (
     <div className="flex flex-col gap-x-2 text-primary items-end">
-      <div className="text-left">
+      <div className="text-left flex gap-x-1">
         {hasReducedPrice && (
           <>
-            <p>
-              {style === "default" && (
-                <span className="text-ui-fg-subtle">Original: </span>
-              )}
+            <p className="inline-block">
+              {style === "default" && <span className="">Original: </span>}
               <span
-                className="line-through text-ui-fg-muted"
+                className="line-through text-sage-4"
                 data-testid="product-original-price"
               >
                 {formatAmount({
@@ -41,15 +39,15 @@ const LineItemPrice = ({
               </span>
             </p>
             {style === "default" && (
-              <span className="text-ui-fg-interactive">
+              <span className="">
                 -{getPercentageDiff(originalPrice, item.total || 0)}%
               </span>
             )}
           </>
         )}
         <span
-          className={clx("text-base-regular", {
-            "text-ui-fg-interactive": hasReducedPrice,
+          className={clx("", {
+            "text-sage-8": hasReducedPrice,
           })}
           data-testid="product-price"
         >

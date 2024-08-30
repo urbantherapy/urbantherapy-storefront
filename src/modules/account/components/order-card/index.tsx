@@ -29,21 +29,21 @@ const OrderCard = ({ order }: OrderCardProps) => {
 
   return (
     <div className="flex flex-col" data-testid="order-card">
-      <div className="bg-secondary px-4 py-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8">
-        <dl className="flex-auto space-y-6 divide-y divide-primary/25 text-sm text-gray-600 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:w-1/2 lg:flex-none lg:gap-x-8">
+      <div className="bg-sage-2 rounded-md px-4 py-6 sm:flex sm:items-center sm:justify-between sm:space-x-6 sm:px-6 lg:space-x-8">
+        <dl className="flex-auto space-y-6 divide-y divide-primary/25 text-sm text-sage-8 sm:grid sm:grid-cols-3 sm:gap-x-6 sm:space-y-0 sm:divide-y-0 lg:w-1/2 lg:flex-none lg:gap-x-8">
           <div className="flex justify-between sm:block">
-            <dt className="font-medium text-gray-900">Date placed</dt>
+            <dt className="font-medium text-sage-8">Date placed</dt>
             <dd className="sm:mt-1">
               {new Date(order.created_at).toDateString()}
             </dd>
           </div>
           <div className="flex justify-between pt-6 sm:block sm:pt-0">
-            <dt className="font-medium text-gray-900">Order number</dt>
+            <dt className="font-medium text-sage-8">Order number</dt>
             <dd className="sm:mt-1" data-testid="order-display-id">
               #{order.display_id}
             </dd>
           </div>
-          <div className="flex justify-between pt-6 font-medium text-gray-900 sm:block sm:pt-0">
+          <div className="flex justify-between pt-6 font-medium text-sage-8 sm:block sm:pt-0">
             <dt>Total amount</dt>
             <dd className="sm:mt-1">
               {formatAmount({
@@ -66,10 +66,10 @@ const OrderCard = ({ order }: OrderCardProps) => {
         </LocalizedClientLink>
       </div>
 
-      <table className="mt-4 w-full text-gray-500 sm:mt-6">
+      <table className="mt-4 w-full text-sage-8 sm:mt-6">
         <caption className="sr-only">Products</caption>
-        <thead className="sr-only text-left text-sm text-gray-500 sm:not-sr-only">
-          <tr>
+        <thead className="sr-only text-left text-sm text-sage-8 sm:not-sr-only">
+          {/* <tr>
             <th scope="col" className="py-3 pr-8 font-normal sm:w-2/5 lg:w-1/3">
               Product
             </th>
@@ -88,9 +88,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
             <th scope="col" className="w-0 py-3 text-right font-normal">
               Info
             </th>
-          </tr>
+          </tr> */}
         </thead>
-        <tbody className="divide-y divide-primary/25 border-b border-primary/25 text-sm sm:border-t">
+        <tbody className="divide-y divide-primary/25 border-primary/25 text-sm sm:border-t">
           {order.items.map((i) => (
             <tr key={i.id}>
               <td className="py-6 pr-8">
@@ -102,7 +102,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                     className="mr-6 h-16 w-16 rounded-none border-none object-cover object-center"
                   />
                   <div>
-                    <div className="font-medium text-gray-900">{i.title}</div>
+                    <div className="font-medium text-sage-10">{i.title}</div>
                     <div className="mt-1 sm:hidden">
                       {formatAmount({
                         amount: i.unit_price,
@@ -123,13 +123,13 @@ const OrderCard = ({ order }: OrderCardProps) => {
               <td className="hidden py-6 pr-8 sm:table-cell">
                 {formatStatus(order.fulfillment_status)}
               </td>
-              {/* <td className="whitespace-nowrap py-6 text-right font-medium">
-                <a href={i.href} className="text-indigo-600">
+              <td className="whitespace-nowrap py-6 text-right font-medium">
+                <a href={i.href} className="text-sage-8">
                   View
                   <span className="hidden lg:inline"> Product</span>
                   <span className="sr-only">, {i.name}</span>
                 </a>
-              </td> */}
+              </td>
             </tr>
           ))}
         </tbody>

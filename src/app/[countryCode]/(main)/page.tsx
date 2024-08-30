@@ -1,5 +1,6 @@
 import { Product } from "@medusajs/medusa"
 import { Metadata } from "next"
+import { headers, cookies } from "next/headers"
 
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
@@ -12,6 +13,8 @@ import { cache } from "react"
 import Slider from "@modules/home/components/slider"
 import Quote from "@modules/home/components/quote"
 import InstagramWidget from "@modules/home/components/instagram-widget"
+import Photos from "@modules/home/components/photos"
+import Newsletter from "@modules/home/components/newsletter"
 
 export const metadata: Metadata = {
   title: "Urban Therapy | Empowering the Makers",
@@ -79,6 +82,9 @@ export default async function Home({
       <OurValues />
       <Slider />
       <Quote />
+      {/* <Newsletter /> */}
+      {/* <Photos /> */}
+
       <InstagramWidget />
       {/* <div className="py-12">
         <ul className="flex flex-col gap-x-6">

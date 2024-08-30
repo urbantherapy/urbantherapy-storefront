@@ -9,6 +9,8 @@ import img4 from "/public/images/instagram-widget/img4.png"
 import img5 from "/public/images/instagram-widget/img5.png"
 import img6 from "/public/images/instagram-widget/img6.png"
 
+import leaves from "/public/icons/icon-leaves-mission.svg"
+
 const files = [
   {
     title: "IMG_4985.HEIC",
@@ -43,21 +45,21 @@ const files = [
 ]
 const InstagramWidget = () => {
   return (
-    <div className="content-container text-primary text-center flex">
+    <div className="text-primary text-center flex flex-col md:flex-row">
       <ul
         role="list"
-        className="w-1/2 grid grid-cols-2 gap-x-2 gap-y-2 lg:grid-cols-3"
+        className="w-full md:w-1/2 grid grid-cols-3 gap-x-1 md:gap-x-2 gap-y-1 md:gap-y-2 lg:grid-cols-3"
       >
         {files.map((file, index) => (
           <li key={`${file.title}-${index}`} className="relative">
-            <div className="group aspect-h-7 aspect-w-7 block w-full overflow-hidden">
+            <div className="group aspect-h-7 aspect-w-7 block w-full overflow-hidden h-full">
               <Image
                 alt=""
                 src={file.source}
-                className="pointer-events-none object-cover group-hover:opacity-90 saturate-[.70]"
+                className="pointer-events-none object-cover group-hover:opacity-90 saturate-[.80]"
                 placeholder="blur"
               />
-              <div className="absolute inset-0 bg-primary/20"></div>
+              <div className="absolute inset-0 bg-sage-11/5"></div>
               <button type="button" className="absolute inset-0">
                 <span className="sr-only">View details for {file.title}</span>
               </button>
@@ -66,14 +68,35 @@ const InstagramWidget = () => {
         ))}
       </ul>
       <div
-        className={`flex-1 bg-secondary flex flex-col items-center justify-center p-4`}
+        className={`flex-1 bg-white flex flex-col items-center justify-center p-4 py-24 md:py-32`}
       >
-        <h2 className="text-5xl font-extralight tracking-tight">
+        <div className="flex justify-center rotate-[19.6deg]">
+          <Image
+            src={leaves}
+            alt="Leaves Icon"
+            width={90}
+            height={90}
+            className="w-1/2 md:w-3/4"
+          />
+        </div>
+        <Heading
+          level="h2"
+          className="mt-4 text-3xl md:text-5xl font-thin tracking-tight text-center text-sage-8"
+        >
+          Join the Community
+        </Heading>
+        <p className="mx-auto mt-8 max-w-xl text-center text-sage-6 text-base md:text-lg font-thin leading-snug">
+          Subscribe to our newsletter and be the first to hear about new
+          collections, upcoming workshops, and exclusive offers. Discover the
+          stories behind our products and stay connected with the makers who
+          inspire us.
+        </p>
+        {/* <h2 className="text-5xl font-extralight tracking-tight">
           Follow Us on Instagram
         </h2>
         <p className="mt-10 font-thin text-2xl text-center max-w-md text-primary/75">
           Stay inspired and connected with our latest updates and adventures.
-        </p>
+        </p> */}
         <button className="mt-10 bg-primary/10 font-medium px-4 py-2 rounded-md">
           @urbantherapy.be →
         </button>

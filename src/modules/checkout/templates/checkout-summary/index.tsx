@@ -6,6 +6,23 @@ import CartTotals from "@modules/common/components/cart-totals"
 import Divider from "@modules/common/components/divider"
 import { cookies } from "next/headers"
 import { getCart } from "@lib/data"
+import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid"
+import ItemsPreviewTemplateCheckout from "@modules/cart/templates/preview-checkout"
+
+const products = [
+  {
+    id: 1,
+    title: "Basic Tee",
+    href: "#",
+    price: "$32.00",
+    color: "Black",
+    size: "Large",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+  },
+  // More products...
+]
 
 const CheckoutSummary = async () => {
   const cartId = cookies().get("_medusa_cart_id")?.value
@@ -21,20 +38,25 @@ const CheckoutSummary = async () => {
   }
 
   return (
-    <div className="sticky top-0 flex flex-col-reverse small:flex-col gap-y-8 py-8 small:py-0 ">
-      <div className="w-full bg-white flex flex-col">
-        <Divider className="my-6 small:hidden" />
-        <Heading
-          level="h2"
-          className="flex flex-row text-3xl-regular items-baseline"
-        >
-          In your Cart
-        </Heading>
-        <Divider className="my-6" />
-        <CartTotals data={cart} />
-        <ItemsPreviewTemplate region={cart?.region} items={cart?.items} />
+    <div className="sticky top-0 flex flex-col-reverse small:flex-col gap-y-4 py-8 small:py-0 ">
+      <h2 className="text-lg font-medium text-gray-900">Order summary</h2>
+      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+        <ItemsPreviewTemplateCheckout
+          region={cart?.region}
+          items={cart?.items}
+        />
+        <h3 className="sr-only">Items in your cart</h3>
         <div className="my-6">
           <DiscountCode cart={cart} />
+        </div>
+        <CartTotals data={cart} />
+        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+          <button
+            type="submit"
+            className="w-full rounded-md border border-transparent bg-sage-10 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+          >
+            Confirm order
+          </button>
         </div>
       </div>
     </div>

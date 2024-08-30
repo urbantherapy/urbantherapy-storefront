@@ -35,13 +35,11 @@ const RefinementList = ({
   }
 
   return (
-    <div className="flex small:flex-col small:px-0 small:ml-[1.675rem]">
-      <SortProducts
-        sortBy={sortBy}
-        setQueryParams={setQueryParams}
-        data-testid={dataTestId}
-      />
-    </div>
+    <SortProducts
+      sortBy={sortBy}
+      setQueryParams={setQueryParams}
+      data-testid={dataTestId}
+    />
   )
 }
 

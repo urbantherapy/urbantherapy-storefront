@@ -10,7 +10,7 @@ import CheckoutSummary from "@modules/checkout/templates/checkout-summary"
 import { getCart } from "@lib/data"
 
 export const metadata: Metadata = {
-  title: "Checkout",
+  title: "Urban Therapy | Checkout",
 }
 
 const fetchCart = async () => {

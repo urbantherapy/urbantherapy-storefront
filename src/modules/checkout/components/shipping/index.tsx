@@ -64,19 +64,19 @@ const Shipping: React.FC<ShippingProps> = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
-      <div className="flex flex-row items-center justify-between mb-6">
+    <div className="rounded-md bg-white border border-sage-2 shadow-sm p-6">
+      <div className="flex flex-row items-center justify-between my-6">
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-3xl text-sage-11 gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && cart.shipping_methods.length === 0,
             }
           )}
         >
-          Delivery
+          Delivery Methods
           {!isOpen && cart.shipping_methods.length > 0 && <CheckCircleSolid />}
         </Heading>
         {!isOpen &&
@@ -100,40 +100,49 @@ const Shipping: React.FC<ShippingProps> = ({
             <RadioGroup
               value={cart.shipping_methods[0]?.shipping_option_id}
               onChange={(value: string) => handleChange(value)}
+              className="grid grid-cols-1 gap-4 md:grid-cols-2"
             >
               {availableShippingMethods ? (
                 availableShippingMethods.map((option) => {
                   return (
-                    <RadioGroup.Option
-                      key={option.id}
-                      value={option.id}
-                      data-testid="delivery-option-radio"
-                      className={clx(
-                        "flex items-center justify-between text-small-regular cursor-pointer py-4 border rounded-rounded px-8 mb-2 hover:shadow-borders-interactive-with-active",
-                        {
-                          "border-ui-border-interactive":
+                    <div className="rounded-lg border border-gray-200 bg-sage-1 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                      <RadioGroup.Option
+                        key={option.id}
+                        value={option.id}
+                        data-testid="delivery-option-radio"
+                        className={clx("", {
+                          "border-sage-10":
                             option.id ===
                             cart.shipping_methods[0]?.shipping_option_id,
-                        }
-                      )}
-                    >
-                      <div className="flex items-center gap-x-4">
-                        <Radio
-                          checked={
-                            option.id ===
-                            cart.shipping_methods[0]?.shipping_option_id
-                          }
-                        />
-                        <span className="text-base-regular">{option.name}</span>
-                      </div>
-                      <span className="justify-self-end text-ui-fg-base">
-                        {formatAmount({
-                          amount: option.amount!,
-                          region: cart?.region,
-                          includeTaxes: false,
                         })}
-                      </span>
-                    </RadioGroup.Option>
+                      >
+                        <div className="flex items-start">
+                          <Radio
+                            checked={
+                              option.id ===
+                              cart.shipping_methods[0]?.shipping_option_id
+                            }
+                          />
+
+                          <div className="ms-4">
+                            <span className="font-medium leading-none text-sage-12 dark:text-white">
+                              {option.name} -{" "}
+                              {formatAmount({
+                                amount: option.amount!,
+                                region: cart?.region,
+                                includeTaxes: false,
+                              })}
+                            </span>
+                            <p
+                              id="express-text"
+                              className="mt-1 text-sm font-normal text-sage-6 dark:text-gray-400"
+                            >
+                              Get it today
+                            </p>
+                          </div>
+                        </div>
+                      </RadioGroup.Option>
+                    </div>
                   )
                 })
               ) : (
@@ -151,7 +160,7 @@ const Shipping: React.FC<ShippingProps> = ({
 
           <Button
             size="large"
-            className="mt-6"
+            className=""
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={!cart.shipping_methods[0]}
@@ -184,7 +193,7 @@ const Shipping: React.FC<ShippingProps> = ({
           </div>
         </div>
       )}
-      <Divider className="mt-8" />
+      {/* <Divider className="mt-8" /> */}
     </div>
   )
 }

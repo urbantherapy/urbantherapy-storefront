@@ -29,8 +29,80 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col gap-y-2 txt-medium text-ui-fg-subtle ">
+    <>
+      <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
+        <div className="flex items-center justify-between">
+          <dt className="text-sm flex gap-x-1 items-center">
+            Subtotal
+            <Tooltip content="Cart total excluding shipping and taxes.">
+              <InformationCircleSolid color="#D3D6C9" />
+            </Tooltip>
+          </dt>
+          <dd
+            className="text-sm font-medium text-gray-900"
+            data-testid="cart-subtotal"
+            data-value={subtotal || 0}
+          >
+            {getAmount(subtotal)}
+          </dd>
+        </div>
+        {!!discount_total && (
+          <div className="flex items-center justify-between">
+            <dt className="text-sm">Discount</dt>
+            <dd
+              className="text-sm font-medium text-green-400"
+              data-testid="cart-discount"
+              data-value={discount_total || 0}
+            >
+              - {getAmount(discount_total)}
+            </dd>
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <dt className="text-sm">Shipping</dt>
+          <dd
+            className="text-sm font-medium text-gray-900"
+            data-testid="cart-shipping"
+            data-value={shipping_total || 0}
+          >
+            {getAmount(shipping_total)}
+          </dd>
+        </div>
+        <div className="flex items-center justify-between">
+          <dt className="text-sm">Taxes</dt>
+          <dd
+            className="text-sm font-medium text-gray-900"
+            data-testid="cart-taxes"
+            data-value={tax_total || 0}
+          >
+            {getAmount(tax_total)}
+          </dd>
+        </div>
+        {!!gift_card_total && (
+          <div className="flex items-center justify-between">
+            <dt className="text-sm">Gift card</dt>
+            <dd
+              className="text-sm font-medium text-green-400"
+              data-testid="cart-gift-card-amount"
+              data-value={gift_card_total || 0}
+            >
+              - {getAmount(gift_card_total)}
+            </dd>
+          </div>
+        )}
+
+        <div className="flex items-center justify-between border-t border-gray-200 pt-6">
+          <dt className="text-base font-medium">Total</dt>
+          <dd
+            className="text-base font-medium text-gray-900"
+            data-testid="cart-total"
+            data-value={total || 0}
+          >
+            {getAmount(total)}
+          </dd>
+        </div>
+      </dl>
+      {/* <div className="flex flex-col gap-y-2 txt-medium text-ui-fg-subtle ">
         <div className="flex items-center justify-between">
           <span className="flex gap-x-1 items-center">
             Subtotal
@@ -90,8 +162,8 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           {getAmount(total)}
         </span>
       </div>
-      <div className="h-px w-full border-b border-gray-200 mt-4" />
-    </div>
+      <div className="h-px w-full border-b border-gray-200 mt-4" /> */}
+    </>
   )
 }
 

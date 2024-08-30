@@ -4,7 +4,7 @@ import { useCallback, useContext, useEffect, useMemo, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { RadioGroup } from "@headlessui/react"
 import ErrorMessage from "@modules/checkout/components/error-message"
-import { Cart } from "@medusajs/medusa"
+import { Cart, Customer } from "@medusajs/medusa"
 import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
 import { Button, Container, Heading, Text, Tooltip, clx } from "@medusajs/ui"
 import { CardElement } from "@stripe/react-stripe-js"
@@ -19,8 +19,10 @@ import { StripeContext } from "@modules/checkout/components/payment-wrapper"
 
 const Payment = ({
   cart,
+  customer,
 }: {
   cart: Omit<Cart, "refundable_amount" | "refunded_total"> | null
+  customer: Omit<Customer, "password_hash"> | null
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -34,6 +36,7 @@ const Payment = ({
   const isOpen = searchParams.get("step") === "payment"
 
   const isStripe = cart?.payment_session?.provider_id === "stripe"
+  const isManual = cart?.payment_session?.provider_id === "manual"
   const stripeReady = useContext(StripeContext)
 
   const paidByGiftcard =
@@ -103,6 +106,8 @@ const Payment = ({
     setError(null)
   }, [isOpen])
 
+  console.log(customer)
+
   return (
     <div className="bg-white">
       <div className="flex flex-row items-center justify-between mb-6">
@@ -146,6 +151,7 @@ const Payment = ({
                   .map((paymentSession) => {
                     return (
                       <PaymentContainer
+                        customer={customer}
                         paymentInfoMap={paymentInfoMap}
                         paymentSession={paymentSession}
                         key={paymentSession.id}
@@ -252,6 +258,9 @@ const Payment = ({
                   <Text>
                     {cart.payment_session.provider_id === "stripe" && cardBrand
                       ? cardBrand
+                      : cart.payment_session.provider_id === "manual" &&
+                        customer
+                      ? "Manual Payment"
                       : "Another step will appear"}
                   </Text>
                 </div>

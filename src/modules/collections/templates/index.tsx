@@ -132,7 +132,7 @@ export default function CollectionTemplate({
     <>
       {/* <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:content-container lg:px-8"> */}
       <div className="mx-auto text-center lg:w-screen">
-        <div className="py-24 bg-secondary/25">
+        <div className="py-24 bg-sage-2">
           <h1 className="text-5xl font-thin tracking-tight text-primary">
             {collection.title}
           </h1>

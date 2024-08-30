@@ -5,6 +5,7 @@ import {
   getProductByHandle,
   getProductsList,
   getRegion,
+  getCustomer,
   listRegions,
   retrievePricedProductById,
 } from "@lib/data"
@@ -85,6 +86,7 @@ const getPricedProductByHandle = async (handle: string, region: Region) => {
 
 export default async function ProductPage({ params }: Props) {
   const region = await getRegion(params.countryCode)
+  const customer = await getCustomer().catch(() => null)
 
   if (!region) {
     notFound()
@@ -98,6 +100,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <ProductTemplate
+      customer={customer}
       product={pricedProduct}
       region={region}
       countryCode={params.countryCode}

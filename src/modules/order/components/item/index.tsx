@@ -13,10 +13,7 @@ type ItemProps = {
 
 const Item = ({ item, region }: ItemProps) => {
   return (
-    <Table.Row
-      className="w-full bg-secondary/50 hover:bg-secondary/75 text-primary border-custom-bg/50"
-      data-testid="product-row"
-    >
+    <Table.Row className="w-full text-primary" data-testid="product-row">
       <Table.Cell className="px-4 py-6 w-24">
         <div className="flex w-16">
           <Thumbnail thumbnail={item.thumbnail} size="square" />

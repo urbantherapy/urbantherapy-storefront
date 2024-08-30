@@ -40,10 +40,11 @@ export default async function ProductPreview({
       <div data-testid="product-wrapper">
         <Thumbnail
           thumbnail={productPreview.thumbnail}
+          images={pricedProduct.images}
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex flex-col justify-center items-center mt-4 text-primary">
+        <div className="flex justify-between items-center mt-4 text-primary">
           <Text className="text-md font-light" data-testid="product-title">
             {productPreview.title}
           </Text>

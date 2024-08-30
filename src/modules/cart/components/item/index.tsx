@@ -47,23 +47,20 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
 
   return (
     <Table.Row className="w-full bg-custom-bg" data-testid="product-row">
-      <Table.Cell className="!pl-0 p-4 w-24">
+      <Table.Cell className="!px-4 py-6 !sm:px-6">
         <LocalizedClientLink
           href={`/products/${handle}`}
           className={clx("flex", {
-            "w-16": type === "preview",
-            "small:w-24 w-12": type === "full",
+            "w-20 rounded-md": type === "preview",
+            "sm:w-24 w-12": type === "full",
           })}
         >
-          <Thumbnail thumbnail={item.thumbnail} size="square" />
+          <Thumbnail thumbnail={item.thumbnail} size="full" />
         </LocalizedClientLink>
       </Table.Cell>
 
       <Table.Cell className="text-left">
-        <Text
-          className="txt-medium-plus text-ui-fg-base"
-          data-testid="product-title"
-        >
+        <Text className="font-medium text-sm" data-testid="product-title">
           {item.title}
         </Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
@@ -114,8 +111,8 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
           })}
         >
           {type === "preview" && (
-            <span className="flex gap-x-1 ">
-              <Text className="text-ui-fg-muted">{item.quantity}x </Text>
+            <span className="flex gap-x-1">
+              <Text className="">{item.quantity} x </Text>
               <LineItemUnitPrice item={item} region={region} style="tight" />
             </span>
           )}

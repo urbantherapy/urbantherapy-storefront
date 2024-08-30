@@ -18,12 +18,16 @@ export default async function Orders() {
 
   return (
     <div className="w-full" data-testid="orders-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Orders</h1>
-        <p className="text-base-regular">
-          View your previous orders and their status. You can also create
-          returns or exchanges for your orders if needed.
-        </p>
+      <div className="space-y-16 pb-6 sm:space-y-20 lg:mx-0 lg:max-w-none border-b border-gray-200 mb-8">
+        <div>
+          <h2 className="text-3xl leading-7 tracking-tight font-thin">
+            Orders
+          </h2>
+          <p className="mt-4 text-lg leading-6 tracking-tight font-light">
+            View your previous orders and their status. You can also create
+            returns or exchanges for your orders if needed.
+          </p>
+        </div>
       </div>
       <div>
         <OrderOverview orders={orders} />

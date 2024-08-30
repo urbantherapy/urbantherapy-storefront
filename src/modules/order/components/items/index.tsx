@@ -13,7 +13,7 @@ type ItemsProps = {
 const Items = ({ items, region }: ItemsProps) => {
   return (
     <div className="flex flex-col">
-      <Divider className="!mb-0" />
+      {/* <Divider className="!mb-0" /> */}
       <Table className="">
         <Table.Body data-testid="products-table">
           {items?.length && region

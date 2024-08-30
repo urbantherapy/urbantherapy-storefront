@@ -1,0 +1,162 @@
+import { Fulfillment, Product } from "@medusajs/medusa"
+import { Metadata } from "next"
+import Image from "next/image"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
+
+import { ProductCollectionWithPreviews } from "types/global"
+import { cache } from "react"
+
+import kidsCollection from "/public/images/collectionKids.jpeg"
+import skincareCollection from "/public/images/collectionSkincare.png"
+import skincareCollectionBis from "/public/images/collectionSkincarebis.png"
+
+export const metadata: Metadata = {
+  title: "Urban Therapy | Our Collections",
+  description:
+    "Discover unique, handcrafted gifts made with love for the planet. Explore eco-friendly homeware, fashion, and more from passionate artisans. Shop consciously, feel good.",
+}
+
+const getCollectionsWithProducts = cache(
+  async (
+    countryCode: string
+  ): Promise<ProductCollectionWithPreviews[] | null> => {
+    const { collections } = await getCollectionsList(0, 3)
+
+    if (!collections) {
+      return null
+    }
+
+    const collectionIds = collections.map((collection) => collection.id)
+
+    await Promise.all(
+      collectionIds.map((id) =>
+        getProductsList({
+          queryParams: { collection_id: [id] },
+          countryCode,
+        })
+      )
+    ).then((responses) =>
+      responses.forEach(({ response, queryParams }) => {
+        let collection
+
+        if (collections) {
+          collection = collections.find(
+            (collection) => collection.id === queryParams?.collection_id?.[0]
+          )
+        }
+
+        if (!collection) {
+          return
+        }
+
+        collection.products = response.products as unknown as Product[]
+      })
+    )
+
+    return collections as unknown as ProductCollectionWithPreviews[]
+  }
+)
+
+const categories = [
+  {
+    name: "Kids",
+    href: "#",
+    imageSrc: kidsCollection,
+    imageAlt:
+      "Brown leather key ring with brass metal loops and rivets on wood table.",
+    description:
+      "Keep your phone, keys, and wallet together, so you can lose everything at once.",
+  },
+  {
+    name: "Skincare",
+    href: "#",
+    imageSrc: skincareCollection,
+    imageAlt:
+      "Natural leather mouse pad on white desk next to porcelain mug and keyboard.",
+    description:
+      "The rest of the house will still be a mess, but your desk will look great.",
+  },
+  {
+    name: "Home & Living",
+    href: "#",
+    imageSrc: skincareCollectionBis,
+    imageAlt:
+      "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.",
+    description:
+      "Be more productive than enterprise project managers with a single piece of paper.",
+  },
+]
+
+export default async function CollectionsPage({
+  params: { countryCode },
+}: {
+  params: { countryCode: string }
+}) {
+  const collections = await getCollectionsWithProducts(countryCode)
+  const region = await getRegion(countryCode)
+
+  if (!collections || !region) {
+    return null
+  }
+
+  return (
+    <>
+      <div className="content-container">
+        {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+          Shop by Collection
+        </h2>
+        <p className="mt-4 text-base text-gray-500">
+          Each season, we collaborate with world-class designers to create a
+          collection inspired by the natural world.
+        </p> */}
+
+        <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+          {categories.map((category) => (
+            <LocalizedClientLink
+              key={category.name}
+              href={category.href}
+              className="group block"
+            >
+              <div
+                aria-hidden="true"
+                className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-95"
+              >
+                <Image
+                  alt={category.imageAlt}
+                  src={category.imageSrc}
+                  placeholder="blur"
+                  className="h-full w-full object-cover object-center group-hover:scale-105 transition-all duration-300 ease-in-out saturate-[.80]"
+                />
+                <div
+                  aria-hidden="true"
+                  className="bg-gradient-to-b from-transparent to-sage-12 opacity-50"
+                />
+                <div className="flex items-end p-6">
+                  <div>
+                    <h3 className="font-semibold text-white">
+                      <span>
+                        <span className="absolute inset-0" />
+                        {category.name}
+                      </span>
+                    </h3>
+                    <p aria-hidden="true" className="mt-1 text-sm text-white">
+                      Explore
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* <h3 className="mt-4 text-base font-semibold text-gray-900">
+                {category.name}
+              </h3>
+              <p className="mt-2 text-sm text-gray-500">
+                {category.description}
+              </p> */}
+            </LocalizedClientLink>
+          ))}
+        </div>
+      </div>
+    </>
+  )
+}

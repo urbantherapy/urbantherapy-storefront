@@ -20,27 +20,35 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
 }) => {
   return (
     <div className="flex flex-col justify-center gap-y-4">
-      <div className="flex gap-2 justify-between items-center">
-        <h1 className="text-5xl font-extralight tracking-tight">
-          Order #<span data-testid="order-id">{order.display_id}</span>
-        </h1>
-        <LocalizedClientLink
-          href="/account/orders"
-          className="flex gap-2 items-center text-ui-fg-subtle hover:text-ui-fg-base"
-          data-testid="back-to-overview-button"
-        >
-          <XMark /> Back to overview
-        </LocalizedClientLink>
+      <div className="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
+        <div className="flex sm:items-baseline sm:space-x-4">
+          <h1 className="text-2xl font-thin tracking-tight text-sage-8 sm:text-3xl">
+            Order #<span data-testid="order-id">{order.display_id}</span>
+          </h1>
+        </div>
+        <p className="text-sm text-sage-8">
+          Order placed{" "}
+          <time
+            dateTime={new Date(order.created_at).toISOString()}
+            className="font-normal text-sage-10"
+          >
+            {new Date(order.created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+        </p>
       </div>
       <div
         className="flex flex-col gap-4 h-full w-full"
         data-testid="order-details-container"
       >
         <OrderDetails order={order} showStatus />
-        <Items items={order.items} region={order.region} />
-        <ShippingDetails order={order} />
+        {/* <Items items={order.items} region={order.region} /> */}
+        {/* <ShippingDetails order={order} /> */}
         <OrderSummary order={order} />
-        <Help />
+        {/* <Help /> */}
       </div>
     </div>
   )

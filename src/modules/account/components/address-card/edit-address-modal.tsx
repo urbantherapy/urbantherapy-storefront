@@ -16,6 +16,7 @@ import {
 import Spinner from "@modules/common/icons/spinner"
 import { useFormState } from "react-dom"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
+import DeleteButton from "@modules/common/components/delete-button"
 
 type EditAddressProps = {
   region: Region
@@ -66,7 +67,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
     <>
       <div
         className={clx(
-          "border rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors",
+          "border rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors bg-sage-2/50",
           {
             "border-gray-900": isActive,
           }
@@ -74,11 +75,17 @@ const EditAddress: React.FC<EditAddressProps> = ({
         data-testid="address-container"
       >
         <div className="flex flex-col">
-          <Heading className="text-left text-base-semi" data-testid="address-name">
+          <Heading
+            className="text-left text-base-semi"
+            data-testid="address-name"
+          >
             {address.first_name} {address.last_name}
           </Heading>
           {address.company && (
-            <Text className="txt-compact-small text-ui-fg-base" data-testid="address-company">
+            <Text
+              className="txt-compact-small text-ui-fg-base"
+              data-testid="address-company"
+            >
               {address.company}
             </Text>
           )}
@@ -96,21 +103,22 @@ const EditAddress: React.FC<EditAddressProps> = ({
             </span>
           </Text>
         </div>
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-4 text-sm font-medium text-sage-8">
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex items-center gap-x-2 hover:text-sage-9"
             onClick={open}
             data-testid="address-edit-button"
           >
             <Edit />
             Edit
           </button>
+
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex items-center gap-x-2 hover:text-sage-9"
             onClick={removeAddress}
             data-testid="address-delete-button"
           >
-            {removing ? <Spinner /> : <Trash />}
+            {removing ? <Spinner /> : ""}
             Remove
           </button>
         </div>

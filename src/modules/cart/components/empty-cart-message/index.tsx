@@ -10,11 +10,11 @@ const EmptyCartMessage = () => {
     >
       <Heading
         level="h1"
-        className="flex flex-row text-5xl font-extralight tracking-tight gap-x-2 items-baseline"
+        className="flex flex-row text-5xl font-thin tracking-tight gap-x-2 items-baseline"
       >
-        Cart
+        Shopping cart
       </Heading>
-      <Text className="text-2xl font-thin mt-4 mb-6 max-w-5xl">
+      <Text className="text-lg font-thin my-6 max-w-2xl">
         It looks like you haven&apos;t added anything to your cart yet. Take a
         look at our curated collections and find something special that speaks
         to you. Each of our products is carefully selected to embody

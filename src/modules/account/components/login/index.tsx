@@ -5,6 +5,9 @@ import Input from "@modules/common/components/input"
 import { logCustomerIn } from "@modules/account/actions"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
+import Image from "next/image"
+
+import doodle from "/public/icons/icon-doodle-cart.svg"
 
 type Props = {
   setCurrentView: (view: LOGIN_VIEW) => void
@@ -18,13 +21,18 @@ const Login = ({ setCurrentView }: Props) => {
       className="flex flex-col items-center max-w-xl w-full"
       data-testid="login-page"
     >
-      <div className="mb-12">
-        <h2 className="mt-8 text-5xl font-extralight leading-tight tracking-tigh text-center">
+      <div className="mb-12 flex flex-col items-center justify-center">
+        {/* <h2 className="mt-8 text-5xl font-extralight leading-tight tracking-tigh text-center">
           Welcome to Urban Therapy B2B
-        </h2>
+        </h2> */}
+        <Image
+          src={doodle}
+          alt="Doodle"
+          className="-mb-6 w-40 rotate-[22.6deg]"
+        />
         <p className="mt-12 text-lg font-thin leading-tigh text-primary/75">
-          Our platform is exclusively for businesses. To access our curated
-          collections and special wholesale offers, please{" "}
+          Our platform is temporarily exclusively available to businesses. To
+          access our collections and wholesale offers, please{" "}
           <span className="link-animation font-normal after:bg-primary text-primary inline-block">
             contact us
           </span>
@@ -57,11 +65,12 @@ const Login = ({ setCurrentView }: Props) => {
         <SubmitButton
           variant="secondary"
           data-testid="sign-in-button"
-          className="w-full mt-6 bg-primary rounded-md border-none text-tertiary hover:bg-primary/75"
+          className="w-full mt-6 bg-sage-9 hover:bg-sage-10 rounded-md border-none text-tertiary"
         >
           Sign in
         </SubmitButton>
       </form>
+      {/* <----- Register form -----> */}
       {/* <span className="text-center text-ui-fg-base text-small-regular mt-6">
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}

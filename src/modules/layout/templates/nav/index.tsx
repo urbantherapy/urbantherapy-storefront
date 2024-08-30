@@ -1,105 +1,65 @@
-import { Suspense } from "react"
-
 import { listRegions } from "@lib/data"
+import { Suspense } from "react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { getCustomer } from "@lib/data"
+
 import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
+
 import Image from "next/image"
 
-import logo from "/public/logos/logoByAnice.svg"
+import user from "/public/icons/icon-user.svg"
+
+import NavItems from "./items"
+
+import { LineItem } from "@medusajs/medusa"
+
+import { enrichLineItems, retrieveCart } from "@modules/cart/actions"
+import NavTemplate from "./template"
+import { Header } from "../header"
+
+const fetchCart = async () => {
+  const cart = await retrieveCart()
+
+  if (cart?.items.length) {
+    const enrichedItems = await enrichLineItems(cart?.items, cart?.region_id)
+    cart.items = enrichedItems as LineItem[]
+  }
+
+  return cart
+}
 
 export default async function Nav() {
   const regions = await listRegions().then((regions) => regions)
+  const customer = await getCustomer().catch(() => null)
 
-  return (
-    // <div className="sticky top-0 inset-x-0 z-50 group bg-custom-bg">
+  const cart = await fetchCart()
 
-    <header className="relative h-16 py-16 mx-auto duration-200 mb-0 z-50">
-      <nav className="content-container text-primary flex items-center justify-between w-full h-full text-lg">
-        {/* <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} />
-            </div>
-          </div> */}
+  return <NavTemplate regions={regions} cart={cart} customer={customer} />
+  // return <Header regions={regions} cart={cart} />
+  // return (
+  //   <header className="relative h-16 py-16 mx-auto duration-200 mb-0 z-50">
+  //     <nav className="content-container text-secondary flex items-center justify-between w-full h-full text-lg">
+  //       {/* <div className="flex-1 basis-0 h-full flex items-center">
+  //           <div className="h-full">
+  //             <SideMenu regions={regions} />
+  //           </div>
+  //         </div> */}
 
-        {/* <div className="flex items-center h-full">
-          <LocalizedClientLink
-            href="/"
-            className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-            data-testid="nav-store-link"
-          >
-            <Image src={logo} className="h-20 w-auto mt-2" alt="Logo" />
-          </LocalizedClientLink>
-        </div> */}
-
-        <div className="flex items-center gap-x-6 flex-1 basis-0 justify-between">
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              <Image src={logo} className="h-20 w-auto mt-2" alt="Logo" />
-            </LocalizedClientLink>
-          </div>
-          <div className="hidden small:flex items-center gap-x-10 h-full">
-            {/* {process.env.FEATURE_SEARCH_ENABLED && (
-              <LocalizedClientLink
-                className="hover:text-white"
-                href="/search"
-                scroll={false}
-                data-testid="nav-search-link"
-              >
-                Search
-              </LocalizedClientLink>
-            )} */}
-            <LocalizedClientLink
-              className="hover:text-white link-animation"
-              href="/account"
-              data-testid="nav-account-link"
-            >
-              About
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              className="hover:text-white link-animation"
-              href="/account"
-              data-testid="nav-account-link"
-            >
-              Collections
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              className="hover:text-white link-animation"
-              href="/account"
-              data-testid="nav-account-link"
-            >
-              Community
-            </LocalizedClientLink>
-          </div>
-          <div className="flex gap-x-10">
-            <LocalizedClientLink
-              className="hover:text-white link-animation"
-              href="/account"
-              data-testid="nav-account-link"
-            >
-              Account
-            </LocalizedClientLink>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-white flex gap-2 link-animation"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
-          </div>
-        </div>
-      </nav>
-    </header>
-    // </div>
-  )
+  //       {/* <div className="flex items-center h-full">
+  //         <LocalizedClientLink
+  //           href="/"
+  //           className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+  //           data-testid="nav-store-link"
+  //         >
+  //           <Image src={logo} className="h-20 w-auto mt-2" alt="Logo" />
+  //         </LocalizedClientLink>
+  //       </div> */}
+  //       <div className="flex items-center gap-x-6 flex-1 basis-0 justify-between">
+  //         <Suspense fallback={<div>Loading...</div>}>
+  //           <NavItems cart={cart} />
+  //         </Suspense>
+  //       </div>
+  //     </nav>
+  //   </header>
+  // )
 }

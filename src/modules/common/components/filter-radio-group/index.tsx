@@ -22,17 +22,17 @@ const FilterRadioGroup = ({
 }: FilterRadioGroupProps) => {
   return (
     <div className="flex gap-x-3 flex-col gap-y-3">
-      {/* <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text> */}
+      <Text className="text-xs text-sage-6 font-normal">{title}</Text>
 
       <RadioGroup data-testid={dataTestId}>
         {items?.map((i) => (
           <div
             key={i.value}
             className={clx("flex gap-x-2 items-center", {
-              "ml-[-1.75rem]": i.value === value,
+              "underline-offset-4 underline": i.value === value,
             })}
           >
-            {i.value === value && <EllipseMiniSolid />}
+            {/* {i.value === value && <EllipseMiniSolid />} */}
             <RadioGroup.Item
               checked={i.value === value}
               onClick={(e) =>
@@ -49,9 +49,9 @@ const FilterRadioGroup = ({
               // placeholder={i.label}
               htmlFor={i.value}
               className={clx(
-                "!txt-compact-small !transform-none text-ui-fg-subtle hover:cursor-pointer",
+                "!text-base font-light tracking-tight hover:cursor-pointer",
                 {
-                  "text-ui-fg-base": i.value === value,
+                  "": i.value === value,
                 }
               )}
               data-testid="radio-label"

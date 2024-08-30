@@ -112,9 +112,9 @@ const AccountNav = ({
           {/* <div className="pb-4">
             <h3 className="text-base-semi font-normal">Account</h3>
           </div> */}
-          <div className="text-lg">
-            <ul className="flex mb-0 justify-start items-start flex-col gap-y-4">
-              <li>
+          <div className="text-base">
+            <ul className="flex mb-0 justify-start items-start flex-col gap-y-2">
+              <li className="link-animation">
                 <AccountNavLink
                   href="/account"
                   route={route!}
@@ -123,7 +123,7 @@ const AccountNav = ({
                   Overview
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="link-animation">
                 <AccountNavLink
                   href="/account/profile"
                   route={route!}
@@ -132,7 +132,7 @@ const AccountNav = ({
                   Profile
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="link-animation">
                 <AccountNavLink
                   href="/account/addresses"
                   route={route!}
@@ -141,7 +141,7 @@ const AccountNav = ({
                   Addresses
                 </AccountNavLink>
               </li>
-              <li>
+              <li className="link-animation">
                 <AccountNavLink
                   href="/account/orders"
                   route={route!}
@@ -150,7 +150,7 @@ const AccountNav = ({
                   Orders
                 </AccountNavLink>
               </li>
-              <li className="text-grey-700">
+              <li className="text-grey-700 link-animation">
                 <button
                   type="button"
                   onClick={handleLogout}
@@ -186,12 +186,15 @@ const AccountNavLink = ({
   return (
     <LocalizedClientLink
       href={href}
-      className={clx("hover:text-ui-fg-base", {
-        "font-medium": active,
+      className={clx("hover:text-sage-11", {
+        "text-sage-11": active,
       })}
       data-testid={dataTestId}
     >
       {children}
+      {/* {active && (
+        <span className="absolute inset-x-0 -bottom-px h-px bg-sage-11 w-full" />
+      )} */}
     </LocalizedClientLink>
   )
 }

@@ -21,12 +21,12 @@ const LineItemUnitPrice = ({
   const reducedPrice = (item.total || 0) / item.quantity!
 
   return (
-    <div className="flex flex-col text-primary/50 justify-center h-full">
+    <div className="flex flex-col text-sage-8 justify-center h-full text-sm">
       {hasReducedPrice && (
-        <>
+        <div className="flex">
           <p>
             {style === "default" && (
-              <span className="text-ui-fg-muted">Original: </span>
+              <span className="text-sage-6">Original: </span>
             )}
             <span
               className="line-through"
@@ -40,15 +40,15 @@ const LineItemUnitPrice = ({
             </span>
           </p>
           {style === "default" && (
-            <span className="text-ui-fg-interactive">
+            <span className="text-red-300">
               -{getPercentageDiff(originalPrice, reducedPrice || 0)}%
             </span>
           )}
-        </>
+        </div>
       )}
       <span
-        className={clx("text-base-regular", {
-          "text-ui-fg-interactive": hasReducedPrice,
+        className={clx("text-sm font-medium", {
+          "text-red-300": hasReducedPrice,
         })}
         data-testid="product-unit-price"
       >

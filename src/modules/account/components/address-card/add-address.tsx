@@ -2,6 +2,7 @@
 
 import { Region } from "@medusajs/medusa"
 import { Plus } from "@medusajs/icons"
+import { PlusIcon } from "@heroicons/react/20/solid"
 import { Button, Heading } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 import { useFormState } from "react-dom"
@@ -43,12 +44,18 @@ const AddAddress = ({ region }: { region: Region }) => {
   return (
     <>
       <button
-        className="border border-ui-border-base rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between"
+        className="border border-ui-border-base rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between bg-white"
         onClick={open}
         data-testid="add-address-button"
       >
-        <span className="text-base-semi">New address</span>
+        <span className="">New address</span>
         <Plus />
+        {/* <button
+          type="button"
+          className="rounded-full bg-sage-8 p-1 text-sage-2 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          <PlusIcon aria-hidden="true" className="h-4 w-4" />
+        </button> */}
       </button>
 
       <Modal isOpen={state} close={close} data-testid="add-address-modal">
@@ -122,10 +129,18 @@ const AddAddress = ({ region }: { region: Region }) => {
                 autoComplete="country"
                 data-testid="country-select"
               />
-              <Input label="Phone" name="phone" autoComplete="phone" data-testid="phone-input" />
+              <Input
+                label="Phone"
+                name="phone"
+                autoComplete="phone"
+                data-testid="phone-input"
+              />
             </div>
             {formState.error && (
-              <div className="text-rose-500 text-small-regular py-2" data-testid="address-error">
+              <div
+                className="text-rose-500 text-small-regular py-2"
+                data-testid="address-error"
+              >
                 {formState.error}
               </div>
             )}

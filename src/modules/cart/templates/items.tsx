@@ -1,7 +1,7 @@
 import { LineItem, Region } from "@medusajs/medusa"
 import { Heading, Table } from "@medusajs/ui"
 
-import Item from "@modules/cart/components/item"
+import ItemCart from "../components/item/index-cart"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
 
 type ItemsTemplateProps = {
@@ -13,9 +13,30 @@ const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
   return (
     <div>
       <div className="pb-3 flex items-center">
-        <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
+        <Heading level="h2" className="text-lg font-medium text-sage-10">
+          Shopping cart
+        </Heading>
       </div>
-      <Table>
+      <div>
+        <h2 className="sr-only">Items in your shopping cart</h2>
+      </div>
+      <ul
+        role="list"
+        className="divide-y divide-gray-200 border border-gray-200 bg-white rounded-lg shadow-sm"
+      >
+        {items && region
+          ? items
+              .sort((a, b) => {
+                return a.created_at > b.created_at ? -1 : 1
+              })
+              .map((item) => {
+                return <ItemCart key={item.id} item={item} region={region} />
+              })
+          : Array.from(Array(5).keys()).map((i) => {
+              return <SkeletonLineItem key={i} />
+            })}
+      </ul>
+      {/* <Table>
         <Table.Header className="border-t-0">
           <Table.Row className="text-ui-fg-subtle txt-medium-plus bg-custom-bg">
             <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
@@ -42,7 +63,7 @@ const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
                 return <SkeletonLineItem key={i} />
               })}
         </Table.Body>
-      </Table>
+      </Table> */}
     </div>
   )
 }

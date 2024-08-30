@@ -6,6 +6,7 @@ import {
 import { getCheckoutStep } from "@lib/util/get-checkout-step"
 import Addresses from "@modules/checkout/components/addresses"
 import Payment from "@modules/checkout/components/payment"
+import ProgressBar from "@modules/checkout/components/progress-bar"
 import Review from "@modules/checkout/components/review"
 import Shipping from "@modules/checkout/components/shipping"
 import { cookies } from "next/headers"
@@ -28,6 +29,7 @@ export default async function CheckoutForm() {
   }
 
   cart.checkout_step = cart && getCheckoutStep(cart)
+  console.log(cart.checkout_step, "CHECKOUT STEP!")
 
   // get available shipping methods
   const availableShippingMethods = await listCartShippingMethods(cart.id).then(
@@ -41,8 +43,13 @@ export default async function CheckoutForm() {
   // get customer if logged in
   const customer = await getCustomer()
 
+  const totalSteps = 4
+  const currentStep = parseInt(cart.checkout_step, 10)
+  console.log(currentStep, "CURRENT STEPS!")
+
   return (
     <div>
+      <ProgressBar cart={cart} />
       <div className="w-full grid grid-cols-1 gap-y-8">
         <div>
           <Addresses cart={cart} customer={customer} />
@@ -56,7 +63,7 @@ export default async function CheckoutForm() {
         </div>
 
         <div>
-          <Payment cart={cart} />
+          <Payment customer={customer} cart={cart} />
         </div>
 
         <div>
