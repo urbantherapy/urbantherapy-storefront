@@ -88,7 +88,7 @@ const CartDropdown = ({
             data-testid="nav-cart-link"
           >
             {/* {`Cart (${totalItems})`} */}
-            <Image className="" src={cart} alt="Leaves Icon" />
+            <Image className="" src={cart} alt="Cart Icon" />
           </LocalizedClientLink>
         </Popover.Button>
         <Transition
