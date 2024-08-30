@@ -18,22 +18,22 @@ const Login = ({ setCurrentView }: Props) => {
 
   return (
     <div
-      className="flex flex-col items-center max-w-xl w-full"
+      className="mt-12 md:mt-32 flex flex-col items-center max-w-xl w-full"
       data-testid="login-page"
     >
       <div className="mb-12 flex flex-col items-center justify-center">
-        {/* <h2 className="mt-8 text-5xl font-extralight leading-tight tracking-tigh text-center">
-          Welcome to Urban Therapy B2B
-        </h2> */}
         <Image
           src={doodle}
           alt="Doodle"
-          className="-mb-6 w-40 rotate-[22.6deg]"
+          className="mx-auto h-32 w-auto rotate-[22.6deg]"
         />
-        <p className="mt-12 text-lg font-thin leading-tigh text-primary/75">
-          Our platform is temporarily exclusively available to businesses. To
+        {/* <h2 className="mt-0 text-center text-2xl md:text-5xl font-normal leading-9 tracking-tight text-sage-8">
+          Sign in to your account
+        </h2> */}
+        <p className="mt-8 text-base leading-7 text-sage-6">
+          Our platform is currently exclusively available to businesses. To
           access our collections and wholesale offers, please{" "}
-          <span className="link-animation font-normal after:bg-primary text-primary inline-block">
+          <span className="link-animation font-medium after:bg-primary text-primary inline-block">
             contact us
           </span>
           . We&apos;ll set up your account and help you get started.
@@ -43,7 +43,6 @@ const Login = ({ setCurrentView }: Props) => {
       <form className="w-full" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
           <Input
-            // className="bg-secondary block w-full border-0 py-1.5 text-primary shadow-sm  placeholder:text-gray-400  sm:text-sm sm:leading-6 h-14 rounded-md"
             label="Email address"
             name="email"
             type="email"
@@ -65,11 +64,12 @@ const Login = ({ setCurrentView }: Props) => {
         <SubmitButton
           variant="secondary"
           data-testid="sign-in-button"
-          className="w-full mt-6 bg-sage-9 hover:bg-sage-10 rounded-md border-none text-tertiary"
+          className="mt-2 w-full bg-sage-9 hover:bg-sage-10 rounded-md border-none text-tertiary px-3 py-1.5"
         >
           Sign in
         </SubmitButton>
       </form>
+
       {/* <----- Register form -----> */}
       {/* <span className="text-center text-ui-fg-base text-small-regular mt-6">
         <button
