@@ -76,7 +76,7 @@ const satoshi = localFont({
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" data-mode="light" className={satoshi.className}>
-      <body className="bg-custom-bg bg-sage-1">
+      <body className="bg-sage-1">
         <main className="relative">{props.children}</main>
       </body>
     </html>
