@@ -26,7 +26,7 @@ const StoreTemplate = ({
 
   return (
     <>
-      <div className="mx-auto lg:w-screen border-sage-3 content-container">
+      <div className="mx-auto lg:w-screen border-sage-3 md:content-container pt-24 md:pt-32">
         <Filters />
       </div>
       <div
