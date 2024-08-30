@@ -15,11 +15,7 @@ import simplicity from "/public/icons/icon-simplicity.svg"
 import respect from "/public/icons/icon-respect.svg"
 import excellence from "/public/icons/icon-excellence.svg"
 
-import image2 from "/public/images/instagram-widget/img2.png"
-import image3 from "/public/images/instagram-widget/img3.png"
-import image4 from "/public/images/instagram-widget/img4.png"
-import image5 from "/public/images/instagram-widget/img5.png"
-import image6 from "/public/images/instagram-widget/img6.png"
+import leaves2 from "/public/icons/icon-about-value.svg"
 
 const features = [
   {
@@ -107,50 +103,49 @@ const incentives = [
 const AboutPage: React.FC = () => {
   return (
     <>
-      <div className="text-sage-8">
-        <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 lg:px-4">
-          <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
-            <div className="grid grid-cols-1 items-center gap-x-24 gap-y-10 lg:grid-cols-2">
-              <div className="flex flex-col space-y-12">
-                <h2 className="text-5xl font-thin tracking-tight">
-                  Building an Urban Harmony
-                </h2>
-                <div className="text-sage-6 text-lg font-thin leading-snug flex flex-col space-y-8">
-                  <p>
-                    Urban Therapy is a visionary concept store that seamlessly
-                    blends modern aesthetics with timeless elegance. We offer a
-                    curated selection of lifestyle products designed to elevate
-                    everyday living. Our focus is on enhancing the urban
-                    lifestyle, providing unique, high-quality products that
-                    resonate with individuals who value both style and
-                    functionality.
-                  </p>
-                  <p>
-                    Our <span className="font-bold">mission</span>: to curate
-                    products that align with urban living, emphasizing quality,
-                    innovation, and the beauty of everyday life.
-                  </p>
-                </div>
+      <div className="mx-auto max-w-7xl pt-48 py-24 sm:px-2 sm:py-32 lg:px-4">
+        <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
+          <div className="grid grid-cols-1 items-center gap-x-24 gap-y-10 lg:grid-cols-2">
+            <div className="flex flex-col space-y-12 text-sage-8">
+              <h2 className="text-3xl md:text-5xl font-thin tracking-tight">
+                Building an Urban Harmony
+              </h2>
+              <div className="text-sage-6 text-lg font-thin leading-snug flex flex-col space-y-8">
+                <p>
+                  Urban Therapy is a visionary concept store that seamlessly
+                  blends modern aesthetics with timeless elegance. We offer a
+                  curated selection of lifestyle products designed to elevate
+                  everyday living. Our focus is on enhancing the urban
+                  lifestyle, providing unique, high-quality products that
+                  resonate with individuals who value both style and
+                  functionality.
+                </p>
+                <p>
+                  Our <span className="font-bold">mission</span>: to curate
+                  products that align with urban living, emphasizing quality,
+                  innovation, and the beauty of everyday life.
+                </p>
               </div>
-              {/* <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100">
+            </div>
+            {/* <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100">
                 <Image
                   alt=""
                   src={image1}
                   className="object-cover object-center saturate-0"
                 />
               </div> */}
-              <div className="w-full">
-                <Image
-                  alt=""
-                  width={500}
-                  src={image1bis}
-                  className="object-cover object-center shadow-md"
-                />
-              </div>
+            <div className="w-full hidden md:block">
+              <Image
+                alt=""
+                width={500}
+                src={image1bis}
+                className="object-cover object-center shadow-md"
+              />
             </div>
           </div>
         </div>
-        {/* <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 pt-0 sm:pt-0 lg:px-4">
+      </div>
+      {/* <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 pt-0 sm:pt-0 lg:px-4">
           <h2 className="sr-only">Our perks</h2>
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 px-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {perks.map((perk) => (
@@ -172,36 +167,34 @@ const AboutPage: React.FC = () => {
             ))}
           </div>
         </div> */}
-      </div>
 
       <div className="bg-sage-3 text-sage-10">
         <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
           <div className="max-w-3xl">
-            <h2 id="features-heading" className="font-medium text-sage-6">
-              Focus
-            </h2>
-            <p className="mt-2 text-5xl font-thin tracking-tight">Our Values</p>
-            <p className="mt-4 text-lg font-thin leading-snug text-sage-8">
+            <p className="text-center md:text-left text-3xl md:text-5xl font-thin tracking-tight">
+              Our Values
+            </p>
+            <p className="mt-12 text-base md:text-lg font-thin leading-6 text-sage-8">
               {`Focus allows you to plan 10 daily tasks, while also thinking ahead
               about what's next. Forget distracting digital apps and embrace
               these small, sturdy pieces of paper.`}
             </p>
           </div>
 
-          <div className="mt-11 grid grid-cols-2 items-start gap-x-6 gap-y-16 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+          <div className="mt-11 grid grid-cols-2 items-start gap-x-6 gap-y-16 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
             {features.map((feature) => (
               <div key={feature.name} className="flex flex-col-reverse">
                 <div className="mt-6">
                   {/* <h3 className="text-sm font-medium text-gray-900">
                     {feature.name}
                   </h3> */}
-                  <h3 className="text-3xl font-thin text-sage-10">
+                  <h3 className="text-lg md:text-3xl font-normal md:font-thin text-sage-10">
                     {feature.name}
                   </h3>
                   {/* <p className="mt-2 text-sm text-gray-500">
                     {feature.description}
                   </p> */}
-                  <p className="mt-2 text-sage-8 text-md font-thin leading-snug">
+                  <p className="mt-2 md:mt-4 text-sage-8 text-base md:text-md font-thin leading-6">
                     {feature.description}
                   </p>
                 </div>
@@ -210,7 +203,7 @@ const AboutPage: React.FC = () => {
                   <Image
                     alt={feature.imageAlt}
                     src={feature.imageSrc}
-                    className="object-cover object-center"
+                    className="object-cover object-center w-20"
                   />
                 </div>
               </div>
@@ -219,22 +212,27 @@ const AboutPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-sage-1 py-24 md:py-32 max-w-7xl mx-auto">
-        <div className="flex w-full items-center">
-          <h2 className="text-5xl font-thin tracking-tight sm:text-5xl text-sage-8 min-w-80">
+      <div className="content-container bg-sage-1 py-24 md:py-32 md:max-w-5xl">
+        <div className="flex flex-col md:flex-row w-full md:items-center">
+          <h2 className="text-3xl font-thin tracking-tight sm:text-5xl text-sage-8 min-w-80">
             Our Vision
           </h2>
-          <p className="mt-8 text-lg font-thin leading-snug text-sage-6">
-            {`To transform urban living by offering a premium selection of
+          <div className="mt-8 md:mt-0 text-sage-6 text-lg font-thin leading-snug flex flex-col space-y-8">
+            <p>
+              {`To transform urban living by offering a premium selection of
                 products that seamlessly integrate with contemporary lifestyles,
                 inspiring individuals to infuse elegance into their everyday
-                lives. Urban Therapy is driven by the conviction that modern
+                lives.`}
+            </p>
+            <p>
+              {`Urban Therapy is driven by the conviction that modern
                 living should embody a perfect balance of style, comfort, and
                 practicality. Our mission is to curate products that not only
                 enhance living environments but also enrich our customers'
                 lives, enabling them to express their unique identity through
                 our thoughtfully chosen collections.`}
-          </p>
+            </p>
+          </div>
         </div>
       </div>
     </>
