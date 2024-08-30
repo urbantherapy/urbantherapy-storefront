@@ -13,7 +13,7 @@ const Quote = () => {
                 fill="none"
                 viewBox="0 0 205 205"
                 aria-hidden="true"
-                className="absolute -top-12 left-0 -z-10 h-32 opacity-30"
+                className="absolute -top-12 left-0 -z-10 h-32 opacity-20"
               >
                 <path
                   fillRule="evenodd"
@@ -28,7 +28,7 @@ const Quote = () => {
                 />
                 <use x={86} href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" />
               </svg>
-              <blockquote className="text-3xl md:text-5xl font-thin tracking-tight leading-8 sm:leading-9 text-sage-9">
+              <blockquote className="text-3xl md:text-5xl font-thin tracking-tight leading-8 sm:leading-9 text-sage-8">
                 <p className="font-thin">
                   The world is a book, and those who do not travel read only one
                   page.
@@ -36,7 +36,7 @@ const Quote = () => {
               </blockquote>
             </div>
             <figcaption className="text-base lg:col-start-1 lg:row-start-3">
-              <div className="italic text-sage-4 text-3xl md:text-5xl font-thin tracking-tight">
+              <div className="italic text-sage-4 text-xl md:text-3xl font-thin tracking-tight">
                 — Saint Augustine
               </div>
             </figcaption>

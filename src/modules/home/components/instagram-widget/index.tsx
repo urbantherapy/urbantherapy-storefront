@@ -45,10 +45,10 @@ const files = [
 ]
 const InstagramWidget = () => {
   return (
-    <div className="text-primary text-center flex flex-col md:flex-row">
+    <div className="text-primary bg-sage-4 text-center flex flex-col md:flex-row">
       <ul
         role="list"
-        className="w-full md:w-1/2 grid grid-cols-3 gap-x-1 md:gap-x-2 gap-y-1 md:gap-y-2 lg:grid-cols-3"
+        className="w-full md:w-1/2 grid grid-cols-3 gap-x-1 md:gap-x-1 gap-y-1 md:gap-y-1 lg:grid-cols-3"
       >
         {files.map((file, index) => (
           <li key={`${file.title}-${index}`} className="relative">
@@ -68,7 +68,7 @@ const InstagramWidget = () => {
         ))}
       </ul>
       <div
-        className={`flex-1 bg-white flex flex-col items-center justify-center p-4 py-24 md:py-32`}
+        className={`flex-1 bg-sage-1 flex flex-col items-center justify-center p-4 py-24 md:py-32`}
       >
         <div className="flex justify-center rotate-[19.6deg]">
           <Image
@@ -79,13 +79,10 @@ const InstagramWidget = () => {
             className="w-1/2 md:w-3/4"
           />
         </div>
-        <Heading
-          level="h2"
-          className="mt-4 text-3xl md:text-5xl font-thin tracking-tight text-center text-sage-8"
-        >
+        <h2 className="mt-0 text-3xl md:text-5xl font-thin tracking-tight text-center text-sage-8">
           Join the Community
-        </Heading>
-        <p className="mx-auto mt-8 max-w-xl text-center text-sage-6 text-base md:text-lg font-thin leading-snug">
+        </h2>
+        <p className="mx-auto mt-8 max-w-xl text-center text-sage-6 text-base md:text-lg leading-7">
           Subscribe to our newsletter and be the first to hear about new
           collections, upcoming workshops, and exclusive offers. Discover the
           stories behind our products and stay connected with the makers who
