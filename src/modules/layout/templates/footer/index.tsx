@@ -217,7 +217,9 @@ export default async function Footer() {
                   </div>
                 )}
 
-                <div className="mt-10 md:mt-0">
+                {/* QUICK FIX FOR MOBILE TO SHOW TO ANIS
+                <div className="mt-10 md:mt-0"> */}
+                <div className="mt-0">
                   <h3 className="font-normal leading-6 text-sage-8">Legal</h3>
                   <ul role="list" className="mt-6 space-y-4 font-light">
                     {navigation.legal.map((item) => (
