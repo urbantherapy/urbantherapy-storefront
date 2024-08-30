@@ -24,10 +24,10 @@ export default function Makers() {
     <div className="bg-sage-1 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-5">
         <div className="max-w-2xl xl:col-span-2">
-          <h2 className="text-5xl font-thin tracking-tight sm:text-5xl text-sage-8">
+          <h2 className="text-4xl md:text-5xl font-thin tracking-tight text-sage-8">
             Meet the Makers
           </h2>
-          <p className="mt-8 text-lg font-thin leading-snug text-sage-6 sm:max-w-md lg:max-w-xl">
+          <p className="mt-8 text-base md:text-lg leading-6 text-sage-6 sm:max-w-md lg:max-w-xl">
             {`Meet the talented makers who bring our collections to life. Each month, we feature a new maker, sharing their story, their craft, and what inspires them to create.`}
           </p>
         </div>

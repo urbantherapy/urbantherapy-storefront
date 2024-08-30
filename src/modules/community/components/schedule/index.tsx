@@ -138,7 +138,7 @@ function ScheduleTabbed() {
                   day={{
                     ...day,
                     date: (
-                      <Tab className="ui-not-focus-visible:outline-none">
+                      <Tab className="focus:outline-none focus:ring-0 focus:border-teal">
                         <span className="absolute inset-0" />
                         {day.date}
                       </Tab>
@@ -240,10 +240,10 @@ export function Schedule() {
     >
       <Container className="relative z-10">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-4xl lg:pr-24">
-          <h2 className="mt-4 text-5xl font-thin tracking-tight sm:text-5xl text-sage-8">
+          <h2 className="mt-4 text-4xl md:text-5xl font-thin tracking-tight text-sage-8">
             Upcoming Events & Workshops
           </h2>
-          <p className="mt-8 text-lg font-thin leading-snug text-sage-6">
+          <p className="mt-8 text-base md:text-lg leading-6 text-sage-6">
             {`Join us at our upcoming events and workshops designed to inspire, educate, and connect makers. Whether you're a seasoned artisan or just starting your journey, our community events offer something for everyone.`}
           </p>
         </div>
