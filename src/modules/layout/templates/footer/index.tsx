@@ -85,7 +85,7 @@ export default async function Footer() {
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <>
+    <div className="bg-white">
       <footer aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
@@ -95,7 +95,7 @@ export default async function Footer() {
             <div className="space-y-8">
               <LocalizedClientLink
                 href="/"
-                className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+                className="focus:outline-none focus:ring-0 focus:border-teal"
               >
                 <Image src={logoMobile} className="h-7 w-auto" alt="Logo" />
               </LocalizedClientLink>
@@ -235,12 +235,12 @@ export default async function Footer() {
               </div>
             </div>
           </div>
-          <div className="mt-16 border-t border-sage-2 text-sage-5 pt-8 sm:mt-20 lg:mt-24 flex items-center justify-between">
+          <div className="mt-16 border-t border-sage-2 text-sage-5 pt-8 sm:mt-20 lg:mt-24 flex items-center justify-between font-thin">
             <p className="leading-5 hover:text-sage-6">
               &copy; {new Date().getFullYear()} Urban Therapy. All rights
               reserved.
             </p>
-            <p className="hover:text-sage-6">Back to top ↑</p>
+            <p className="hover:text-sage-6 hidden sm:block">Back to top ↑</p>
           </div>
         </div>
       </footer>
@@ -396,6 +396,6 @@ export default async function Footer() {
           </div>
         </div>
       </footer> */}
-    </>
+    </div>
   )
 }
