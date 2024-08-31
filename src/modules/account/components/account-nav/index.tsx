@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { Customer } from "@medusajs/medusa"
 import { clx } from "@medusajs/ui"
 import { ArrowRightOnRectangle } from "@medusajs/icons"
@@ -11,6 +12,11 @@ import User from "@modules/common/icons/user"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+import userIcon from "/public/icons/icon-user.svg"
+import addressesIcon from "/public/icons/icon-addresses.svg"
+import ordersIcon from "/public/icons/icon-orders.svg"
+import signoutIcon from "/public/icons/icon-signout.svg"
 
 const AccountNav = ({
   customer,
@@ -26,7 +32,10 @@ const AccountNav = ({
 
   return (
     <div>
-      <div className="small:hidden" data-testid="mobile-account-nav">
+      <div
+        className="small:hidden mt-24 md:mt-32"
+        data-testid="mobile-account-nav"
+      >
         {route !== `/${countryCode}/account` ? (
           <LocalizedClientLink
             href="/account"
@@ -40,70 +49,77 @@ const AccountNav = ({
           </LocalizedClientLink>
         ) : (
           <>
-            <div className="text-xl-semi mb-4 px-8">
+            <div className="text-3xl font-thin tracking-tight mb-4">
               Hello, {customer?.first_name}!
             </div>
-            <div className="text-base-regular">
-              <ul>
-                <li>
-                  <LocalizedClientLink
-                    href="/account/profile"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                    data-testid="profile-link"
-                  >
-                    <>
-                      <div className="flex items-center gap-x-2">
-                        <User size={20} />
-                        <span>Profile</span>
-                      </div>
-                      <ChevronDown className="transform -rotate-90" />
-                    </>
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/account/addresses"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                    data-testid="addresses-link"
-                  >
-                    <>
-                      <div className="flex items-center gap-x-2">
-                        <MapPin size={20} />
-                        <span>Addresses</span>
-                      </div>
-                      <ChevronDown className="transform -rotate-90" />
-                    </>
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <LocalizedClientLink
-                    href="/account/orders"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8"
-                    data-testid="orders-link"
-                  >
+
+            <ul>
+              <li>
+                <LocalizedClientLink
+                  href="/account/profile"
+                  className="flex items-center justify-between py-4 border-b border-gray-200"
+                  data-testid="profile-link"
+                >
+                  <>
                     <div className="flex items-center gap-x-2">
-                      <Package size={20} />
-                      <span>Orders</span>
+                      <Image className="w-4" src={userIcon} alt="User Icon" />
+                      <span>Profile</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
-                  </LocalizedClientLink>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    className="flex items-center justify-between py-4 border-b border-gray-200 px-8 w-full"
-                    onClick={handleLogout}
-                    data-testid="logout-button"
-                  >
+                  </>
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/account/addresses"
+                  className="flex items-center justify-between py-4 border-b border-gray-200"
+                  data-testid="addresses-link"
+                >
+                  <>
                     <div className="flex items-center gap-x-2">
-                      <ArrowRightOnRectangle />
-                      <span>Log out</span>
+                      <Image
+                        className="w-4"
+                        src={addressesIcon}
+                        alt="Addresses Icon"
+                      />
+                      <span>Addresses</span>
                     </div>
                     <ChevronDown className="transform -rotate-90" />
-                  </button>
-                </li>
-              </ul>
-            </div>
+                  </>
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/account/orders"
+                  className="flex items-center justify-between py-4 border-b border-gray-200"
+                  data-testid="orders-link"
+                >
+                  <div className="flex items-center gap-x-2">
+                    <Image className="w-4" src={ordersIcon} alt="Orders Icon" />
+                    <span>Orders</span>
+                  </div>
+                  <ChevronDown className="transform -rotate-90" />
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="flex items-center justify-between py-4 border-b border-gray-200 w-full"
+                  onClick={handleLogout}
+                  data-testid="logout-button"
+                >
+                  <div className="flex items-center gap-x-2">
+                    <Image
+                      className="w-4"
+                      src={signoutIcon}
+                      alt="Sign Out Icon"
+                    />
+                    <span>Log out</span>
+                  </div>
+                  <ChevronDown className="transform -rotate-90" />
+                </button>
+              </li>
+            </ul>
           </>
         )}
       </div>

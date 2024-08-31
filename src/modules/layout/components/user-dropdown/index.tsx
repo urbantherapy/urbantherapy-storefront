@@ -101,7 +101,7 @@ const UserDropdown = ({
                         <Image
                           className="w-4"
                           src={addressesIcon}
-                          alt="User Icon"
+                          alt="Addresses Icon"
                         />
                         <span>Addresses</span>
                       </div>
@@ -118,7 +118,7 @@ const UserDropdown = ({
                         <Image
                           className="w-4"
                           src={ordersIcon}
-                          alt="User Icon"
+                          alt="Orders Icon"
                         />
                         <span>Orders</span>
                       </div>
@@ -136,7 +136,7 @@ const UserDropdown = ({
                         <Image
                           className="w-4"
                           src={signoutIcon}
-                          alt="User Icon"
+                          alt="Sign Out Icon"
                         />
                         <span>Log out</span>
                       </div>
