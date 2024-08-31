@@ -18,7 +18,7 @@ const OurValues = () => {
           </h2>
         </div>
         <div>
-          <p className="mt-8 lg:mt-20 text-base md:text-lg max-w-3xl text-sage-6 leading-7 text-center md:text-left">
+          <p className="mt-6 lg:mt-20 text-md md:text-lg max-w-3xl text-sage-6 font-thin leading-6 text-center md:text-left">
             {`At Urban Therapy, our values reflect our commitment to sustainability and quality. 
             
             We believe in offering products that are kind to both you and the planet, using eco-friendly materials and ethical practices to ensure every item aligns with our principles.`}

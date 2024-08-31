@@ -6,7 +6,7 @@ const Quote = () => {
   return (
     <>
       <section className="isolate overflow-hidden px-6 lg:px-8 bg-sage-2">
-        <div className="relative mx-auto max-w-2xl py-32 sm:py-40 lg:max-w-4xl">
+        <div className="relative mx-auto max-w-2xl py-32 pt-40 sm:py-40 lg:max-w-4xl">
           <figure className="grid grid-cols-1 items-center gap-x-6 gap-y-8 lg:gap-x-10">
             <div className="relative col-span-2 lg:col-start-1 lg:row-start-2">
               <svg
@@ -35,8 +35,8 @@ const Quote = () => {
                 </p>
               </blockquote>
             </div>
-            <figcaption className="text-base lg:col-start-1 lg:row-start-3">
-              <div className="italic text-sage-4 text-xl md:text-3xl font-thin tracking-tight">
+            <figcaption className="-mt-4 lg:col-start-1 lg:row-start-3">
+              <div className="text-sage-4 text-lg italic md:text-3xl font-thin tracking-tight">
                 — Saint Augustine
               </div>
             </figcaption>

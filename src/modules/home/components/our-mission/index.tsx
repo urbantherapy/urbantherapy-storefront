@@ -16,10 +16,10 @@ const OurMission = () => {
               className="w-16 md:w-24"
             />
           </div>
-          <h2 className="mt-2 text-3xl md:text-5xl font-thin tracking-tight">
+          <h2 className="mt-2 md:font-sans text-3xl md:text-5xl font-thin tracking-tight">
             We&apos;re on a Mission
           </h2>
-          <p className="mt-8 text-base md:text-lg max-w-xl leading-7 text-sage-6">
+          <p className="mt-6 text-md md:text-lg font-thin max-w-xl leading-6 text-sage-6">
             Urban Therapy is dedicated to sustainability. We carefully select
             products that are kind to the planet, ensuring they are made from
             eco-friendly materials and processes.

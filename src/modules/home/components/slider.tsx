@@ -81,7 +81,7 @@ const Slide: React.FC<SlideProps> = ({
       <h2 className="text-3xl md:text-5xl font-thin tracking-tight">
         {heading}
       </h2>
-      <p className="mt-10 font-normal text-base md:text-lg text-center max-w-md text-primary/75">
+      <p className="mt-10 font-thin text-md md:text-lg text-center max-w-xs text-primary/75">
         {text}
       </p>
       <button className="mt-10 bg-sage-2 font-medium px-4 py-2 rounded-md">

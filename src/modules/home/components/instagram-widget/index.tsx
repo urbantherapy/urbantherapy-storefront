@@ -82,11 +82,9 @@ const InstagramWidget = () => {
         <h2 className="mt-0 text-3xl md:text-5xl font-thin tracking-tight text-center text-sage-8">
           Join the Community
         </h2>
-        <p className="mx-auto mt-8 max-w-xl text-center text-sage-6 text-base md:text-lg leading-7">
-          Subscribe to our newsletter and be the first to hear about new
-          collections, upcoming workshops, and exclusive offers. Discover the
-          stories behind our products and stay connected with the makers who
-          inspire us.
+        <p className="mx-auto mt-6 max-w-xl text-center text-sage-6 font-thin text-md md:text-lg leading-6">
+          Discover the stories behind our products and stay connected with the
+          makers who inspire us.
         </p>
         {/* <h2 className="text-5xl font-extralight tracking-tight">
           Follow Us on Instagram

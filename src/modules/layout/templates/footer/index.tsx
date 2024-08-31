@@ -99,7 +99,7 @@ export default async function Footer() {
               >
                 <Image src={logoMobile} className="h-7 w-auto" alt="Logo" />
               </LocalizedClientLink>
-              <p className="leading-6 text-lg font-thin text-sage-6">
+              <p className="leading-6 text-md md:text-lg font-thin text-sage-6">
                 Connecting creativity and community for a more inspired,
                 sustainable world.
               </p>
