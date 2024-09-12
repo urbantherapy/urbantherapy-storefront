@@ -18,7 +18,7 @@ import CartDropdown from "@modules/layout/components/cart-dropdown"
 import UserDropdown from "@modules/layout/components/user-dropdown"
 
 const navigation = [
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Our Story" },
   { href: "/collections", label: "Collections" },
   { href: "/community", label: "Community" },
   { href: "/stores", label: "Stores" },
@@ -61,7 +61,7 @@ interface HeaderProps {
 function DesktopNavigation(props: React.ComponentPropsWithoutRef<"nav">) {
   return (
     <nav {...props}>
-      <ul className="flex gap-x-6 lg:gap-x-8 text-lg text-sage-6">
+      <ul className="flex gap-x-6 lg:gap-x-8 text-lg tracking-tight text-sage-6">
         {navigation.map((item) => (
           <NavItem key={item.href} href={item.href}>
             {item.label}
@@ -132,8 +132,8 @@ export function Header({ regions, cart, customer }: HeaderProps) {
         className={`fixed top-0 w-full pointer-events-none z-10 h-24 sm:h-32 pt-4 transition-transform duration-500 bg-sage-1 ${
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        // onMouseEnter={handleMouseEnter}
+        // onMouseLeave={handleMouseLeave}
       >
         <>
           <div className="content-container relative flex pointer-events-auto items-center justify-between">
@@ -155,7 +155,7 @@ export function Header({ regions, cart, customer }: HeaderProps) {
             >
               <Image
                 src={logo}
-                className="h-16 sm:h-20 w-auto mt-2"
+                className="h-16 sm:h-[4.5rem] w-auto mt-2"
                 alt="Logo"
               />
             </LocalizedClientLink>

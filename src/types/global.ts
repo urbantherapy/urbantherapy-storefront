@@ -1,6 +1,7 @@
 import { Cart, ProductCategory, ProductVariant, Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { ProductCollection } from "@medusajs/product"
+import { StorePostCustomersCustomerReq as OriginalCustomerReq } from "@medusajs/medusa"
 
 export type FeaturedProduct = {
   id: string
@@ -22,6 +23,13 @@ export type ProductPreviewType = {
     price_type: "default" | "sale"
   }
   isFeatured?: boolean
+  custom_attributes?: Array<{
+    id: string
+    name: string
+    type: string
+    handle: string
+    values: Array<{ id: string; value: string }>
+  }>
 }
 
 export type ProductCollectionWithPreviews = Omit<
@@ -55,4 +63,10 @@ export type ProductCategoryWithChildren = Omit<
 > & {
   category_children: ProductCategory[]
   category_parent?: ProductCategory
+}
+
+export type ExtendedCustomerReq = OriginalCustomerReq & {
+  company_name?: string
+  store_name?: string
+  vat?: string
 }

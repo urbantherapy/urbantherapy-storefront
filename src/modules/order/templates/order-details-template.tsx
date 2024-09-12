@@ -19,7 +19,7 @@ const OrderDetailsTemplate: React.FC<OrderDetailsTemplateProps> = ({
   order,
 }) => {
   return (
-    <div className="flex flex-col justify-center gap-y-4">
+    <div className="flex flex-col justify-center gap-y-4 mt-24">
       <div className="space-y-2 px-4 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
         <div className="flex sm:items-baseline sm:space-x-4">
           <h1 className="text-2xl font-thin tracking-tight text-sage-8 sm:text-3xl">

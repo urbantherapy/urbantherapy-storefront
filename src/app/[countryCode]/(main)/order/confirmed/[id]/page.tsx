@@ -28,8 +28,8 @@ async function getOrder(id: string) {
 }
 
 export const metadata: Metadata = {
-  title: "Order Confirmed",
-  description: "You purchase was successful",
+  title: "Urban Therapy | Order Confirmed",
+  description: "Thank you for choosing to make a difference with us.",
 }
 
 export default async function OrderConfirmedPage({ params }: Props) {

@@ -13,7 +13,10 @@ type ItemProps = {
 
 const Item = ({ item, region }: ItemProps) => {
   return (
-    <Table.Row className="w-full text-primary" data-testid="product-row">
+    <Table.Row
+      className="!font-satoshi w-full text-primary hover:bg-sage-1/50"
+      data-testid="product-row"
+    >
       <Table.Cell className="px-4 py-6 w-24">
         <div className="flex w-16">
           <Thumbnail thumbnail={item.thumbnail} size="square" />
@@ -21,18 +24,21 @@ const Item = ({ item, region }: ItemProps) => {
       </Table.Cell>
 
       <Table.Cell className="text-left">
-        <Text className="txt-medium-plus" data-testid="product-name">
+        <p
+          className="text-sm font-normal text-sage-10"
+          data-testid="product-name"
+        >
           {item.title}
-        </Text>
+        </p>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
       </Table.Cell>
 
       <Table.Cell className="!px-4">
         <span className="!pr-0 flex flex-col items-end h-full justify-center">
           <span className="flex gap-x-1 ">
-            <Text className="text-primary/50">
-              <span data-testid="product-quantity">{item.quantity}</span>x{" "}
-            </Text>
+            <p className="text-sage-6">
+              <span data-testid="product-quantity">{item.quantity} </span>x{" "}
+            </p>
             <LineItemUnitPrice item={item} region={region} style="tight" />
           </span>
 

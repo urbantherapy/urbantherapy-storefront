@@ -142,21 +142,21 @@ const CartDropdown = ({
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
-                                <p className="ml-4">
+                                <div className="ml-4">
                                   <LineItemPrice
                                     region={cartState.region}
                                     item={item}
                                     style="tight"
                                   />
-                                </p>
+                                </div>
                               </div>
-                              <p className="mt-1 text-sm">
+                              <div className="mt-1 text-sm">
                                 <LineItemOptions
                                   variant={item.variant}
                                   data-testid="cart-item-variant"
                                   data-value={item.variant}
                                 />
-                              </p>
+                              </div>
                             </div>
                             <div className="flex flex-1 items-end justify-between text-sm">
                               <p

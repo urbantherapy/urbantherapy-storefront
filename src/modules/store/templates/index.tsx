@@ -16,51 +16,48 @@ const StoreTemplate = ({
   page,
   countryCode,
   categories,
+  customAttributes,
+  filters,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
   categories: ProductCategoryWithChildren[]
+  customAttributes: Array<{
+    id: string
+    name: string
+    type: string
+    handle: string
+    values: Array<{ id: string; value: string }>
+  }>
+  filters: { [key: string]: string | undefined }
 }) => {
   const pageNumber = page ? parseInt(page) : 1
 
+  console.log(filters, "here are my filters!")
+  // console.log(customAttributes, "here are my custom attributes!")
+
   return (
     <>
-      <div className="mx-auto lg:w-screen border-sage-3 md:content-container pt-24 md:pt-32">
-        <Filters />
+      <div className="mx-auto lg:w-screen border-sage-3 pt-24 md:pt-32">
+        <Filters
+          sortBy={sortBy || "created_at"}
+          categories={categories}
+          customAttributes={customAttributes}
+        />
       </div>
       <div
         className="flex flex-col sm:flex-row sm:items-start py-6 content-container text-primary"
         data-testid="category-container"
       >
-        <div className="flex flex-col sm:px-0 w-1/3 gap-y-10">
-          <RefinementList sortBy={sortBy || "created_at"} />
-          {categories && (
-            <>
-              <h3 className="sr-only">Categories</h3>
-              <Text className="text-xs text-sage-6"></Text>
-              {/* <ul role="list" className="">
-                {categories.map((c) => (
-                  <li key={c.id}>
-                    <LocalizedClientLink
-                      href={`/categories/${c.handle}`}
-                      className="block"
-                    >
-                      {c.name}
-                    </LocalizedClientLink>
-                  </li>
-                ))}
-              </ul> */}
-            </>
-          )}
-        </div>
-
         <div className="w-full">
           <Suspense fallback={<SkeletonProductGrid />}>
             <PaginatedProducts
               sortBy={sortBy || "created_at"}
               page={pageNumber}
               countryCode={countryCode}
+              filters={filters}
+              customAttributes={customAttributes}
             />
           </Suspense>
         </div>

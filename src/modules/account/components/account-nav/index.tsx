@@ -123,7 +123,7 @@ const AccountNav = ({
           </>
         )}
       </div>
-      <div className="hidden small:block" data-testid="account-nav">
+      <div className="hidden small:block mt-24" data-testid="account-nav">
         <div>
           {/* <div className="pb-4">
             <h3 className="text-base-semi font-normal">Account</h3>

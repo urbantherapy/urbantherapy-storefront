@@ -21,7 +21,7 @@ const LineItemUnitPrice = ({
   const reducedPrice = (item.total || 0) / item.quantity!
 
   return (
-    <div className="flex flex-col text-sage-8 justify-center h-full text-sm">
+    <div className="text-sage-10 justify-center h-full text-sm">
       {hasReducedPrice && (
         <div className="flex">
           <p>
@@ -47,7 +47,7 @@ const LineItemUnitPrice = ({
         </div>
       )}
       <span
-        className={clx("text-sm font-medium", {
+        className={clx("text-sm", {
           "text-red-300": hasReducedPrice,
         })}
         data-testid="product-unit-price"

@@ -95,7 +95,7 @@ const Community: React.FC = () => {
         </div>
       </div>
 
-      <Schedule />
+      {/* <Schedule /> */}
       <Makers />
       <JoinTheCommunity />
     </>

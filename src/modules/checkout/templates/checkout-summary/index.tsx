@@ -9,21 +9,6 @@ import { getCart } from "@lib/data"
 import { CheckCircleIcon, TrashIcon } from "@heroicons/react/20/solid"
 import ItemsPreviewTemplateCheckout from "@modules/cart/templates/preview-checkout"
 
-const products = [
-  {
-    id: 1,
-    title: "Basic Tee",
-    href: "#",
-    price: "$32.00",
-    color: "Black",
-    size: "Large",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-  },
-  // More products...
-]
-
 const CheckoutSummary = async () => {
   const cartId = cookies().get("_medusa_cart_id")?.value
 

@@ -34,17 +34,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     useImperativeHandle(ref, () => inputRef.current!)
 
     return (
-      <div className="flex flex-col w-full">
-        {topLabel && (
-          <Label className="mb-2 txt-compact-medium-plus">{topLabel}</Label>
-        )}
-        <div className="flex relative z-0 w-full txt-compact-medium">
+      <div className="flex flex-col w-full font-thin">
+        {topLabel && <Label className="mb-2">{topLabel}</Label>}
+        <div className="flex relative z-0 w-full">
           <input
             type={inputType}
             name={name}
             placeholder=" "
             required={required}
-            className="pt-4 pb-1 block w-full h-12 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:border-secondary focus:ring-0 border-ui-border-base hover:bg-sage-2/50 focus:ring-primary focus-visible:ring-0 focus-visible:ring-offset-0 autofill:border-none hover:text-sage-8"
+            className="pt-4 pb-1 font-normal block w-full h-12 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:border-secondary focus:ring-0 border-sage-2 hover:bg-sage-1 focus:ring-primary focus-visible:ring-0 focus-visible:ring-offset-0 autofill:border-none hover:text-sage-10 text-sage-10"
             {...props}
             ref={inputRef}
           />
@@ -60,7 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="px-4 focus:outline-none transition-all duration-150 outline-none focus:text-ui-fg-base absolute right-0 top-3"
+              className="px-4 focus:outline-none transition-all duration-150 outline-none focus:text-sage-8 absolute right-0 top-3"
             >
               {showPassword ? <Eye /> : <EyeOff />}
             </button>

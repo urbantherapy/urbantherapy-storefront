@@ -18,7 +18,7 @@ const Login = ({ setCurrentView }: Props) => {
 
   return (
     <div
-      className="mt-12 md:mt-32 flex flex-col items-center max-w-xl w-full"
+      className="mt-12 md:mt-32 flex flex-col items-center max-w-md w-full"
       data-testid="login-page"
     >
       <div className="mb-12 flex flex-col items-center justify-center">
@@ -64,14 +64,14 @@ const Login = ({ setCurrentView }: Props) => {
         <SubmitButton
           variant="secondary"
           data-testid="sign-in-button"
-          className="mt-2 w-full bg-sage-9 hover:bg-sage-10 rounded-md border-none text-tertiary px-3 py-1.5"
+          className="mt-2 w-full bg-sage-9 hover:bg-sage-10 rounded-md border-none text-tertiary px-3 py-2.5"
         >
           Sign in
         </SubmitButton>
       </form>
 
       {/* <----- Register form -----> */}
-      {/* <span className="text-center text-ui-fg-base text-small-regular mt-6">
+      <span className="text-center text-ui-fg-base text-small-regular mt-6">
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
           className="underline"
@@ -80,7 +80,7 @@ const Login = ({ setCurrentView }: Props) => {
           Join us
         </button>
         .
-      </span> */}
+      </span>
     </div>
   )
 }

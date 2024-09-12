@@ -132,7 +132,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             </div>
           </div>
         ) : (
-          <form action={formAction} className="w-full p-4">
+          <form action={formAction} className="w-full p-4 pb-0">
             <Label className="flex gap-x-1 my-2 items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -148,7 +148,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
             </Label>
             {isOpen && (
               <>
-                <div className="flex w-full gap-x-2 items-center">
+                <div className="flex w-full gap-x-2 items-center pb-4">
                   <Input
                     label="Please enter code"
                     className="block w-full rounded-md border border-sage-3 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-sage-8 focus:ring-sage-8"

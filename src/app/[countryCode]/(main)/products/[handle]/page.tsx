@@ -98,6 +98,8 @@ export default async function ProductPage({ params }: Props) {
     notFound()
   }
 
+  console.log(pricedProduct)
+
   return (
     <ProductTemplate
       customer={customer}

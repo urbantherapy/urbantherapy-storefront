@@ -97,11 +97,7 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
               />
             </div>
             <p className="text-right text-sm font-medium text-sage-12">
-              {formatAmount({
-                amount: originalPrice,
-                region: region,
-                includeTaxes: false,
-              })}
+              <LineItemUnitPrice item={item} region={region} style="tight" />
             </p>
 
             {/* <div className="text-right">

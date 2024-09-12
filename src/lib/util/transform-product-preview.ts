@@ -6,8 +6,22 @@ import { formatAmount } from "@lib/util/prices"
 import { ProductPreviewType } from "types/global"
 import { CalculatedVariant } from "types/medusa"
 
+// Define the CustomAttribute type
+interface CustomAttribute {
+  id: string
+  name: string
+  type: string
+  handle: string
+  values: Array<{ id: string; value: string }>
+}
+
+// Extend the PricedProduct type to include custom_attributes
+interface ExtendedPricedProduct extends PricedProduct {
+  custom_attributes?: CustomAttribute[]
+}
+
 const transformProductPreview = (
-  product: PricedProduct,
+  product: ExtendedPricedProduct,
   region: Region
 ): ProductPreviewType => {
   const variants = product.variants as unknown as CalculatedVariant[]
@@ -48,6 +62,7 @@ const transformProductPreview = (
           price_type: cheapestVariant.calculated_price_type,
         }
       : undefined,
+    custom_attributes: product.custom_attributes,
   }
 }
 

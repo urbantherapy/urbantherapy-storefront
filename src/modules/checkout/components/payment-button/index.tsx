@@ -269,6 +269,8 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   return (
     <>
       <Button
+        className="!text-base !bg-sage-10 !text-sage-2 !font-normal !px-4 !py-2 !rounded-md !border-none !font-satoshi w-full"
+        variant="secondary"
         disabled={notReady}
         isLoading={submitting}
         onClick={handlePayment}

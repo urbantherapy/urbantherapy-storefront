@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 
-import { getCategoriesList, getCustomer } from "@lib/data"
+import { getCategoriesList, getCustomer, getCustomAttributes } from "@lib/data"
 
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "@modules/store/templates"
@@ -21,13 +21,9 @@ type Params = {
 }
 
 export default async function StorePage({ searchParams, params }: Params) {
-  const { sortBy, page } = searchParams
+  const { sortBy, page, ...filters } = searchParams
   const { product_categories } = await getCategoriesList(0, 6)
-  // const customer = await getCustomer().catch(() => null)
-
-  // if (!customer) {
-  //   notFound()
-  // }
+  const customAttributes = await getCustomAttributes()
 
   return (
     <StoreTemplate
@@ -35,6 +31,8 @@ export default async function StorePage({ searchParams, params }: Params) {
       page={page}
       countryCode={params.countryCode}
       categories={product_categories}
+      customAttributes={customAttributes}
+      filters={filters}
     />
   )
 }

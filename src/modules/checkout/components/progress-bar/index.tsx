@@ -60,7 +60,7 @@ const ProgressBar = ({ cart }: { cart: any }) => {
                 className={clx(
                   "w-full group flex flex-col border-l-4 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4",
                   {
-                    "border-sage-11": index <= currentStepIndex,
+                    "border-sage-10": index <= currentStepIndex,
                     "border-gray-200": index > currentStepIndex,
                     "opacity-50 cursor-not-allowed":
                       !isPreviousStepValid || !isStepValidated(step.href),
@@ -70,8 +70,8 @@ const ProgressBar = ({ cart }: { cart: any }) => {
               >
                 <span
                   className={clx("flex items-center text-sm font-medium", {
-                    "text-sage-11": index <= currentStepIndex,
-                    "text-gray-500": index > currentStepIndex,
+                    "text-sage-10": index <= currentStepIndex,
+                    "text-sage-4": index > currentStepIndex,
                   })}
                 >
                   <svg
@@ -85,9 +85,9 @@ const ProgressBar = ({ cart }: { cart: any }) => {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     />
                   </svg>

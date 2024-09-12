@@ -103,7 +103,7 @@ export default async function CollectionsPage({
 
   return (
     <>
-      <div className="content-container">
+      <div className="content-container mt-32 pt-4 pb-32">
         {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">
           Shop by Collection
         </h2>
@@ -121,7 +121,7 @@ export default async function CollectionsPage({
             >
               <div
                 aria-hidden="true"
-                className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-95"
+                className="aspect-h-2 aspect-w-3 overflow-hidden rounded-none shadow-md shadow-sage-6 lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-95"
               >
                 <Image
                   alt={category.imageAlt}
@@ -133,15 +133,15 @@ export default async function CollectionsPage({
                   aria-hidden="true"
                   className="bg-gradient-to-b from-transparent to-sage-12 opacity-50"
                 />
-                <div className="flex items-end p-6">
+                <div className="flex items-end p-6 pb-4">
                   <div>
-                    <h3 className="font-semibold text-white">
+                    <h3 className="text-sage-3 text-3xl font-thin tracking-tight">
                       <span>
                         <span className="absolute inset-0" />
                         {category.name}
                       </span>
                     </h3>
-                    <p aria-hidden="true" className="mt-1 text-sm text-white">
+                    <p aria-hidden="true" className="text-lg text-sage-4">
                       Explore
                     </p>
                   </div>

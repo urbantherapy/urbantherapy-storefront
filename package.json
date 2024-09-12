@@ -39,7 +39,7 @@
     "@stripe/stripe-js": "^1.29.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "algoliasearch": "^4.20.0",
-    "axios": "^1.6.7",
+    "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "embla-carousel-autoplay": "^8.1.6",
     "embla-carousel-react": "^8.1.6",

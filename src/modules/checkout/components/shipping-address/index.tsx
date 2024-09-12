@@ -78,7 +78,7 @@ const ShippingAddress = ({
     <>
       {customer && (addressesInRegion?.length || 0) > 0 && (
         <Container className="mb-6 flex flex-col gap-y-4 p-5">
-          <p className="text-small-regular">
+          <p className="text-sage-8">
             {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
           </p>
           <AddressSelect addresses={customer.shipping_addresses} cart={cart} />

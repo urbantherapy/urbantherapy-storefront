@@ -6,7 +6,7 @@ const EmptyCartMessage = () => {
       className="h-[85vh] py-32 md:py-48 px-2 flex flex-col justify-center items-start text-primary"
       data-testid="empty-cart-message"
     >
-      <h1 className="flex flex-row text-3xl md:text-5xl font-thin tracking-tight gap-x-2 items-baseline">
+      <h1 className="flex flex-row text-3xl md:text-3xl font-thin tracking-tight gap-x-2 items-baseline">
         Oops...
       </h1>
       <p className="text-base md:text-lg font-thin mt-4 mb-4 max-w-2xl text-sage-6">

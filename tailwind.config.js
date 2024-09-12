@@ -93,6 +93,7 @@ module.exports = {
       },
       fontFamily: {
         sans: [
+          "Satoshi",
           "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
@@ -102,6 +103,7 @@ module.exports = {
           "Ubuntu",
           "sans-serif",
         ],
+        satoshi: ["Satoshi", "sans-serif"],
       },
       keyframes: {
         ring: {

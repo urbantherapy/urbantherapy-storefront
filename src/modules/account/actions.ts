@@ -27,6 +27,9 @@ export async function signUp(_currentState: unknown, formData: FormData) {
     first_name: formData.get("first_name"),
     last_name: formData.get("last_name"),
     phone: formData.get("phone"),
+    company_name: formData.get("company_name"),
+    store_name: formData.get("store_name"),
+    vat: formData.get("vat"),
   } as StorePostCustomersReq
 
   try {
@@ -66,6 +69,60 @@ export async function updateCustomerName(
   const customer = {
     first_name: formData.get("first_name"),
     last_name: formData.get("last_name"),
+  } as StorePostCustomersCustomerReq
+
+  try {
+    await updateCustomer(customer).then(() => {
+      revalidateTag("customer")
+    })
+    return { success: true, error: null }
+  } catch (error: any) {
+    return { success: false, error: error.toString() }
+  }
+}
+
+export async function updateCustomerCompanyName(
+  _currentState: Record<string, unknown>,
+  formData: FormData
+) {
+  const customer = {
+    company_name: formData.get("company_name"),
+  } as StorePostCustomersCustomerReq
+
+  try {
+    await updateCustomer(customer).then(() => {
+      revalidateTag("customer")
+    })
+    return { success: true, error: null }
+  } catch (error: any) {
+    return { success: false, error: error.toString() }
+  }
+}
+
+export async function updateCustomerStoreName(
+  _currentState: Record<string, unknown>,
+  formData: FormData
+) {
+  const customer = {
+    store_name: formData.get("store_name"),
+  } as StorePostCustomersCustomerReq
+
+  try {
+    await updateCustomer(customer).then(() => {
+      revalidateTag("customer")
+    })
+    return { success: true, error: null }
+  } catch (error: any) {
+    return { success: false, error: error.toString() }
+  }
+}
+
+export async function updateCustomerVat(
+  _currentState: Record<string, unknown>,
+  formData: FormData
+) {
+  const customer = {
+    vat: formData.get("vat"),
   } as StorePostCustomersCustomerReq
 
   try {

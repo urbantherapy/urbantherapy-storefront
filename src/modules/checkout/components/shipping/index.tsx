@@ -64,12 +64,11 @@ const Shipping: React.FC<ShippingProps> = ({
   }, [isOpen])
 
   return (
-    <div className="rounded-md bg-white border border-sage-2 shadow-sm p-6">
-      <div className="flex flex-row items-center justify-between my-6">
-        <Heading
-          level="h2"
+    <div className="rounded-md bg-white border border-sage-2 shadow-sm p-4 px-6">
+      <div className="flex flex-row items-center justify-between my-2 mb-6">
+        <h2
           className={clx(
-            "flex flex-row text-3xl text-sage-11 gap-x-2 items-baseline",
+            "flex flex-row text-3xl text-sage-10 font-thin gap-x-2 items-baseline",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && cart.shipping_methods.length === 0,
@@ -78,25 +77,25 @@ const Shipping: React.FC<ShippingProps> = ({
         >
           Delivery Methods
           {!isOpen && cart.shipping_methods.length > 0 && <CheckCircleSolid />}
-        </Heading>
+        </h2>
         {!isOpen &&
           cart?.shipping_address &&
           cart?.billing_address &&
           cart?.email && (
-            <Text>
+            <p>
               <button
                 onClick={handleEdit}
-                className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+                className="text-sage-10 hover:text-sage-11"
                 data-testid="edit-delivery-button"
               >
                 Edit
               </button>
-            </Text>
+            </p>
           )}
       </div>
       {isOpen ? (
         <div data-testid="delivery-options-container">
-          <div className="pb-8">
+          <div className="pb-0">
             <RadioGroup
               value={cart.shipping_methods[0]?.shipping_option_id}
               onChange={(value: string) => handleChange(value)}
@@ -128,7 +127,7 @@ const Shipping: React.FC<ShippingProps> = ({
                           />
 
                           <div className="ms-4">
-                            <span className="font-medium leading-none text-sage-12 dark:text-white">
+                            <span className="font-normal leading-none text-sage-10">
                               {option.name} -{" "}
                               {formatAmount({
                                 amount: option.amount!,
@@ -138,7 +137,7 @@ const Shipping: React.FC<ShippingProps> = ({
                             </span>
                             <p
                               id="express-text"
-                              className="mt-1 text-sm font-normal text-sage-6 dark:text-gray-400"
+                              className="mt-1 text-sm font-normal text-sage-6"
                             >
                               Get it today
                             </p>
@@ -163,7 +162,8 @@ const Shipping: React.FC<ShippingProps> = ({
 
           <Button
             size="large"
-            className=""
+            className="mt-6 !text-base !bg-sage-10 !text-sage-2 !font-normal !px-4 !py-2 !rounded-md !border-none !font-satoshi w-full"
+            variant="secondary"
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={!cart.shipping_methods[0]}
@@ -174,26 +174,22 @@ const Shipping: React.FC<ShippingProps> = ({
         </div>
       ) : (
         <div>
-          <div className="text-small-regular">
-            {cart && cart.shipping_methods.length > 0 && (
-              <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                  Method
-                </Text>
-                <Text className="txt-medium text-ui-fg-subtle">
-                  {cart.shipping_methods[0].shipping_option.name} (
-                  {formatAmount({
-                    amount: cart.shipping_methods[0].price,
-                    region: cart.region,
-                    includeTaxes: false,
-                  })
-                    .replace(/,/g, "")
-                    .replace(/\./g, ",")}
-                  )
-                </Text>
-              </div>
-            )}
-          </div>
+          {cart && cart.shipping_methods.length > 0 && (
+            <div className="flex flex-col w-1/3">
+              <p className="font-normal text-sage-11 mb-1">Method</p>
+              <p className="text-sage-10">
+                {cart.shipping_methods[0].shipping_option.name} (
+                {formatAmount({
+                  amount: cart.shipping_methods[0].price,
+                  region: cart.region,
+                  includeTaxes: false,
+                })
+                  .replace(/,/g, "")
+                  .replace(/\./g, ",")}
+                )
+              </p>
+            </div>
+          )}
         </div>
       )}
       {/* <Divider className="mt-8" /> */}

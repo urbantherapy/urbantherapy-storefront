@@ -14,38 +14,32 @@ import leaves from "/public/icons/icon-leaves-mission.svg"
 const files = [
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img1,
   },
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img2,
   },
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img3,
   },
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img4,
   },
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img5,
   },
   {
     title: "IMG_4985.HEIC",
-    size: "3.9 MB",
     source: img6,
   },
 ]
 const InstagramWidget = () => {
   return (
-    <div className="text-primary bg-sage-4 text-center flex flex-col md:flex-row">
+    <div className="content-container px-0 text-primary text-center flex flex-col md:flex-row py-4 pb-0">
       <ul
         role="list"
         className="w-full md:w-1/2 grid grid-cols-3 gap-x-1 md:gap-x-1 gap-y-1 md:gap-y-1 lg:grid-cols-3"
@@ -86,12 +80,6 @@ const InstagramWidget = () => {
           Discover the stories behind our products and stay connected with the
           makers who inspire us.
         </p>
-        {/* <h2 className="text-5xl font-extralight tracking-tight">
-          Follow Us on Instagram
-        </h2>
-        <p className="mt-10 font-thin text-2xl text-center max-w-md text-primary/75">
-          Stay inspired and connected with our latest updates and adventures.
-        </p> */}
         <button className="mt-10 bg-primary/10 font-medium px-4 py-2 rounded-md">
           @urbantherapy.be →
         </button>

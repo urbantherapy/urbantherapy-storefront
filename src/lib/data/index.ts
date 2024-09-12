@@ -21,6 +21,7 @@ import { ProductCategoryWithChildren, ProductPreviewType } from "types/global"
 import { medusaClient } from "@lib/config"
 import medusaError from "@lib/util/medusa-error"
 import { cookies } from "next/headers"
+import axios from "axios"
 
 const emptyResponse = {
   response: { products: [], count: 0 },
@@ -816,3 +817,62 @@ async function setPublishableKey() {
   //   : B2C_PUBLISHABLE_API_KEY
   // medusaClient.setPublishableKey(publishableApiKey)
 }
+
+export async function getCustomAttributes(categoryHandles?: string[]) {
+  try {
+    // Construct the URL with optional category parameters
+    const url = new URL("http://localhost:9000/store/attributes")
+
+    if (categoryHandles && categoryHandles.length > 0) {
+      categoryHandles.forEach((handle) =>
+        url.searchParams.append("categories[]", handle)
+      )
+    }
+
+    // Fetch custom attributes
+    const response = await fetch(url.toString())
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch custom attributes")
+    }
+
+    const data = await response.json()
+    return data.attributes // Adjust according to the response structure
+  } catch (error) {
+    console.error("Error fetching custom attributes:", error)
+    return []
+  }
+}
+
+// const fetchProductsWithCustomAttributes = async () => {
+//   try {
+//     // Fetch all products
+//     const { products } = await medusaClient.products.list({
+//       expand: "attribute_values",
+//     })
+//     //   {
+//     //   custom_attributes: ["j"],
+//     // }
+//     console.log(products, "products")
+
+//     // Filter products to only include those with non-empty custom_attributes
+//     const productsWithCustomAttributes = products.filter(
+//       (product) =>
+//         product.custom_attributes && product.custom_attributes.length > 0
+//     )
+
+//     // Check if there is at least one product with custom attributes
+//     if (productsWithCustomAttributes.length > 0) {
+//       console.log(
+//         "Products with custom attributes:",
+//         productsWithCustomAttributes
+//       )
+//     } else {
+//       console.log("No products with custom attributes found.")
+//     }
+//   } catch (error) {
+//     console.error("Error fetching products:", error)
+//   }
+// }
+
+// fetchProductsWithCustomAttributes()

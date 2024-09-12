@@ -7,6 +7,7 @@ const stripCurrency = (price: string) => {
 
 const sortProducts = (products: ProductPreviewType[], sortBy: SortOptions) => {
   if (sortBy === "price_asc") {
+    console.log("hi")
     return products.sort((a, b) => {
       if (!a.price?.calculated_price || !b.price?.calculated_price) return 0
 

@@ -76,7 +76,7 @@ export default async function Home({
   }
 
   return (
-    <>
+    <div className="content-container flex flex-col divide-y-0 divide-sage-3">
       <Hero />
       <OurMission />
       <OurValues />
@@ -91,6 +91,6 @@ export default async function Home({
           <FeaturedProducts collections={collections} region={region} />
         </ul>
       </div> */}
-    </>
+    </div>
   )
 }

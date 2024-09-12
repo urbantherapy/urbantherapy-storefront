@@ -85,13 +85,13 @@ export default async function Footer() {
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <div className="bg-white">
+    <div className="content-container px-0">
       <footer aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
-        <div className="content-container px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
-          <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+        <div className="content-container px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-4">
+          <div className="xl:grid xl:grid-cols-3 xl:gap-8 border-t border-sage-6 pt-12">
             <div className="space-y-8">
               <LocalizedClientLink
                 href="/"
@@ -99,7 +99,7 @@ export default async function Footer() {
               >
                 <Image src={logoMobile} className="h-7 w-auto" alt="Logo" />
               </LocalizedClientLink>
-              <p className="leading-6 text-md md:text-lg font-thin text-sage-6">
+              <p className="leading-6 text-md font-thin text-sage-6">
                 Connecting creativity and community for a more inspired,
                 sustainable world.
               </p>
@@ -246,158 +246,6 @@ export default async function Footer() {
           </div>
         </div>
       </footer>
-
-      {/* <footer className="w-full text-primary bg-sage-1 pt-12">
-        <div className="content-container flex flex-col w-full">
-          <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between pb-12">
-            <div>
-              <LocalizedClientLink
-                href="/"
-                className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-              >
-                <Image src={logoMobile} className="h-8 w-auto" alt="Logo" />
-              </LocalizedClientLink>
-            </div>
-            <div className="gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-              {product_categories && product_categories?.length > 0 && (
-                <div className="flex flex-col gap-y-2">
-                  <span className="font-normal">Categories</span>
-                  <ul
-                    className="grid grid-cols-1 gap-2"
-                    data-testid="footer-categories"
-                  >
-                    {product_categories?.slice(0, 6).map((c) => {
-                      if (c.parent_category) {
-                        return
-                      }
-
-                      const children =
-                        c.category_children?.map((child) => ({
-                          name: child.name,
-                          handle: child.handle,
-                          id: child.id,
-                        })) || null
-
-                      return (
-                        <li className="flex flex-col gap-2" key={c.id}>
-                          <LocalizedClientLink
-                            className={clx(
-                              "hover:text-ui-fg-base",
-                              children && "font-thin"
-                            )}
-                            href={`/categories/${c.handle}`}
-                            data-testid="category-link"
-                          >
-                            {c.name}
-                          </LocalizedClientLink>
-                          {children && (
-                            <ul className="grid grid-cols-1 ml-3 gap-2">
-                              {children &&
-                                children.map((child) => (
-                                  <li key={child.id}>
-                                    <LocalizedClientLink
-                                      className="hover:text-ui-fg-base"
-                                      href={`/categories/${child.handle}`}
-                                      data-testid="category-link"
-                                    >
-                                      {child.name}
-                                    </LocalizedClientLink>
-                                  </li>
-                                ))}
-                            </ul>
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </div>
-              )}
-              {collections && collections.length > 0 && (
-                <div className="flex flex-col gap-y-2">
-                  <span className="font-normal">Collections</span>
-                  <ul
-                    className={clx("grid grid-cols-1 gap-2 font-light", {
-                      "grid-cols-1": (collections?.length || 0) > 3,
-                    })}
-                  >
-                    {collections?.slice(0, 6).map((c) => (
-                      <li key={c.id}>
-                        <LocalizedClientLink
-                          className="hover:text-ui-fg-base font-thin"
-                          href={`/collections/${c.handle}`}
-                        >
-                          {c.title}
-                        </LocalizedClientLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <div className="flex flex-col gap-y-2 font-thin">
-                <span className="font-normal">Legal</span>
-                <ul className="grid grid-cols-1 gap-y-2">
-                  <li>
-                    <a
-                      href="https://github.com/medusajs"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ui-fg-base"
-                    >
-                      Data Protection Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://docs.medusajs.com"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ui-fg-base"
-                    >
-                      Right of Withdrawal
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/medusajs/nextjs-starter-medusa"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ui-fg-base"
-                    >
-                      Terms & Conditions
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/medusajs/nextjs-starter-medusa"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ui-fg-base"
-                    >
-                      Imprint
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/medusajs/nextjs-starter-medusa"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:text-ui-fg-base"
-                    >
-                      Cookies
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="flex w-full my-4 justify-between text-primary/50">
-            <p>
-              © {new Date().getFullYear()} Urban Therapy. All rights reserved.
-            </p>
-            <p>Back to top ↑</p>
-          </div>
-        </div>
-      </footer> */}
     </div>
   )
 }

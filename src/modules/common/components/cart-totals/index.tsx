@@ -34,7 +34,10 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
         <div className="flex items-center justify-between">
           <dt className="text-sm flex gap-x-1 items-center">
             Subtotal
-            <Tooltip content="Cart total excluding shipping and taxes.">
+            <Tooltip
+              content="This is your cart total before shipping and taxes are applied."
+              className="font-normal text-sage-8 font-satoshi leading-snug p-4 pr-2"
+            >
               <InformationCircleSolid color="#D3D6C9" />
             </Tooltip>
           </dt>

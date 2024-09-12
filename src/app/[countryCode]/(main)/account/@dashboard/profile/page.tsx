@@ -8,6 +8,9 @@ import ProfilePassword from "@modules/account/components/profile-password"
 
 import { getCustomer, listRegions } from "@lib/data"
 import { notFound } from "next/navigation"
+import ProfileCompanyName from "@modules/account/components/profile-company-name"
+import ProfileStoreName from "@modules/account/components/profile-store-name"
+import ProfileVat from "@modules/account/components/profile-vat"
 
 export const metadata: Metadata = {
   title: "Urban Therapy | My profile",
@@ -24,7 +27,7 @@ export default async function Profile() {
 
   return (
     <>
-      <div className="w-full" data-testid="profile-page-wrapper">
+      <div className="w-full mt-24" data-testid="profile-page-wrapper">
         <div className="space-y-16 sm:space-y-20 lg:mx-0 lg:max-w-none">
           <div>
             <h2 className="text-base font-semibold leading-7">Profile</h2>
@@ -44,17 +47,14 @@ export default async function Profile() {
           </p>
         </div> */}
         <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-          {/* <div className="flex flex-col gap-y-8 w-full"> */}
           <ProfileName customer={customer} />
-          {/* <Divider /> */}
+          <ProfileCompanyName customer={customer} />
+          <ProfileStoreName customer={customer} />
+          <ProfileVat customer={customer} />
           <ProfileEmail customer={customer} />
-          {/* <Divider /> */}
           <ProfilePhone customer={customer} />
-          {/* <Divider /> */}
           <ProfilePassword customer={customer} />
-          {/* <Divider /> */}
           <ProfileBillingAddress customer={customer} regions={regions} />
-          {/* </div> */}
         </dl>
       </div>
     </>

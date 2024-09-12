@@ -73,11 +73,11 @@ const Slide: React.FC<SlideProps> = ({
   imageUrl,
   bgColor,
 }) => (
-  <div className="flex flex-col md:flex-row md:h-[60vh] text-primary md:px-0 mx-auto bg-sage-2 h-full">
+  <div className="flex flex-col md:flex-row md:h-[60vh] text-primary md:px-0 mx-auto h-full md:space-x-4">
     <div
       className={`flex-1 ${bgColor} flex flex-col items-center justify-center p-4 px-0 order-2 md:order-1 py-16`}
     >
-      <Image src={doodle} alt="Doodle" className="mb-4 w-20 md:w-40" />
+      <Image src={doodle} alt="Doodle" className="mb-4 w-20 md:w-32" />
       <h2 className="text-3xl md:text-5xl font-thin tracking-tight">
         {heading}
       </h2>
@@ -102,7 +102,7 @@ const Slide: React.FC<SlideProps> = ({
 
 const Slider = () => {
   return (
-    <div className="mx-auto h-full w-full">
+    <div className="h-full w-full content-container px-0 py-4">
       <Carousel Indicators={MyIndicators} className="relative">
         {slides.map((slide) => (
           <Carousel.Slide key={slide.id}>

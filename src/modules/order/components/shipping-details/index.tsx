@@ -11,46 +11,46 @@ type ShippingDetailsProps = {
 const ShippingDetails = ({ order }: ShippingDetailsProps) => {
   return (
     <div>
-      <Heading level="h2" className="flex flex-row text-3xl-regular my-6">
+      <h2 className="flex flex-row text-lg font-medium text-sage-10 my-6">
         Delivery
-      </Heading>
-      <div className="flex items-start gap-x-8">
+      </h2>
+      <div className="flex items-start gap-x-8 rounded-lg border border-sage-2 bg-white shadow-sm p-6">
         <div
-          className="flex flex-col w-1/3"
+          className="flex flex-col w-1/3 text-sm"
           data-testid="shipping-address-summary"
         >
-          <Text className="txt-medium-plus mb-1">Shipping Address</Text>
-          <Text className="txt-medium">
+          <p className="font-medium text-sage-10 mb-1">Shipping Address</p>
+          <p className="text-sage-8">
             {order.shipping_address.first_name}{" "}
             {order.shipping_address.last_name}
-          </Text>
-          <Text className="txt-medium">
+          </p>
+          <p className="text-sage-8">
             {order.shipping_address.address_1}{" "}
             {order.shipping_address.address_2}
-          </Text>
-          <Text className="txt-medium">
+          </p>
+          <p className="text-sage-8">
             {order.shipping_address.postal_code}, {order.shipping_address.city}
-          </Text>
-          <Text className="txt-medium">
+          </p>
+          <p className="text-sage-8">
             {order.shipping_address.country_code?.toUpperCase()}
-          </Text>
+          </p>
         </div>
 
         <div
-          className="flex flex-col w-1/3 "
+          className="flex flex-col w-1/3 text-sm"
           data-testid="shipping-contact-summary"
         >
-          <Text className="txt-medium-plus mb-1">Contact</Text>
-          <Text className="txt-medium">{order.shipping_address.phone}</Text>
-          <Text className="txt-medium">{order.email}</Text>
+          <p className="font-medium text-sage-10 mb-1">Contact</p>
+          <p className="text-sage-8">{order.shipping_address.phone}</p>
+          <p className="text-sage-8">{order.email}</p>
         </div>
 
         <div
-          className="flex flex-col w-1/3"
+          className="flex flex-col w-1/3 text-sm"
           data-testid="shipping-method-summary"
         >
-          <Text className="txt-medium-plus mb-1">Method</Text>
-          <Text className="txt-medium">
+          <p className="font-medium text-sage-10 mb-1">Method</p>
+          <p className="text-sage-8">
             {order.shipping_methods[0].shipping_option?.name} (
             {formatAmount({
               amount: order.shipping_methods[0].price,
@@ -60,10 +60,9 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
               .replace(/,/g, "")
               .replace(/\./g, ",")}
             )
-          </Text>
+          </p>
         </div>
       </div>
-      <Divider className="mt-8" />
     </div>
   )
 }
