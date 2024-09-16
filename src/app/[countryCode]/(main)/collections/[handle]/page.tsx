@@ -67,12 +67,6 @@ export default async function CollectionPage({ params, searchParams }: Props) {
     (collection) => collection
   )
 
-  // const customer = await getCustomer().catch(() => null)
-
-  // if (!customer) {
-  //   notFound()
-  // }
-
   if (!collection) {
     notFound()
   }

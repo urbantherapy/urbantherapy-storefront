@@ -132,8 +132,6 @@ export function Header({ regions, cart, customer }: HeaderProps) {
         className={`fixed top-0 w-full pointer-events-none z-10 h-24 sm:h-32 pt-4 transition-transform duration-500 bg-sage-1 ${
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
-        // onMouseEnter={handleMouseEnter}
-        // onMouseLeave={handleMouseLeave}
       >
         <>
           <div className="content-container relative flex pointer-events-auto items-center justify-between">
