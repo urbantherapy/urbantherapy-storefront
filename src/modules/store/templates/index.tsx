@@ -30,12 +30,9 @@ const StoreTemplate = ({
     handle: string
     values: Array<{ id: string; value: string }>
   }>
-  filters: { [key: string]: string | undefined }
+  filters: { [key: string]: string[] }
 }) => {
   const pageNumber = page ? parseInt(page) : 1
-
-  console.log(filters, "here are my filters!")
-  // console.log(customAttributes, "here are my custom attributes!")
 
   return (
     <>
@@ -44,6 +41,7 @@ const StoreTemplate = ({
           sortBy={sortBy || "created_at"}
           categories={categories}
           customAttributes={customAttributes}
+          filters={filters}
         />
       </div>
       <div

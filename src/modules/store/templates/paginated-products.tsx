@@ -22,7 +22,7 @@ export default async function PaginatedProducts({
   categoryId,
   productsIds,
   countryCode,
-  filters = {},
+  filters,
   customAttributes = [],
 }: {
   sortBy?: SortOptions
@@ -31,7 +31,7 @@ export default async function PaginatedProducts({
   categoryId?: string
   productsIds?: string[]
   countryCode: string
-  filters?: { [key: string]: string | undefined }
+  filters: { [key: string]: string[] }
   customAttributes?: Array<{
     id: string
     name: string
@@ -72,31 +72,29 @@ export default async function PaginatedProducts({
   })
 
   console.log(filters, "my active filters")
+  // console.log(products.map((product) => console.log(product.custom_attributes)))
 
   // Optimized Filter Products based on selected filters
   const filteredProducts = products.filter((product) => {
-    // Check if custom_attributes is defined
     if (!product.custom_attributes) {
-      return false // Skip this product if no custom_attributes are present
+      return false
     }
 
     const attributeMap = new Map()
 
-    // Create a map for quick lookup of custom attributes
-    product?.custom_attributes?.forEach((attr) => {
+    product.custom_attributes.forEach((attr) => {
       attr.values.forEach((val) => {
-        attributeMap.set(attr.name.toLowerCase(), val.value.toLowerCase())
+        attributeMap.set(attr.name.toLowerCase(), val.value)
       })
     })
 
-    // Check if all filters match
-    return Object.entries(filters).every(([key, value]) => {
-      const filterValue = value?.toLowerCase()
-      return attributeMap.get(key.toLowerCase()) === filterValue
+    return Object.entries(filters).every(([key, values]) => {
+      const filterKey = key.toLowerCase()
+      const filterValues = Array.isArray(values) ? values : [values]
+      const attributeValue = attributeMap.get(filterKey)
+      return filterValues.every((filterValue) => attributeValue === filterValue)
     })
   })
-
-  console.log(filteredProducts, "filtered products")
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 

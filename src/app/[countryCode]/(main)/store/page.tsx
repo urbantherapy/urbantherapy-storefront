@@ -25,6 +25,13 @@ export default async function StorePage({ searchParams, params }: Params) {
   const { product_categories } = await getCategoriesList(0, 6)
   const customAttributes = await getCustomAttributes()
 
+  const dynamicFilters: { [key: string]: string[] } = {}
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      dynamicFilters[key] = Array.isArray(value) ? value : [value]
+    }
+  })
+
   return (
     <StoreTemplate
       sortBy={sortBy}
@@ -32,7 +39,7 @@ export default async function StorePage({ searchParams, params }: Params) {
       countryCode={params.countryCode}
       categories={product_categories}
       customAttributes={customAttributes}
-      filters={filters}
+      filters={dynamicFilters}
     />
   )
 }

@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useCallback, ChangeEvent } from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useTransition, useOptimistic, useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   Dialog,
   DialogBackdrop,
@@ -23,7 +23,6 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { ProductCategoryWithChildren } from "types/global"
 
 export type SortOptions = "price_asc" | "price_desc" | "created_at"
-
 type SortProductsProps = {
   sortBy: SortOptions
   setQueryParams: (name: string, value: SortOptions) => void
@@ -54,9 +53,11 @@ export default function Filters({
   sortBy,
   categories,
   customAttributes,
+  filters,
 }: {
   sortBy: string
   categories: ProductCategoryWithChildren[]
+  filters: { [key: string]: string[] }
   customAttributes: Array<{
     id: string
     name: string
@@ -87,94 +88,20 @@ export default function Filters({
     })),
   ]
 
-  const [open, setOpen] = useState(false)
-  const [filters, setFilters] = useState(initialFilters)
-  const [activeFilters, setActiveFilters] = useState(
-    initialFilters.flatMap((section) =>
-      section.options.filter((option) => option.checked)
-    )
-  )
-
   const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const [open, setOpen] = useState(false)
+  let [pending, startTransition] = useTransition()
+  let [optimisticFilters, setOptimisticFilters] = useOptimistic(filters)
 
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams)
-      params.set(name, value)
-
-      return params.toString()
-    },
-    [searchParams]
-  )
-
-  const setQueryParams = (name: string, value: string) => {
-    const query = createQueryString(name, value)
-    router.push(`${pathname}?${query}`)
-  }
-
-  const handleSortChange = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.target as HTMLButtonElement
-    const newSortBy = target.value as SortOptions
-    setQueryParams("sortBy", newSortBy)
-  }
-
-  const handleFilterChange = (sectionId: string, optionValue: string) => {
-    setFilters((prevFilters) =>
-      prevFilters.map((section) =>
-        section.id === sectionId
-          ? {
-              ...section,
-              options: section.options.map((option) =>
-                option.value === optionValue
-                  ? { ...option, checked: !option.checked }
-                  : option
-              ),
-            }
-          : section
-      )
-    )
-
-    setActiveFilters((prevActiveFilters) => {
-      const isCurrentlyActive = prevActiveFilters.some(
-        (filter) => filter.value === optionValue
-      )
-      if (isCurrentlyActive) {
-        return prevActiveFilters.filter(
-          (filter) => filter.value !== optionValue
-        )
-      } else {
-        const newFilter = filters
-          .flatMap((section) => section.options)
-          .find((option) => option.value === optionValue)
-        return newFilter ? [...prevActiveFilters, newFilter] : prevActiveFilters
-      }
+  const updateURLParams = (newFilters: { [key: string]: string[] }) => {
+    const newParams = new URLSearchParams()
+    Object.entries(newFilters).forEach(([key, values]) => {
+      values.forEach((value) => newParams.append(key, value))
     })
 
-    // Find the attribute and value objects
-    const attribute = filters.find((section) => section.id === sectionId)
-    const value = attribute?.options.find(
-      (option) => option.value === optionValue
-    )
-    if (attribute && value) {
-      // Update query params with attribute name and value label
-      setQueryParams(attribute.name.toLowerCase(), value.label.toLowerCase())
-    } else {
-      // Remove query param if no value is checked
-      const updatedParams = new URLSearchParams(searchParams)
-      updatedParams.delete(attribute?.name.toLowerCase() || "")
-      router.push(`${pathname}?${updatedParams.toString()}`)
-    }
-  }
-
-  const handleRemoveActiveFilter = (filterValue: string) => {
-    handleFilterChange(
-      filters.find((section) =>
-        section.options.some((option) => option.value === filterValue)
-      )!.id,
-      filterValue
-    )
+    startTransition(() => {
+      router.push(`?${newParams}`)
+    })
   }
 
   return (
@@ -205,7 +132,7 @@ export default function Filters({
 
             {/* Filters */}
             <form className="mt-4">
-              {filters.map((section) => (
+              {initialFilters.map((section) => (
                 <Disclosure
                   key={section.name}
                   as="div"
@@ -231,10 +158,42 @@ export default function Filters({
                           <div className="flex items-center">
                             <input
                               defaultValue={option.value}
-                              defaultChecked={option.checked}
-                              onChange={() =>
-                                handleFilterChange(section.id, option.value)
-                              }
+                              defaultChecked={optimisticFilters[
+                                section.name
+                              ]?.includes(option.label)}
+                              onChange={(e) => {
+                                let newFilterValues = !optimisticFilters[
+                                  section.name
+                                ]?.includes(option.label)
+                                  ? [
+                                      ...(optimisticFilters[section.name] ||
+                                        []),
+                                      option.label,
+                                    ]
+                                  : optimisticFilters[section.name]?.filter(
+                                      (val) => val !== option.label
+                                    ) || []
+
+                                newFilterValues = newFilterValues.sort()
+
+                                startTransition(() => {
+                                  const updatedFilters = {
+                                    ...optimisticFilters,
+                                    [section.name]: newFilterValues,
+                                  }
+
+                                  setOptimisticFilters(updatedFilters)
+
+                                  const newParams = new URLSearchParams(
+                                    Object.entries(updatedFilters).flatMap(
+                                      ([key, values]) =>
+                                        values.map((value) => [key, value])
+                                    )
+                                  )
+
+                                  router.push(`?${newParams}`)
+                                })
+                              }}
                               id={`filter-mobile-${section.id}-${optionIdx}`}
                               name={`${section.id}[]`}
                               type="checkbox"
@@ -259,7 +218,6 @@ export default function Filters({
         </div>
       </Dialog>
 
-      {/* Filters */}
       <section aria-labelledby="filter-heading">
         <h2 id="filter-heading" className="sr-only">
           Filters
@@ -286,9 +244,16 @@ export default function Filters({
                   {sortOptions.map((option) => (
                     <MenuItem key={option.label}>
                       <button
-                        onClick={handleSortChange}
+                        onClick={() => {
+                          startTransition(() => {
+                            const newParams = new URLSearchParams(
+                              window.location.search
+                            )
+                            newParams.set("sortBy", option.value)
+                            router.push(`?${newParams.toString()}`)
+                          })
+                        }}
                         value={option.value}
-                        // href={option.href}
                         className={classNames(
                           option.value === sortBy
                             ? "font-medium text-sage-7"
@@ -315,127 +280,109 @@ export default function Filters({
             <div className="hidden sm:block">
               <div className="flow-root">
                 <PopoverGroup className="-mx-4 flex items-center divide-x divide-gray-200">
-                  {/* {filters.map((section, sectionIdx) => (
-                    <Popover
-                      key={section.name}
-                      className="relative inline-block px-4 text-left"
-                    >
-                      <PopoverButton className="group inline-flex justify-center text-sm font-medium text-sage-8 hover:text-sage-10">
-                        <span>{section.name}</span>
-                        {section.options.filter((option) => option.checked)
-                          .length > 0 ? (
-                          <span className="ml-1.5 rounded bg-sage-2 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-sage-8">
-                            {
-                              section.options.filter((option) => option.checked)
-                                .length
-                            }
-                          </span>
-                        ) : null}
-                        <ChevronDownIcon
-                          aria-hidden="true"
-                          className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-sage-6 group-hover:text-sage-7"
-                        />
-                      </PopoverButton>
+                  {initialFilters.map((filter) => {
+                    const checkedOptionsCount =
+                      optimisticFilters[filter.name]?.length || 0
 
-                      <PopoverPanel
-                        transition
-                        className="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                    return (
+                      <Popover
+                        key={filter.id}
+                        className="relative inline-block px-4 text-left"
                       >
-                        <form className="space-y-4">
-                          {section.options.map((option, optionIdx) => (
-                            <div
-                              key={option.value}
-                              className="flex items-center"
-                            >
-                              <input
-                                defaultValue={option.value}
-                                defaultChecked={option.checked}
-                                onChange={() =>
-                                  handleFilterChange(section.id, option.value)
-                                }
-                                id={`filter-${section.id}-${optionIdx}`}
-                                name={`${section.id}[]`}
-                                type="checkbox"
-                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        {({ open }) => (
+                          <>
+                            <PopoverButton className="group inline-flex justify-center text-sm font-medium text-sage-8 hover:text-sage-10 focus:ring-0 focus:outline-none">
+                              <span>{filter.name}</span>
+                              {checkedOptionsCount > 0 && (
+                                <span className="ml-1.5 rounded bg-sage-2 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-sage-8">
+                                  {checkedOptionsCount}
+                                </span>
+                              )}
+                              <ChevronDownIcon
+                                aria-hidden="true"
+                                className={`-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-sage-6 group-hover:text-sage-7 transition-transform ${
+                                  open ? "rotate-180" : ""
+                                }`}
                               />
-                              <label
-                                htmlFor={`filter-${section.id}-${optionIdx}`}
-                                className="ml-3 whitespace-nowrap pr-6 text-sm font-medium text-sage-10"
-                              >
-                                {option.label}
-                              </label>
-                            </div>
-                          ))}
-                        </form>
-                      </PopoverPanel>
-                    </Popover>
-                  ))} */}
-                  {filters.map((section, sectionIdx) => (
-                    <Popover
-                      key={section.name}
-                      className="relative inline-block px-4 text-left"
-                    >
-                      {(
-                        { open } // <-- Using render prop to track the `open` state
-                      ) => (
-                        <>
-                          <PopoverButton className="group inline-flex justify-center text-sm font-medium text-sage-8 hover:text-sage-10 focus:ring-0 focus:outline-none">
-                            <span>{section.name}</span>
-                            {section.options.filter((option) => option.checked)
-                              .length > 0 ? (
-                              <span className="ml-1.5 rounded bg-sage-2 px-1.5 py-0.5 text-xs font-semibold tabular-nums text-sage-8">
-                                {
-                                  section.options.filter(
-                                    (option) => option.checked
-                                  ).length
-                                }
-                              </span>
-                            ) : null}
-                            <ChevronDownIcon
-                              aria-hidden="true"
-                              className={`-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-sage-6 group-hover:text-sage-7 transition-transform ${
-                                open ? "rotate-180" : ""
-                              }`} // <-- Add rotation on open state
-                            />
-                          </PopoverButton>
+                            </PopoverButton>
 
-                          <PopoverPanel className="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none">
-                            <form className="space-y-4">
-                              {section.options.map((option, optionIdx) => (
-                                <div
-                                  key={option.value}
-                                  className="flex items-center space-x-3"
-                                >
-                                  <div className="flex items-center">
-                                    <input
-                                      defaultValue={option.value}
-                                      defaultChecked={option.checked}
-                                      onChange={() =>
-                                        handleFilterChange(
-                                          section.id,
-                                          option.value
-                                        )
-                                      }
-                                      id={`filter-${section.id}-${optionIdx}`}
-                                      name={`${section.id}[]`}
-                                      type="checkbox"
-                                      className="h-4 w-4 rounded border-sage-3 text-sage-7 focus:ring-sage-6 border"
-                                    />
-                                  </div>
-                                  <label
-                                    htmlFor={`filter-${section.id}-${optionIdx}`}
-                                    className="whitespace-nowrap pr-6 !text-sm text-sage-10"
+                            <PopoverPanel className="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white p-4 shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none">
+                              <form className="space-y-4">
+                                {filter.options.map((option, optionIdx) => (
+                                  <div
+                                    key={option.value}
+                                    className="flex items-center space-x-3"
                                   >
-                                    {option.label}
-                                  </label>
-                                </div>
-                              ))}
-                            </form>
-                          </PopoverPanel>
-                        </>
-                      )}
-                    </Popover>
-                  ))}
+                                    <div className="flex items-center">
+                                      <input
+                                        defaultValue={option.value}
+                                        defaultChecked={optimisticFilters[
+                                          filter.name
+                                        ]?.includes(option.label)}
+                                        onChange={(e) => {
+                                          let newFilterValues =
+                                            !optimisticFilters[
+                                              filter.name
+                                            ]?.includes(option.label)
+                                              ? [
+                                                  ...(optimisticFilters[
+                                                    filter.name
+                                                  ] || []),
+                                                  option.label,
+                                                ]
+                                              : optimisticFilters[
+                                                  filter.name
+                                                ]?.filter(
+                                                  (val) => val !== option.label
+                                                ) || []
+
+                                          newFilterValues =
+                                            newFilterValues.sort()
+
+                                          startTransition(() => {
+                                            const updatedFilters = {
+                                              ...optimisticFilters,
+                                              [filter.name]: newFilterValues,
+                                            }
+
+                                            setOptimisticFilters(updatedFilters)
+
+                                            const newParams =
+                                              new URLSearchParams(
+                                                Object.entries(
+                                                  updatedFilters
+                                                ).flatMap(([key, values]) =>
+                                                  values.map((value) => [
+                                                    key,
+                                                    value,
+                                                  ])
+                                                )
+                                              )
+
+                                            router.push(`?${newParams}`)
+                                          })
+                                        }}
+                                        id={`filter-${filter.id}-${optionIdx}`}
+                                        name={`${filter.id}[]`}
+                                        type="checkbox"
+                                        className="h-4 w-4 rounded border-sage-3 text-sage-7 focus:ring-sage-6 border"
+                                      />
+                                    </div>
+                                    <label
+                                      htmlFor={`filter-${filter.id}-${optionIdx}`}
+                                      className="whitespace-nowrap pr-6 !text-sm text-sage-10"
+                                    >
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </form>
+                            </PopoverPanel>
+                          </>
+                        )}
+                      </Popover>
+                    )
+                  })}
                 </PopoverGroup>
               </div>
             </div>
@@ -443,6 +390,7 @@ export default function Filters({
         </div>
 
         {/* Active filters */}
+        {/* {Object.keys(optimisticFilters).length > 0 && ( */}
         <div className="bg-sage-2 h-16 flex">
           <div className="content-container px-4 py-3 sm:flex sm:items-center sm:px-6 lg:px-8">
             <h3 className="text-sm font-medium text-sage-7">
@@ -457,41 +405,75 @@ export default function Filters({
 
             <div className="mt-2 sm:ml-4 sm:mt-0">
               <div className="-m-1 flex flex-wrap items-center">
-                {activeFilters.map((activeFilter) => (
-                  <span
-                    key={activeFilter.value}
-                    className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-sage-10"
-                  >
-                    <span>{activeFilter.label}</span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleRemoveActiveFilter(activeFilter.value)
-                      }
-                      className="ml-1 inline-flex h-4 w-4 flex-shrink-0 rounded-full p-1 text-sage-6 hover:bg-gray-200 hover:text-sage-7"
-                    >
-                      <span className="sr-only">
-                        Remove filter for {activeFilter.label}
-                      </span>
-                      <svg
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 8 8"
-                        className="h-2 w-2"
+                {Object.entries(optimisticFilters).flatMap(
+                  ([category, options]) =>
+                    options.map((option) => (
+                      <span
+                        key={`${category}-${option}`}
+                        className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-sage-10"
                       >
-                        <path
-                          d="M1 1l6 6m0-6L1 7"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </button>
-                  </span>
-                ))}
+                        <span>{option}</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newFilterValues = optimisticFilters[
+                              category
+                            ].filter((val) => val !== option)
+
+                            const updatedFilters = {
+                              ...optimisticFilters,
+                              [category]: newFilterValues,
+                            }
+
+                            setOptimisticFilters(updatedFilters)
+
+                            const newParams = new URLSearchParams(
+                              Object.entries(updatedFilters).flatMap(
+                                ([key, values]) =>
+                                  values.map((value) => [key, value])
+                              )
+                            )
+
+                            router.push(`?${newParams}`)
+                          }}
+                          className="ml-1 inline-flex h-4 w-4 flex-shrink-0 rounded-full p-1 text-sage-6 hover:bg-gray-200 hover:text-sage-7"
+                        >
+                          <span className="sr-only">
+                            Remove filter for {option}
+                          </span>
+                          <svg
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 8 8"
+                            className="h-2 w-2"
+                          >
+                            <path
+                              d="M1 1l6 6m0-6L1 7"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </span>
+                    ))
+                )}
+                {Object.keys(optimisticFilters).length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOptimisticFilters({})
+                      router.push(`?`)
+                    }}
+                    className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-sage-10 hover:bg-gray-200 hover:text-sage-7"
+                  >
+                    Clear All Filters
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
+        {/* )} */}
       </section>
     </div>
   )
