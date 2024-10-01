@@ -495,10 +495,10 @@ export const getProductsList = cache(async function ({
   }
 
   const customer = await getCustomer().catch(() => null)
-  console.log("Customer:", customer)
+  const salesChannelIds = await getSalesChannelId()
   const salesChannelId = customer
-    ? ["sc_01J50DF236A46JMW25Y8R24942"]
-    : ["sc_01J04CSTYRWK38ANPX32H1AZ9G"]
+    ? [salesChannelIds.B2B]
+    : [salesChannelIds.B2C]
 
   const { products, count } = await medusaClient.products
     .list(
