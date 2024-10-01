@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     useImperativeHandle(ref, () => inputRef.current!)
 
     return (
-      <div className="flex flex-col w-full font-thin">
+      <div className="flex flex-col w-full font-thin text-sm">
         {topLabel && <Label className="mb-2">{topLabel}</Label>}
         <div className="flex relative z-0 w-full">
           <input
@@ -42,7 +42,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             name={name}
             placeholder=" "
             required={required}
-            className="pt-4 pb-1 font-normal block w-full h-12 px-4 mt-0 bg-ui-bg-field border rounded-md appearance-none focus:border-secondary focus:ring-0 border-sage-2 hover:bg-sage-1 focus:ring-primary focus-visible:ring-0 focus-visible:ring-offset-0 autofill:border-none hover:text-sage-10 text-sage-10"
+            className="pt-4 pb-1 font-normal block w-full h-12 px-4 mt-0 bg-aesop-1 border rounded-none appearance-none focus:border-secondary focus:ring-0 border-sage-2 hover:bg-sage-1 focus:ring-primary focus-visible:ring-0 focus-visible:ring-offset-0 autofill:border-none hover:text-sage-10 text-sage-10 text-sm "
             {...props}
             ref={inputRef}
           />

@@ -2,9 +2,8 @@ import { getProductsListWithSort, getRegion } from "@lib/data"
 import ProductPreview from "@modules/products/components/product-preview"
 import { Pagination } from "@modules/store/components/pagination"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import axios from "axios"
-import sortProducts from "@lib/util/sort-products"
-import { filter } from "lodash"
+import { MotionLi } from "../../framer-motion/MotionUl"
+import { FadeIn, FadeInStagger } from "@modules/framer-motion/FadeIn"
 
 const PRODUCT_LIMIT = 12
 
@@ -19,6 +18,8 @@ export default async function PaginatedProducts({
   sortBy,
   page,
   collectionId,
+  collectionTitle,
+  collectionDescription,
   categoryId,
   productsIds,
   countryCode,
@@ -29,6 +30,8 @@ export default async function PaginatedProducts({
   page: number
   collectionId?: string
   categoryId?: string
+  collectionTitle?: string
+  collectionDescription?: string
   productsIds?: string[]
   countryCode: string
   filters: { [key: string]: string[] }
@@ -71,9 +74,6 @@ export default async function PaginatedProducts({
     countryCode,
   })
 
-  console.log(filters, "my active filters")
-  // console.log(products.map((product) => console.log(product.custom_attributes)))
-
   // Optimized Filter Products based on selected filters
   const filteredProducts = products.filter((product) => {
     if (!product.custom_attributes) {
@@ -98,20 +98,49 @@ export default async function PaginatedProducts({
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
   return (
     <>
-      <ul
-        className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      <FadeInStagger
+        faster
+        key={`${JSON.stringify(filters)}-${JSON.stringify(sortBy)}`}
+        className="grid grid-cols-2 gap-x-1 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         data-testid="products-list"
       >
-        {filteredProducts.map((p) => {
+        <li className="hidden md:flex flex-col justify-center pl-8">
+          <h2
+            className={`lg:mt-4 text-xl font-thin tracking-tight text-sage-9 mb-6`}
+          >
+            {collectionTitle || "Essentials for a Mindful Life"}
+          </h2>
+          <p className="lg:mt-0 text-sm max-w-xs leading-5 text-center md:text-left pr-10 text-sage-6">
+            {collectionDescription ||
+              `Thoughtfully crafted for daily rituals, each product is designed to nurture both you and the planet—enhancing everyday moments with sustainable simplicity.`}
+          </p>
+        </li>
+
+        {filteredProducts.map((p, i) => {
           return (
-            <li key={p.id}>
+            <FadeIn
+              // variants={variants}
+              // initial="hidden"
+              // animate="visible"
+              // transition={{
+              //   delay: i * 0.05,
+              //   ease: "easeInOut",
+              //   duration: 0.5,
+              // }}
+              key={p.id}
+              className="bg-aesop-0"
+            >
               <ProductPreview productPreview={p} region={region} />
-            </li>
+            </FadeIn>
           )
         })}
-      </ul>
+      </FadeInStagger>
       {totalPages > 1 && (
         <Pagination
           data-testid="product-pagination"

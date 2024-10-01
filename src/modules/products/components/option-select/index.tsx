@@ -26,20 +26,20 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   return (
     <div className="flex flex-col gap-y-3 text-primary">
       <span className="text-base font-normal">{title}</span>
-      <div
-        className="flex flex-wrap justify-between gap-2"
-        data-testid={dataTestId}
-      >
+      <div className="flex flex-wrap gap-1" data-testid={dataTestId}>
         {filteredOptions.map((v) => {
           return (
             <button
               onClick={() => updateOption({ [option.id]: v })}
               key={v}
-              className={clx("bg-tertiary h-10 p-2 flex-1 border", {
-                "border-primary": v === current,
-                "hover:shadow-sm transition-shadow ease-in-out duration-150":
-                  v !== current,
-              })}
+              className={clx(
+                "bg-aesop-2/25 h-10 p-2 border border-aesop-2/35",
+                {
+                  "border-aesop-2": v === current,
+                  "hover:shadow-sm transition-shadow ease-in-out duration-150":
+                    v !== current,
+                }
+              )}
               disabled={disabled}
               data-testid="option-button"
             >

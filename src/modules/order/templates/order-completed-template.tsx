@@ -37,7 +37,7 @@ export default function OrderCompletedTemplate({
               className="w-16 md:w-24"
             /> */}
             <h1 className="text-3xl text-sage-8 font-thin tracking-tight">
-              Thank you for your order.
+              Thank You for Your Order
             </h1>
             <p className="text-md leading-6 font-thin text-sage-6 w-full md:max-w-sm mt-8">
               Your order has been placed successfully! We’re thrilled to have
@@ -56,7 +56,7 @@ export default function OrderCompletedTemplate({
             className="flex flex-col gap-4 max-w-4xl h-full w-full"
             data-testid="order-complete-container"
           >
-            <h2 className="flex flex-row text-lg text-sage-6">Order summary</h2>
+            {/* <h2 className="flex flex-row text-lg text-sage-6">Order summary</h2> */}
             <OrderDetails order={order} />
 
             {/* <Items items={order.items} region={order.region} />

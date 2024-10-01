@@ -58,7 +58,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
   )
 
   return (
-    <div className="bg-white rounded-lg border-sage-2 border overflow-hidden">
+    <div className="bg-white rounded-none border-sage-2 border overflow-hidden">
       <Items items={order.items} region={order.region} />
       <div className=" px-4 py-6 sm:px-6 lg:p-8">
         <h4 className="sr-only">Status</h4>

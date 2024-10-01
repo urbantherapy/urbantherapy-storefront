@@ -20,6 +20,9 @@ module.exports = {
         visibility: "visibility",
         padding: "padding-top padding-right padding-bottom padding-left",
       },
+      backgroundImage: {
+        "homepage-pattern": "url('https://svgshare.com/i/1AhV.svg')",
+      },
       colors: {
         // "custom-bg": "#E7E9E1",
         "custom-bg": "#EEEEEC",
@@ -54,18 +57,30 @@ module.exports = {
           12: "#3B352B",
         },
         sage: {
-          1: "#F7F7F4", // Very light, almost white
-          2: "#EBEDE5", // A soft, light grey-green
-          3: "#DFE1D7", // Light, muted sage
-          4: "#D3D6C9", // Soft, natural greenish-gray
-          5: "#C7CAB8", // Muted green-beige
-          6: "#BABEA6", // Soft, sage gray
-          7: "#AEB294", // Slightly deeper sage
-          8: "#A1A78F", // Central color, a balanced sage
-          9: "#888F75", // Muted olive green
-          10: "#7D836D", // Slightly darker, muted green
-          11: "#636751", // Dark, earthy olive
-          12: "#383B2F", // Deep, almost black green
+          1: "#F7F7F4",
+          2: "#EBEDE5",
+          3: "#DFE1D7",
+          4: "#D3D6C9",
+          5: "#C7CAB8",
+          6: "#BABEA6",
+          7: "#AEB294",
+          8: "#A1A78F",
+          9: "#888F75",
+          10: "#7D836D",
+          11: "#636751",
+          12: "#383B2F",
+        },
+        aesop: {
+          0: "#F4FAEE",
+          1: "#F9FFF3",
+          2: "#E9EBD6",
+          dark: "#252525",
+          3: "#E9EBD6",
+          // 0: "#FAF9EF",
+          // 1: "#FFFEF3",
+          // 2: "#EBEADF",
+          // dark: "#252525",
+          // 3: "#EBE1D6",
         },
       },
       borderRadius: {
@@ -104,6 +119,7 @@ module.exports = {
           "sans-serif",
         ],
         satoshi: ["Satoshi", "sans-serif"],
+        zapfhumnst: ["Zapf Humanist", "sans-serif"],
       },
       keyframes: {
         ring: {

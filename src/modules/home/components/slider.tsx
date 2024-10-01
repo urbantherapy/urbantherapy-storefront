@@ -22,7 +22,7 @@ const slides = [
     text: "Nurturing creativity and joy with our children's collection.",
     ctaText: "Explore Kids",
     imageUrl: kidsCollection,
-    bgColor: "bg-sage-1", // Example background color
+    bgColor: "bg-aesop-dark", // Example background color
   },
   {
     id: 2,
@@ -73,20 +73,30 @@ const Slide: React.FC<SlideProps> = ({
   imageUrl,
   bgColor,
 }) => (
-  <div className="flex flex-col md:flex-row md:h-[60vh] text-primary md:px-0 mx-auto h-full md:space-x-4">
+  <div className="flex flex-col md:flex-row md:h-[60vh] text-primary md:px-0 mx-auto h-full md:space-x-0">
     <div
-      className={`flex-1 ${bgColor} flex flex-col items-center justify-center p-4 px-0 order-2 md:order-1 py-16`}
+      className={`${bgColor} flex-1 flex flex-col items-center justify-center p-4 px-0 order-2 md:order-1 py-16 w-96`}
     >
-      <Image src={doodle} alt="Doodle" className="mb-4 w-20 md:w-32" />
-      <h2 className="text-3xl md:text-5xl font-thin tracking-tight">
-        {heading}
-      </h2>
-      <p className="mt-10 font-thin text-md md:text-lg text-center max-w-xs text-primary/75">
+      <Image src={doodle} alt="Doodle" className="mb-4 w-20 md:w-24" />
+      <h2 className="text-3xl font-thin tracking-tight">{heading}</h2>
+      <p className="mt-10 font-thin text-md text-center max-w-xs text-primary/75">
         {text}
       </p>
-      <button className="mt-10 bg-sage-2 font-medium px-4 py-2 rounded-md">
-        {ctaText} →
-      </button>
+      <div className="w-60">
+        <button className="mt-10 text-sm font-normal border text-sage-8 hover:border-sage-4 hover:text-sage-8 p-4 flex items-center justify-between w-full">
+          <span>{ctaText}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 50 50"
+            fill="currentColor"
+            className="w-3.5 text-sage-6 hover:text-sage-8"
+          >
+            <g>
+              <path d="M30.1,5.3L50,25.1L30.1,45h-6.6l18-17.6H0v-4.8h41.5l-18-17.6h6.6V5.3z"></path>
+            </g>
+          </svg>
+        </button>
+      </div>
     </div>
     <div className="flex-1 relative order-1 md:order-2">
       <Image

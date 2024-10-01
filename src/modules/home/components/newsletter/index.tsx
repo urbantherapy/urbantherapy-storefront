@@ -1,99 +1,155 @@
-import { Heading } from "@medusajs/ui"
-import Image from "next/image"
-import leaves from "/public/icons/icon-leaves-mission.svg"
-import Link from "next/link"
-import clsx from "clsx"
-
-import backgroundImage from "/public/images/background-newsletter.jpg"
-
-type ButtonProps =
-  | React.ComponentPropsWithoutRef<typeof Link>
-  | (React.ComponentPropsWithoutRef<"button"> & { href?: undefined })
-
-function Button({ className, ...props }: ButtonProps) {
-  className = clsx(
-    "inline-flex justify-center rounded-2xl bg-blue-600 p-4 text-base font-semibold text-white hover:bg-blue-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 active:text-white/70",
-    className
-  )
-
-  return typeof props.href === "undefined" ? (
-    <button className={className} {...props} />
-  ) : (
-    <Link className={className} {...props} />
-  )
-}
-
-function Container({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
-  return (
-    <div
-      className={clsx("mx-auto max-w-7xl px-4 sm:px-6 lg:px-8", className)}
-      {...props}
-    />
-  )
-}
-
-function ArrowRightIcon(props: React.ComponentPropsWithoutRef<"svg">) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" {...props}>
-      <path
-        d="m14 7 5 5-5 5M19 12H5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+const products = [
+  {
+    id: 1,
+    name: "Cold Brew Bottle",
+    description:
+      "This glass bottle comes with a mesh insert for steeping tea or cold-brewing coffee. Pour from any angle and remove the top for easy cleaning.",
+    href: "#",
+    quantity: 1,
+    price: "$32.00",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/confirmation-page-05-product-01.jpg",
+    imageAlt: "Glass bottle with black plastic pour top and mesh insert.",
+  },
+]
 
 const Newsletter = () => {
   return (
-    <div className="bg-sage-2 py-16 sm:py-44">
-      <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex justify-center rotate-[19.6deg]">
-          <Image
-            src={leaves}
-            alt="Leaves Icon"
-            width={90} // Adjust based on your icon's size
-            height={90} // Adjust based on your icon's size
-          />
+    <div className="bg-white">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="max-w-xl">
+          <h1 className="text-sage-8 mt-2 text-3xl font-normal tracking-tight">
+            Thank You for Your Order
+          </h1>
+          <p className="text-md leading-6 font-thin text-sage-8 w-full mt-8">
+            Your order has been placed successfully! We’re thrilled to have you
+            as part of our Urban Therapy community. Your support helps us
+            empower makers and promote sustainable, handcrafted creations.
+          </p>
+          <p className="text-md leading-6 font-thin text-sage-8 w-full mt-8">
+            Keep an eye on your inbox for updates, and get ready to enjoy
+            something truly special.
+          </p>
+          <p className="text-md leading-6 font-thin text-sage-8 mt-8">
+            Anis & Céline
+          </p>
         </div>
-        <Heading
-          level="h2"
-          className="mt-4 text-5xl font-thin tracking-tight text-center text-sage-8"
-        >
-          Join the Community
-        </Heading>
-        <p className="mx-auto mt-8 max-w-xl text-center text-sage-6 text-lg font-thin leading-snug">
-          Subscribe to our newsletter and be the first to hear about new
-          collections, upcoming workshops, and exclusive offers. Discover the
-          stories behind our products and stay connected with the makers who
-          inspire us.
-        </p>
-        {/* <form className="mx-auto mt-10 flex max-w-md gap-x-4">
-          <label htmlFor="email-address" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="email-address"
-            name="email"
-            type="email"
-            required
-            placeholder="Enter your email"
-            autoComplete="email"
-            className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-white sm:text-sm sm:leading-6"
-          />
-          <button
-            type="submit"
-            className="flex-none rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            Notify me
-          </button>
-        </form> */}
+
+        <div className="mt-10 border-t border-sage-2">
+          <h2 className="sr-only">Your order</h2>
+
+          <h3 className="sr-only">Items</h3>
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="flex space-x-6 border-b border-gray-200 py-10"
+            >
+              <img
+                alt={product.imageAlt}
+                src={product.imageSrc}
+                className="h-20 w-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:h-40 sm:w-40"
+              />
+              <div className="flex flex-auto flex-col">
+                <div>
+                  <h4 className="font-medium text-gray-900">
+                    <a href={product.href}>{product.name}</a>
+                  </h4>
+                  <p className="mt-2 text-sm text-gray-600">
+                    {product.description}
+                  </p>
+                </div>
+                <div className="mt-6 flex flex-1 items-end">
+                  <dl className="flex space-x-4 divide-x divide-gray-200 text-sm sm:space-x-6">
+                    <div className="flex">
+                      <dt className="font-medium text-gray-900">Quantity</dt>
+                      <dd className="ml-2 text-gray-700">{product.quantity}</dd>
+                    </div>
+                    <div className="flex pl-4 sm:pl-6">
+                      <dt className="font-medium text-gray-900">Price</dt>
+                      <dd className="ml-2 text-gray-700">{product.price}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <div className="sm:ml-40 sm:pl-6">
+            <h3 className="sr-only">Your information</h3>
+
+            <h4 className="sr-only">Addresses</h4>
+            <dl className="grid grid-cols-2 gap-x-6 py-10 text-sm">
+              <div>
+                <dt className="font-medium text-gray-900">Shipping address</dt>
+                <dd className="mt-2 text-gray-700">
+                  <address className="not-italic">
+                    <span className="block">Kristin Watson</span>
+                    <span className="block">7363 Cynthia Pass</span>
+                    <span className="block">Toronto, ON N3Y 4H8</span>
+                  </address>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-medium text-gray-900">Billing address</dt>
+                <dd className="mt-2 text-gray-700">
+                  <address className="not-italic">
+                    <span className="block">Kristin Watson</span>
+                    <span className="block">7363 Cynthia Pass</span>
+                    <span className="block">Toronto, ON N3Y 4H8</span>
+                  </address>
+                </dd>
+              </div>
+            </dl>
+
+            <h4 className="sr-only">Payment</h4>
+            <dl className="grid grid-cols-2 gap-x-6 border-t border-gray-200 py-10 text-sm">
+              <div>
+                <dt className="font-medium text-gray-900">Payment method</dt>
+                <dd className="mt-2 text-gray-700">
+                  <p>Apple Pay</p>
+                  <p>Mastercard</p>
+                  <p>
+                    <span aria-hidden="true">••••</span>
+                    <span className="sr-only">Ending in </span>1545
+                  </p>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-medium text-gray-900">Shipping method</dt>
+                <dd className="mt-2 text-gray-700">
+                  <p>DHL</p>
+                  <p>Takes up to 3 working days</p>
+                </dd>
+              </div>
+            </dl>
+
+            <h3 className="sr-only">Summary</h3>
+
+            <dl className="space-y-6 border-t border-gray-200 pt-10 text-sm">
+              <div className="flex justify-between">
+                <dt className="font-medium text-gray-900">Subtotal</dt>
+                <dd className="text-gray-700">$36.00</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="flex font-medium text-gray-900">
+                  Discount
+                  <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs text-gray-600">
+                    STUDENT50
+                  </span>
+                </dt>
+                <dd className="text-gray-700">-$18.00 (50%)</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="font-medium text-gray-900">Shipping</dt>
+                <dd className="text-gray-700">$5.00</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="font-medium text-gray-900">Total</dt>
+                <dd className="text-gray-900">$23.00</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
       </div>
     </div>
   )

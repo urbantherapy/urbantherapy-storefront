@@ -12,14 +12,14 @@ const Photos = () => {
   let rotations = ["rotate-2", "-rotate-2", "rotate-2", "rotate-2", "-rotate-2"]
 
   return (
-    <div className="bg-sage-2">
-      <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
+    <div className="">
+      <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-4">
         {[image1, image2, image3, image4, image5, image6].map(
           (image, imageIndex) => (
             <div
               key={image.src}
               className={clsx(
-                "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-sage-2 sm:w-72 sm:rounded-2xl dark:bg-zinc-800",
+                "relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-sage-2 sm:w-44 sm:rounded-none dark:bg-zinc-800",
                 rotations[imageIndex % rotations.length]
               )}
             >

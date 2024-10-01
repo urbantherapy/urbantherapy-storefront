@@ -6,6 +6,8 @@ import {
   getCollectionsList,
   listRegions,
   getCustomer,
+  getCategoriesList,
+  getCustomAttributes,
 } from "@lib/data"
 import CollectionTemplate from "@modules/collections/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
@@ -61,11 +63,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CollectionPage({ params, searchParams }: Props) {
-  const { sortBy, page } = searchParams
+  const { sortBy, page, ...filters } = searchParams
 
+  const customAttributes = await getCustomAttributes()
   const collection = await getCollectionByHandle(params.handle).then(
     (collection) => collection
   )
+  const { product_categories } = await getCategoriesList(0, 6)
+
+  const dynamicFilters: { [key: string]: string[] } = {}
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value) {
+      dynamicFilters[key] = Array.isArray(value) ? value : [value]
+    }
+  })
 
   if (!collection) {
     notFound()
@@ -77,6 +88,9 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       page={page}
       sortBy={sortBy}
       countryCode={params.countryCode}
+      customAttributes={customAttributes}
+      filters={dynamicFilters}
+      categories={product_categories}
     />
   )
 }

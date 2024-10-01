@@ -11,6 +11,7 @@ import { cache } from "react"
 import kidsCollection from "/public/images/collectionKids.jpeg"
 import skincareCollection from "/public/images/collectionSkincare.png"
 import skincareCollectionBis from "/public/images/collectionSkincarebis.png"
+import CollectionsCarousel from "@modules/products/components/collections-carousel"
 
 export const metadata: Metadata = {
   title: "Urban Therapy | Our Collections",
@@ -89,6 +90,24 @@ const categories = [
   },
 ]
 
+const images = [
+  {
+    url: kidsCollection.src,
+    alt: "Kids Collection",
+    id: "kids",
+  },
+  {
+    url: skincareCollection.src,
+    alt: "Skincare Collection",
+    id: "skincare",
+  },
+  {
+    url: skincareCollectionBis.src,
+    alt: "Home & Living Collection",
+    id: "home-living",
+  },
+]
+
 export default async function CollectionsPage({
   params: { countryCode },
 }: {
@@ -103,16 +122,11 @@ export default async function CollectionsPage({
 
   return (
     <>
-      <div className="content-container mt-32 pt-4 pb-32">
-        {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-          Shop by Collection
-        </h2>
-        <p className="mt-4 text-base text-gray-500">
-          Each season, we collaborate with world-class designers to create a
-          collection inspired by the natural world.
-        </p> */}
-
-        <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+      <div className="max-w-5xl mx-auto my-40">
+        <CollectionsCarousel />
+      </div>
+      {/* <div className="py-32 pt-40 bg-aesop-3">
+        <div className="content-container space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
           {categories.map((category) => (
             <LocalizedClientLink
               key={category.name}
@@ -147,16 +161,10 @@ export default async function CollectionsPage({
                   </div>
                 </div>
               </div>
-              {/* <h3 className="mt-4 text-base font-semibold text-gray-900">
-                {category.name}
-              </h3>
-              <p className="mt-2 text-sm text-gray-500">
-                {category.description}
-              </p> */}
             </LocalizedClientLink>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

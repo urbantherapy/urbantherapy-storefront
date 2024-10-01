@@ -64,11 +64,11 @@ const Shipping: React.FC<ShippingProps> = ({
   }, [isOpen])
 
   return (
-    <div className="rounded-md bg-white border border-sage-2 shadow-sm p-4 px-6">
-      <div className="flex flex-row items-center justify-between my-2 mb-6">
+    <>
+      <div className="flex flex-row items-center justify-between my-2 mb-4 px-0">
         <h2
           className={clx(
-            "flex flex-row text-3xl text-sage-10 font-thin gap-x-2 items-baseline",
+            "flex flex-row text-md text-sage-10 gap-x-2 items-center font-normal",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && cart.shipping_methods.length === 0,
@@ -76,7 +76,31 @@ const Shipping: React.FC<ShippingProps> = ({
           )}
         >
           Delivery Methods
-          {!isOpen && cart.shipping_methods.length > 0 && <CheckCircleSolid />}
+          {!isOpen && cart.shipping_methods.length > 0 && (
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              className="size-4 text-sage-6"
+            >
+              <path d="M6.6 11.508L12.996 5.112L12.289 4.404L6.6 10.092L3.75 7.242L3.042 7.95L6.6 11.508ZM0 16V0H16V16H0Z" />
+            </svg>
+
+            // <svg
+            //   xmlns="http://www.w3.org/2000/svg"
+            //   viewBox="0 0 20 20"
+            //   fill="currentColor"
+            //   className="size-5"
+            // >
+            //   <path
+            //     fillRule="evenodd"
+            //     d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+            //     clipRule="evenodd"
+            //   />
+            // </svg>
+          )}
         </h2>
         {!isOpen &&
           cart?.shipping_address &&
@@ -85,7 +109,7 @@ const Shipping: React.FC<ShippingProps> = ({
             <p>
               <button
                 onClick={handleEdit}
-                className="text-sage-10 hover:text-sage-11"
+                className="text-sage-10 hover:text-sage-11 font-normal"
                 data-testid="edit-delivery-button"
               >
                 Edit
@@ -93,107 +117,150 @@ const Shipping: React.FC<ShippingProps> = ({
             </p>
           )}
       </div>
-      {isOpen ? (
-        <div data-testid="delivery-options-container">
-          <div className="pb-0">
-            <RadioGroup
-              value={cart.shipping_methods[0]?.shipping_option_id}
-              onChange={(value: string) => handleChange(value)}
-              className="grid grid-cols-1 gap-4 md:grid-cols-2"
-            >
-              {availableShippingMethods ? (
-                availableShippingMethods.map((option) => {
-                  return (
-                    <div
-                      className="rounded-lg border border-gray-200 bg-sage-1 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800"
-                      key={option.id}
-                    >
-                      <RadioGroup.Option
-                        key={option.id}
-                        value={option.id}
-                        data-testid="delivery-option-radio"
-                        className={clx("", {
-                          "border-sage-10":
-                            option.id ===
-                            cart.shipping_methods[0]?.shipping_option_id,
-                        })}
-                      >
-                        <div className="flex items-start">
-                          <Radio
-                            checked={
-                              option.id ===
-                              cart.shipping_methods[0]?.shipping_option_id
-                            }
-                          />
-
-                          <div className="ms-4">
-                            <span className="font-normal leading-none text-sage-10">
-                              {option.name} -{" "}
-                              {formatAmount({
-                                amount: option.amount!,
-                                region: cart?.region,
-                                includeTaxes: false,
-                              })}
-                            </span>
-                            <p
-                              id="express-text"
-                              className="mt-1 text-sm font-normal text-sage-6"
-                            >
-                              Get it today
-                            </p>
-                          </div>
-                        </div>
-                      </RadioGroup.Option>
-                    </div>
-                  )
-                })
-              ) : (
-                <div className="flex flex-col items-center justify-center px-4 py-8 text-ui-fg-base">
-                  <Spinner />
-                </div>
-              )}
-            </RadioGroup>
-          </div>
-
-          <ErrorMessage
-            error={error}
-            data-testid="delivery-option-error-message"
-          />
-
-          <Button
-            size="large"
-            className="mt-6 !text-base !bg-sage-10 !text-sage-2 !font-normal !px-4 !py-2 !rounded-md !border-none !font-satoshi w-full"
-            variant="secondary"
-            onClick={handleSubmit}
-            isLoading={isLoading}
-            disabled={!cart.shipping_methods[0]}
-            data-testid="submit-delivery-option-button"
+      <div className="bg-aesop-0 p-4 px-6">
+        {/* <div className="flex flex-row items-center justify-between my-2 mb-6">
+          <h2
+            className={clx(
+              "flex flex-row text-xl text-sage-10 gap-x-2 items-center font-normal",
+              {
+                "opacity-50 pointer-events-none select-none":
+                  !isOpen && cart.shipping_methods.length === 0,
+              }
+            )}
           >
-            Continue to payment
-          </Button>
-        </div>
-      ) : (
-        <div>
-          {cart && cart.shipping_methods.length > 0 && (
-            <div className="flex flex-col w-1/3">
-              <p className="font-normal text-sage-11 mb-1">Method</p>
-              <p className="text-sage-10">
-                {cart.shipping_methods[0].shipping_option.name} (
-                {formatAmount({
-                  amount: cart.shipping_methods[0].price,
-                  region: cart.region,
-                  includeTaxes: false,
-                })
-                  .replace(/,/g, "")
-                  .replace(/\./g, ",")}
-                )
+            Delivery Methods
+            {!isOpen && cart.shipping_methods.length > 0 && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
+          </h2>
+          {!isOpen &&
+            cart?.shipping_address &&
+            cart?.billing_address &&
+            cart?.email && (
+              <p>
+                <button
+                  onClick={handleEdit}
+                  className="text-sage-10 hover:text-sage-11 font-normal"
+                  data-testid="edit-delivery-button"
+                >
+                  Edit
+                </button>
               </p>
+            )}
+        </div> */}
+        {isOpen ? (
+          <div data-testid="delivery-options-container">
+            <div className="pb-0">
+              <RadioGroup
+                value={cart.shipping_methods[0]?.shipping_option_id}
+                onChange={(value: string) => handleChange(value)}
+                className="grid grid-cols-1 gap-4 md:grid-cols-2"
+              >
+                {availableShippingMethods ? (
+                  availableShippingMethods.map((option) => {
+                    return (
+                      <div
+                        className="rounded-none bg-aesop-1 ps-3 p-4"
+                        key={option.id}
+                      >
+                        <RadioGroup.Option
+                          key={option.id}
+                          value={option.id}
+                          data-testid="delivery-option-radio"
+                          className={clx("", {
+                            "border-sage-10":
+                              option.id ===
+                              cart.shipping_methods[0]?.shipping_option_id,
+                          })}
+                        >
+                          <div className="flex items-start">
+                            <Radio
+                              checked={
+                                option.id ===
+                                cart.shipping_methods[0]?.shipping_option_id
+                              }
+                            />
+
+                            <div className="ms-2 text-sm">
+                              <span className="font-medium leading-none text-sage-10">
+                                {option.name} -{" "}
+                                {formatAmount({
+                                  amount: option.amount!,
+                                  region: cart?.region,
+                                  includeTaxes: false,
+                                })}
+                              </span>
+                              <p
+                                id="express-text"
+                                className="mt-1 text-sm font-normal text-sage-6"
+                              >
+                                Get it today
+                              </p>
+                            </div>
+                          </div>
+                        </RadioGroup.Option>
+                      </div>
+                    )
+                  })
+                ) : (
+                  <div className="flex flex-col items-center justify-center px-4 py-8 text-ui-fg-base">
+                    <Spinner />
+                  </div>
+                )}
+              </RadioGroup>
             </div>
-          )}
-        </div>
-      )}
-      {/* <Divider className="mt-8" /> */}
-    </div>
+
+            <ErrorMessage
+              error={error}
+              data-testid="delivery-option-error-message"
+            />
+
+            <Button
+              size="large"
+              className="mt-6 !text-sm !bg-aesop-dark !text-sage-2 !font-normal !px-4 !py-2.5 !rounded-none !border-none !font-satoshi w-full"
+              variant="secondary"
+              onClick={handleSubmit}
+              isLoading={isLoading}
+              disabled={!cart.shipping_methods[0]}
+              data-testid="submit-delivery-option-button"
+            >
+              Continue to payment
+            </Button>
+          </div>
+        ) : (
+          <div>
+            {cart && cart.shipping_methods.length > 0 && (
+              <div className="flex flex-col w-1/3 text-sm">
+                <p className="font-normal text-sage-11 mb-1">Method</p>
+                <p className="text-sage-10">
+                  {cart.shipping_methods[0].shipping_option.name} (
+                  {formatAmount({
+                    amount: cart.shipping_methods[0].price,
+                    region: cart.region,
+                    includeTaxes: false,
+                  })
+                    .replace(/,/g, "")
+                    .replace(/\./g, ",")}
+                  )
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+        {/* <Divider className="mt-8" /> */}
+      </div>
+    </>
   )
 }
 

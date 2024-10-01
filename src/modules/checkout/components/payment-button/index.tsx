@@ -168,13 +168,14 @@ const StripePaymentButton = ({
   return (
     <>
       <Button
+        className="!text-md !bg-dark-aesop !text-sage-2 !font-normal !rounded-none !px-4 !py-2.5 !border-none !font-satoshi w-full"
         disabled={disabled || notReady}
         onClick={handlePayment}
         size="large"
         isLoading={submitting}
         data-testid={dataTestId}
       >
-        Place order
+        Place my order
       </Button>
       <ErrorMessage
         error={errorMessage}
@@ -269,7 +270,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   return (
     <>
       <Button
-        className="!text-base !bg-sage-10 !text-sage-2 !font-normal !px-4 !py-2 !rounded-md !border-none !font-satoshi w-full"
+        className="!text-md !bg-dark-aesop !text-sage-2 !font-normal !px-4 !py-2.5 !rounded-md !border-none !font-satoshi w-full"
         variant="secondary"
         disabled={notReady}
         isLoading={submitting}
@@ -277,7 +278,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         size="large"
         data-testid="submit-order-button"
       >
-        Place order
+        Place my order
       </Button>
       <ErrorMessage
         error={errorMessage}

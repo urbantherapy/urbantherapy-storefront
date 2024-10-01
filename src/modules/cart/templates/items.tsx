@@ -1,8 +1,8 @@
 import { LineItem, Region } from "@medusajs/medusa"
-import { Heading, Table } from "@medusajs/ui"
 
 import ItemCart from "../components/item/index-cart"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
+import { FadeIn } from "@modules/framer-motion/FadeIn"
 
 type ItemsTemplateProps = {
   items?: Omit<LineItem, "beforeInsert">[]
@@ -12,58 +12,29 @@ type ItemsTemplateProps = {
 const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
   return (
     <div>
-      <div className="pb-3 flex items-center">
-        <Heading level="h2" className="text-lg font-medium text-sage-10">
-          Shopping cart
-        </Heading>
-      </div>
+      <FadeIn className="pb-3 flex items-center">
+        <h2 className="text-md font-normal text-sage-10">Shopping Cart</h2>
+      </FadeIn>
       <div>
         <h2 className="sr-only">Items in your shopping cart</h2>
       </div>
-      <ul
-        role="list"
-        className="divide-y divide-gray-200 border border-gray-200 bg-white rounded-lg shadow-sm"
-      >
+      <ul role="list" className="divide-y divide-aesop-1">
         {items && region
           ? items
               .sort((a, b) => {
                 return a.created_at > b.created_at ? -1 : 1
               })
               .map((item) => {
-                return <ItemCart key={item.id} item={item} region={region} />
+                return (
+                  <FadeIn key={item.id} className="bg-aesop-0">
+                    <ItemCart item={item} region={region} />
+                  </FadeIn>
+                )
               })
           : Array.from(Array(5).keys()).map((i) => {
               return <SkeletonLineItem key={i} />
             })}
       </ul>
-      {/* <Table>
-        <Table.Header className="border-t-0">
-          <Table.Row className="text-ui-fg-subtle txt-medium-plus bg-custom-bg">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
-            <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
-            <Table.HeaderCell className="hidden small:table-cell">
-              Price
-            </Table.HeaderCell>
-            <Table.HeaderCell className="!pr-0 text-right">
-              Total
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {items && region
-            ? items
-                .sort((a, b) => {
-                  return a.created_at > b.created_at ? -1 : 1
-                })
-                .map((item) => {
-                  return <Item key={item.id} item={item} region={region} />
-                })
-            : Array.from(Array(5).keys()).map((i) => {
-                return <SkeletonLineItem key={i} />
-              })}
-        </Table.Body>
-      </Table> */}
     </div>
   )
 }

@@ -29,13 +29,13 @@ export default function ProductPrice({
   }
 
   return (
-    <div className="flex flex-col text-primary">
+    <div className="flex flex-col text-sage-10 my-4">
       <span
-        className={clx("text-lg", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
+        className={clx("text-3xl font-thin", {
+          "": selectedPrice.price_type === "sale",
         })}
       >
-        {!variant && "From "}
+        {/* {!variant && "From "} */}
         <span
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}

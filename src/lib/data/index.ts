@@ -28,6 +28,8 @@ const emptyResponse = {
   nextPage: null,
 }
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
+
 /**
  * Function for getting custom headers for Medusa API requests, including the JWT token and cache revalidation tags.
  *
@@ -57,9 +59,8 @@ export async function createCart(data = {}) {
   const headers = getMedusaHeaders(["cart"])
 
   const customer = await isUserLoggedIn()
-  const salesChannelId = customer
-    ? "sc_01J50DF236A46JMW25Y8R24942"
-    : "sc_01J04CSTYRWK38ANPX32H1AZ9G"
+  const salesChannelIds = await getSalesChannelId()
+  const salesChannelId = customer ? salesChannelIds.B2B : salesChannelIds.B2C
 
   const cartData = {
     ...data,
@@ -88,9 +89,8 @@ export const getCart = cache(async function (cartId: string) {
   const headers = getMedusaHeaders(["cart"])
 
   const customer = await isUserLoggedIn()
-  const salesChannelId = customer
-    ? "sc_01J50DF236A46JMW25Y8R24942"
-    : "sc_01J04CSTYRWK38ANPX32H1AZ9G"
+  const salesChannelIds = await getSalesChannelId()
+  const salesChannelId = customer ? salesChannelIds.B2B : salesChannelIds.B2C
 
   medusaClient.carts
     .update(cartId, { sales_channel_id: salesChannelId }, headers)
@@ -453,6 +453,7 @@ export const getProductByHandle = cache(async function (
   handle: string
 ): Promise<{ product: PricedProduct }> {
   const headers = getMedusaHeaders(["products"])
+  console.log(await listSalesChannels(), "listSalesChannels")
 
   const customer = await getCustomer().catch(() => null)
   const salesChannelId = customer
@@ -810,14 +811,6 @@ async function isUserLoggedIn(): Promise<boolean> {
   }
 }
 
-async function setPublishableKey() {
-  // const loggedIn = await isUserLoggedIn()
-  // const publishableApiKey = loggedIn
-  //   ? B2B_PUBLISHABLE_API_KEY
-  //   : B2C_PUBLISHABLE_API_KEY
-  // medusaClient.setPublishableKey(publishableApiKey)
-}
-
 export async function getCustomAttributes(categoryHandles?: string[]) {
   try {
     // Construct the URL with optional category parameters
@@ -844,35 +837,31 @@ export async function getCustomAttributes(categoryHandles?: string[]) {
   }
 }
 
-// const fetchProductsWithCustomAttributes = async () => {
-//   try {
-//     // Fetch all products
-//     const { products } = await medusaClient.products.list({
-//       expand: "attribute_values",
-//     })
-//     //   {
-//     //   custom_attributes: ["j"],
-//     // }
-//     console.log(products, "products")
+export const listSalesChannels = cache(async function () {
+  try {
+    const response = await fetch(`${BACKEND_URL}/store/sales-channels`)
+    if (!response.ok) {
+      throw new Error("Failed to fetch sales channels")
+    }
+    const data = await response.json()
+    return data.sales_channels
+  } catch (err) {
+    console.error("Error fetching sales channels:", err)
+    return []
+  }
+})
 
-//     // Filter products to only include those with non-empty custom_attributes
-//     const productsWithCustomAttributes = products.filter(
-//       (product) =>
-//         product.custom_attributes && product.custom_attributes.length > 0
-//     )
+export async function getSalesChannelId() {
+  const salesChannels = await listSalesChannels()
+  const b2bChannel = salesChannels.find(
+    (channel: { id: string; name: string }) => channel.name === "B2B"
+  )
+  const b2cChannel = salesChannels.find(
+    (channel: { id: string; name: string }) => channel.name === "B2C"
+  )
 
-//     // Check if there is at least one product with custom attributes
-//     if (productsWithCustomAttributes.length > 0) {
-//       console.log(
-//         "Products with custom attributes:",
-//         productsWithCustomAttributes
-//       )
-//     } else {
-//       console.log("No products with custom attributes found.")
-//     }
-//   } catch (error) {
-//     console.error("Error fetching products:", error)
-//   }
-// }
-
-// fetchProductsWithCustomAttributes()
+  return {
+    B2B: b2bChannel?.id,
+    B2C: b2cChannel?.id,
+  }
+}

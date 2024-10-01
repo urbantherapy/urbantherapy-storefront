@@ -15,6 +15,8 @@ import Quote from "@modules/home/components/quote"
 import InstagramWidget from "@modules/home/components/instagram-widget"
 import Photos from "@modules/home/components/photos"
 import Newsletter from "@modules/home/components/newsletter"
+import CollectionsCarousel from "@modules/products/components/collections-carousel"
+import Instagram from "@modules/home/components/instagram"
 
 export const metadata: Metadata = {
   title: "Urban Therapy | Empowering the Makers",
@@ -74,18 +76,59 @@ export default async function Home({
   if (!collections || !region) {
     return null
   }
-
+  const incentives = [
+    {
+      name: "Planet First, Always",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce/icons/icon-shipping-simple.svg",
+      description:
+        "Every product we offer is thoughtfully crafted with sustainability at the forefront. We’re here for the Earth, one mindful choice at a time.",
+    },
+    {
+      name: "Crafted by Nature, Approved by You",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg",
+      description:
+        "Our ingredients and materials are chosen with care, creating products that feel good, look good, and do good—both for you and the environment.",
+    },
+    {
+      name: "A Journey Towards Mindfulness",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce/icons/icon-exchange-simple.svg",
+      description:
+        "Urban Therapy isn’t just a store, it’s a lifestyle. We believe in small, meaningful changes that lead to a more conscious, balanced way of living.",
+    },
+  ]
   return (
-    <div className="content-container flex flex-col divide-y-0 divide-sage-3">
+    <div className="flex flex-col divide-y-0 divide-sage-3">
       <Hero />
-      <OurMission />
+      {/* <OurMission /> */}
       <OurValues />
-      <Slider />
+      {/* <Slider /> */}
+      <div className="max-w-7xl mx-auto">
+        <CollectionsCarousel />
+      </div>
       <Quote />
-      {/* <Newsletter /> */}
       {/* <Photos /> */}
 
       <InstagramWidget />
+      {/* <div className="bg-aesop-dark">
+        <div className="content-container grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-3 py-24">
+          {incentives.map((incentive) => (
+            <div key={incentive.name} className="sm:flex lg:block">
+          
+              <div className="mt-2 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-2 max-w-sm">
+                <h3 className="text-sm text-sage-6 font-normal">
+                  {incentive.name}
+                </h3>
+                <p className="mt-4 text-sm text-sage-8">
+                  {incentive.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div> */}
       {/* <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />

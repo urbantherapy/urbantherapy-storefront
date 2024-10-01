@@ -22,7 +22,7 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
           Billing Summary
         </h2>
 
-        <div className="bg-sage-2 px-4 py-6 sm:rounded-lg sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
+        <div className="bg-aesop-0 px-4 py-6 sm:rounded-none sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
           <dl className="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
             <div>
               <dt className="font-medium text-sage-10">Delivery address</dt>

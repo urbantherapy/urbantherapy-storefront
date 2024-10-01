@@ -3,27 +3,27 @@ import { Table } from "@medusajs/ui"
 const SkeletonCartItem = () => {
   return (
     <Table.Row className="w-full m-4">
-      <Table.Cell className="!pl-0 p-4 w-24 bg-sage-1">
-        <div className="flex w-24 h-24 p-4 bg-sage-2 rounded-large animate-pulse" />
+      <Table.Cell className="!pl-0 p-4 w-24 bg-aesop-0">
+        <div className="flex w-24 h-24 p-4 bg-sage-2 animate-pulse" />
       </Table.Cell>
-      <Table.Cell className="text-left bg-sage-1">
+      <Table.Cell className="text-left bg-aesop-0">
         <div className="flex flex-col gap-y-2">
           <div className="w-32 h-4 bg-sage-2 animate-pulse" />
           <div className="w-24 h-4 bg-sage-2 animate-pulse" />
         </div>
       </Table.Cell>
-      <Table.Cell className="bg-sage-1">
+      <Table.Cell className="bg-aesop-0">
         <div className="flex gap-2 items-center">
           <div className="w-6 h-8 bg-sage-2 animate-pulse" />
           <div className="w-14 h-10 bg-sage-2 animate-pulse" />
         </div>
       </Table.Cell>
-      <Table.Cell className="bg-sage-1">
+      <Table.Cell className="bg-aesop-0">
         <div className="flex gap-2">
           <div className="w-12 h-6 bg-sage-2 animate-pulse" />
         </div>
       </Table.Cell>
-      <Table.Cell className="!pr-0 text-right bg-sage-1">
+      <Table.Cell className="!pr-0 text-right bg-aesop-0">
         <div className="flex gap-2 justify-end">
           <div className="w-12 h-6 bg-sage-2 animate-pulse" />
         </div>

@@ -58,7 +58,7 @@ const ItemCheckout = ({ item, region, type = "full" }: ItemProps) => {
         >
           <Thumbnail
             thumbnail={item.thumbnail}
-            size="full"
+            // size="full"
             className="rounded-md"
           />
         </LocalizedClientLink>

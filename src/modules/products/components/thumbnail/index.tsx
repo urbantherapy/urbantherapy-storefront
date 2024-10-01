@@ -30,16 +30,16 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   return (
     <Container
       className={clx(
-        "relative w-full overflow-hidden shadow-sage-2 p-4 rounded-none group-hover:shadow-none transition-shadow ease-in-out duration-150",
+        "relative w-full overflow-hidden shadow-sage-2 p-4 rounded-none group-hover:shadow-none transition-shadow ease-in-out duration-150 bg-aesop-0",
         className,
         {
           "aspect-[11/14]": isFeatured,
           "aspect-[9/16]": !isFeatured && size !== "square",
-          "aspect-[1/1]": size === "square",
+          "aspect-[1/1] bg-aesop-2": size === "square",
           "w-[180px]": size === "small",
           "w-[290px]": size === "medium",
           "w-[440px]": size === "large",
-          "w-full": size === "full",
+          "w-full md:h-[45vh]": size === "full",
         }
       )}
       data-testid={dataTestid}
@@ -74,7 +74,7 @@ const ImageOrPlaceholder = ({
         <Image
           src={hoverImage!}
           alt="Hover Thumbnail"
-          className="absolute inset-0 object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="absolute inset-0 object-cover object-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-aesop-0"
           draggable={false}
           quality={50}
           sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"

@@ -21,6 +21,7 @@ import {
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import { ChevronDownIcon } from "@heroicons/react/20/solid"
 import { ProductCategoryWithChildren } from "types/global"
+import { motion, AnimatePresence } from "framer-motion"
 
 export type SortOptions = "price_asc" | "price_desc" | "created_at"
 type SortProductsProps = {
@@ -90,6 +91,7 @@ export default function Filters({
 
   const router = useRouter()
   const [open, setOpen] = useState(false)
+  const [filtersVisible, setFiltersVisible] = useState(false)
   let [pending, startTransition] = useTransition()
   let [optimisticFilters, setOptimisticFilters] = useOptimistic(filters)
 
@@ -104,8 +106,19 @@ export default function Filters({
     })
   }
 
+  const filterAnimationVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { opacity: 1, height: "auto" },
+    exit: { opacity: 0, height: 0 },
+  }
+
+  const selectedFiltersCount = Object.values(optimisticFilters).reduce(
+    (acc, filterOptions) => acc + filterOptions.length,
+    0
+  )
+
   return (
-    <div className="bg-white">
+    <div className="">
       {/* Mobile filter dialog */}
       <Dialog open={open} onClose={setOpen} className="relative z-40 sm:hidden">
         <DialogBackdrop
@@ -224,11 +237,11 @@ export default function Filters({
         </h2>
 
         <div className="border-b-none border-sage-3 py-4 h-16 flex">
-          <div className="content-container flex items-center justify-between px-4 sm:px-6 lg:px-8">
-            <Menu as="div" className="relative inline-block text-left">
+          <div className="content-container flex items-center justify-between px-4 sm:px-6">
+            <Menu as="div" className="relative inline-block text-left w-48">
               <div>
-                <MenuButton className="group inline-flex justify-center text-sm font-medium text-sage-8 hover:text-sage-10">
-                  Sort
+                <MenuButton className="w-full text-sm font-normal border text-sage-8 hover:border-sage-4 hover:text-sage-8 p-4 flex items-center justify-between">
+                  Sort by
                   <ChevronDownIcon
                     aria-hidden="true"
                     className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-sage-6 group-hover:text-sage-7"
@@ -238,9 +251,9 @@ export default function Filters({
 
               <MenuItems
                 transition
-                className="absolute left-0 z-10 mt-2 w-40 origin-top-left rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in overflow-hidden"
+                className="absolute w-full left-0 z-10 mt-2 bg-aesop-1 origin-top-left shadow-sm ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in overflow-hidden"
               >
-                <div className="">
+                <div className="py-2">
                   {sortOptions.map((option) => (
                     <MenuItem key={option.label}>
                       <button
@@ -256,9 +269,9 @@ export default function Filters({
                         value={option.value}
                         className={classNames(
                           option.value === sortBy
-                            ? "font-medium text-sage-7"
+                            ? "font-normal text-sage-7"
                             : "text-sage-7",
-                          "block px-4 py-2 text-sm data-[focus]:bg-gray-100 w-full text-left"
+                          "block px-4 py-1 text-sm data-[focus]:bg-aesop-0 w-full text-left"
                         )}
                       >
                         {option.label}
@@ -277,7 +290,7 @@ export default function Filters({
               Filters
             </button>
 
-            <div className="hidden sm:block">
+            {/* <div className="hidden sm:block">
               <div className="flow-root">
                 <PopoverGroup className="-mx-4 flex items-center divide-x divide-gray-200">
                   {initialFilters.map((filter) => {
@@ -385,13 +398,126 @@ export default function Filters({
                   })}
                 </PopoverGroup>
               </div>
+            </div> */}
+            <div className="hidden sm:block w-60">
+              <div className="flow-root">
+                {/* FILTERS toggle button */}
+                <button
+                  className="w-full text-sm font-normal border text-sage-8 hover:border-sage-4 hover:text-sage-8 p-4 flex items-center justify-between"
+                  onClick={() => setFiltersVisible(!filtersVisible)}
+                >
+                  {selectedFiltersCount > 0
+                    ? `${selectedFiltersCount} Filter${
+                        selectedFiltersCount > 1 ? "s" : ""
+                      } Selected`
+                    : "Filter by"}
+                  <ChevronDownIcon
+                    aria-hidden="true"
+                    className={`-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-sage-6 group-hover:text-sage-7 transition-transform ${
+                      filtersVisible ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Filters section that shows/hides based on the toggle */}
+        <AnimatePresence>
+          {filtersVisible && (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={filterAnimationVariants}
+              exit="exit"
+              transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
+              className="flex justify-items-start content-container"
+            >
+              {initialFilters.map((filter) => {
+                const checkedOptionsCount =
+                  optimisticFilters[filter.name]?.length || 0
+
+                return (
+                  <div key={filter.id} className="space-y-4 py-10 px-2 flex-1">
+                    <h3 className="text-sm font-normal text-sage-8 border-b border-aesop-2 pb-2">
+                      {filter.name}
+                      {checkedOptionsCount > 0 && (
+                        <span className="ml-1.5 italic text-sage-8">
+                          ({checkedOptionsCount})
+                        </span>
+                      )}
+                    </h3>
+                    <form className="space-y-2">
+                      {filter.options.map((option, optionIdx) => (
+                        <div key={option.value} className="space-x-2">
+                          <input
+                            defaultValue={option.value}
+                            defaultChecked={optimisticFilters[
+                              filter.name
+                            ]?.includes(option.label)}
+                            onChange={(e) => {
+                              let newFilterValues = !optimisticFilters[
+                                filter.name
+                              ]?.includes(option.label)
+                                ? [
+                                    ...(optimisticFilters[filter.name] || []),
+                                    option.label,
+                                  ]
+                                : optimisticFilters[filter.name]?.filter(
+                                    (val) => val !== option.label
+                                  ) || []
+
+                              newFilterValues = newFilterValues.sort()
+
+                              startTransition(() => {
+                                const updatedFilters = {
+                                  ...optimisticFilters,
+                                  [filter.name]: newFilterValues,
+                                }
+
+                                setOptimisticFilters(updatedFilters)
+
+                                const newParams = new URLSearchParams(
+                                  Object.entries(updatedFilters).flatMap(
+                                    ([key, values]) =>
+                                      values.map((value) => [key, value])
+                                  )
+                                )
+
+                                router.push(`?${newParams}`)
+                              })
+                            }}
+                            id={`filter-${filter.id}-${optionIdx}`}
+                            name={`${filter.id}[]`}
+                            type="checkbox"
+                            className="h-4 w-4 bg-transparent border-sage-10 text-sage-7 focus:ring-0 border"
+                          />
+                          <label
+                            htmlFor={`filter-${filter.id}-${optionIdx}`}
+                            className={`whitespace-nowrap !text-sm ${
+                              optimisticFilters[filter.name]?.includes(
+                                option.label
+                              )
+                                ? "text-sage-10"
+                                : "text-sage-8"
+                            }`}
+                          >
+                            {option.label}
+                          </label>
+                        </div>
+                      ))}
+                    </form>
+                  </div>
+                )
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Active filters */}
         {/* {Object.keys(optimisticFilters).length > 0 && ( */}
-        <div className="bg-sage-2 h-16 flex">
+        {/* <div className="h-16 flex">
           <div className="content-container px-4 py-3 sm:flex sm:items-center sm:px-6 lg:px-8">
             <h3 className="text-sm font-medium text-sage-7">
               Filters
@@ -464,7 +590,7 @@ export default function Filters({
                       setOptimisticFilters({})
                       router.push(`?`)
                     }}
-                    className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-2 text-sm font-medium text-sage-10 hover:bg-gray-200 hover:text-sage-7"
+                    className="m-1 inline-flex items-center rounded-full border border-gray-200 bg-white py-1.5 px-3 text-sm font-medium text-sage-10 hover:bg-gray-200 hover:text-sage-7"
                   >
                     Clear All Filters
                   </button>
@@ -472,7 +598,7 @@ export default function Filters({
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* )} */}
       </section>
     </div>

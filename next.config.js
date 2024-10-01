@@ -10,6 +10,11 @@ const nextConfig = withStoreConfig({
   images: {
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "scontent.cdninstagram.com",
+        port: "",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
       },

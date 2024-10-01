@@ -5,6 +5,7 @@ import { CartWithCheckoutStep } from "types/global"
 import SignInPrompt from "../components/sign-in-prompt"
 import Divider from "@modules/common/components/divider"
 import { Customer } from "@medusajs/medusa"
+import { FadeIn, FadeInStagger } from "@modules/framer-motion/FadeIn"
 
 const CartTemplate = ({
   cart,
@@ -17,7 +18,10 @@ const CartTemplate = ({
     <div className="mt-32 pb-12">
       <div className="content-container" data-testid="cart-container">
         {cart?.items.length ? (
-          <div className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-x-40">
+          <FadeInStagger
+            faster
+            className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-x-40"
+          >
             <div className="flex flex-col py-6 gap-y-6">
               {/* {!customer && (
                 <>
@@ -37,7 +41,7 @@ const CartTemplate = ({
                 )}
               </div>
             </div>
-          </div>
+          </FadeInStagger>
         ) : (
           <div>
             <EmptyCartMessage />

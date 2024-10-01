@@ -1,14 +1,11 @@
 import { Suspense } from "react"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
-import RefinementList from "@modules/store/components/refinement-list"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
 import { ProductCategoryWithChildren } from "types/global"
 
 import PaginatedProducts from "./paginated-products"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { Text } from "@medusajs/ui"
 import Filters from "../components/filters"
 
 const StoreTemplate = ({
@@ -45,7 +42,7 @@ const StoreTemplate = ({
         />
       </div>
       <div
-        className="flex flex-col sm:flex-row sm:items-start py-6 content-container text-primary"
+        className="flex flex-col sm:flex-row sm:items-start py-6 pt-1 content-container text-primary"
         data-testid="category-container"
       >
         <div className="w-full">

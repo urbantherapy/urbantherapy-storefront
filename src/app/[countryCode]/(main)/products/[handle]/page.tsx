@@ -11,6 +11,7 @@ import {
 } from "@lib/data"
 import { Region } from "@medusajs/medusa"
 import ProductTemplate from "@modules/products/templates"
+import { getPlaceholderImage } from "@lib/util/get-placeholder-image"
 
 type Props = {
   params: { countryCode: string; handle: string }
@@ -98,7 +99,12 @@ export default async function ProductPage({ params }: Props) {
     notFound()
   }
 
-  console.log(pricedProduct)
+  // if (pricedProduct.images) {
+  //   for (const image of pricedProduct.images) {
+  //     const blur = await getPlaceholderImage(image.url)
+  //     image.blur = blur.placeholder
+  //   }
+  // }
 
   return (
     <ProductTemplate

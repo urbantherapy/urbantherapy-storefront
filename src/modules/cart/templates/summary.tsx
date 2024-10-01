@@ -1,12 +1,10 @@
 "use client"
 
-import { Button, Heading } from "@medusajs/ui"
-
 import CartTotals from "@modules/common/components/cart-totals"
-import Divider from "@modules/common/components/divider"
 import { CartWithCheckoutStep } from "types/global"
 import DiscountCode from "@modules/checkout/components/discount-code"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { FadeIn } from "@modules/framer-motion/FadeIn"
 
 type SummaryProps = {
   cart: CartWithCheckoutStep
@@ -15,23 +13,34 @@ type SummaryProps = {
 const Summary = ({ cart }: SummaryProps) => {
   return (
     <div className="flex flex-col gap-y-4">
-      <Heading level="h2" className="text-lg font-medium text-sage-10">
-        Summary
-      </Heading>
-      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
-        <DiscountCode cart={cart} />
+      <FadeIn>
+        <h2 className="text-md font-normal text-sage-10">Order Summary</h2>
+      </FadeIn>
+      <FadeIn className="bg-aesop-0">
         <CartTotals data={cart} />
-        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-          <LocalizedClientLink
-            href={"/checkout?step=" + cart.checkout_step}
-            data-testid="checkout-button"
-          >
-            <Button className="w-full h-10 bg-primary/20 text-primary rounded-md hover:bg-primary/50 border-none shadow-none">
+        <div className="border-t border-aesop-1">
+          <DiscountCode cart={cart} />
+          <div className="px-4 py-4">
+            <LocalizedClientLink
+              href={"/checkout?step=" + cart.checkout_step}
+              data-testid="checkout-button"
+              className="text-sm font-normal border text-sage-8 hover:border-sage-4 hover:text-sage-8 p-4 flex items-center justify-between"
+            >
               Go to Checkout
-            </Button>
-          </LocalizedClientLink>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 50 50"
+                fill="currentColor"
+                className="w-3.5 text-sage-6 hover:text-sage-8"
+              >
+                <g>
+                  <path d="M30.1,5.3L50,25.1L30.1,45h-6.6l18-17.6H0v-4.8h41.5l-18-17.6h6.6V5.3z"></path>
+                </g>
+              </svg>
+            </LocalizedClientLink>
+          </div>
         </div>
-      </div>
+      </FadeIn>
     </div>
   )
 }

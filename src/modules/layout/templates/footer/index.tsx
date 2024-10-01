@@ -85,13 +85,13 @@ export default async function Footer() {
   const { product_categories } = await getCategoriesList(0, 6)
 
   return (
-    <div className="content-container px-0">
+    <div className="px-0 text-sm bg-aesop-1">
       <footer aria-labelledby="footer-heading">
         <h2 id="footer-heading" className="sr-only">
           Footer
         </h2>
         <div className="content-container px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-4">
-          <div className="xl:grid xl:grid-cols-3 xl:gap-8 border-t border-sage-6 pt-12">
+          <div className="xl:grid xl:grid-cols-3 xl:gap-8 pt-12">
             <div className="space-y-8">
               <LocalizedClientLink
                 href="/"
@@ -217,9 +217,7 @@ export default async function Footer() {
                   </div>
                 )}
 
-                {/* QUICK FIX FOR MOBILE TO SHOW TO ANIS
-                <div className="mt-10 md:mt-0"> */}
-                <div className="mt-0">
+                <div className="mt-10 md:mt-0">
                   <h3 className="font-normal leading-6 text-sage-8">Legal</h3>
                   <ul role="list" className="mt-6 space-y-4 font-light">
                     {navigation.legal.map((item) => (

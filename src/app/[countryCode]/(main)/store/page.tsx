@@ -22,6 +22,7 @@ type Params = {
 
 export default async function StorePage({ searchParams, params }: Params) {
   const { sortBy, page, ...filters } = searchParams
+
   const { product_categories } = await getCategoriesList(0, 6)
   const customAttributes = await getCustomAttributes()
 

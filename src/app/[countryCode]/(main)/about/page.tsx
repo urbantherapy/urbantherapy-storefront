@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 import image1 from "/public/images/about1.png"
-import image1bis from "/public/images/aboutPage.jpg"
+import image1bis from "/public/images/urbanHarmony.jpeg"
 import leaves from "/public/icons/icon-leaves-mission.svg"
 import innovation from "/public/icons/icon-innovation.svg"
 import simplicity from "/public/icons/icon-simplicity.svg"
@@ -16,224 +16,142 @@ import respect from "/public/icons/icon-respect.svg"
 import excellence from "/public/icons/icon-excellence.svg"
 
 import leaves2 from "/public/icons/icon-about-value.svg"
-
-const features = [
-  {
-    name: "Excellence",
-    description:
-      "Today, Next, and Someday cards allow you to defer your dreams into the future.",
-    imageSrc: excellence,
-    imageAlt: "Green cardstock box containing white, beige, and brown cards.",
-  },
-  {
-    name: "Innovation",
-    description:
-      "Each refill pack contains plenty of cards to last you a month of procrastination.",
-    imageSrc: innovation,
-    imageAlt: "Green cardstock box open with 50 cards inside.",
-  },
-  {
-    name: "Respect",
-    description:
-      "Flip a card over to doodle during meetings when you should be listening.",
-    imageSrc: respect,
-    imageAlt:
-      "Detail of white today card, beige next card, and brown someday card with dot grid.",
-  },
-  {
-    name: "Simplicity",
-    description:
-      "Subscribe and save on routine refill packs to keep you productive all year long.",
-    imageSrc: simplicity,
-    imageAlt:
-      "Stack of three green cardstock boxes with 3 hole cutouts showing cards inside.",
-  },
-]
-const perks = [
-  {
-    name: "Excellence",
-    imageSrc: excellence,
-    description:
-      "Order now and you'll get delivery absolutely free. Well, it's not actually free, we just price it into the products. Someone's paying for it, and it's not us.",
-  },
-  {
-    name: "Innovation",
-    imageSrc: innovation,
-    description:
-      "We have a 10 year warranty with every product that you purchase, whether thats a new pen or organizer, you can be sure we'll stand behind it.",
-  },
-  {
-    name: "Respect",
-    imageSrc: respect,
-    description:
-      "We understand that when your product arrives you might not particularly like it, or you ordered the wrong thing. Conditions apply here.",
-  },
-  {
-    name: "Simplicity",
-    imageSrc: simplicity,
-    description:
-      "Like you, we love the planet, and so we've pledged 1% of all sales to the preservation and restoration of the natural environment.",
-  },
-]
+import { MotionDiv } from "@modules/framer-motion/MotionDiv"
+import { MotionH2 } from "@modules/framer-motion/MotionH2"
+import { MotionP } from "@modules/framer-motion/MotionP"
+import { FadeIn, FadeInStagger } from "@modules/framer-motion/FadeIn"
 
 const incentives = [
   {
-    name: "Free shipping",
+    name: "Planet First, Always",
     imageSrc:
       "https://tailwindui.com/img/ecommerce/icons/icon-shipping-simple.svg",
     description:
-      "It's not actually free we just price it into the products. Someone's paying for it, and it's not us.",
+      "Every product we offer is thoughtfully crafted with sustainability at the forefront. We’re here for the Earth, one mindful choice at a time.",
   },
   {
-    name: "10-year warranty",
+    name: "Crafted by Nature, Approved by You",
     imageSrc:
       "https://tailwindui.com/img/ecommerce/icons/icon-warranty-simple.svg",
     description:
-      "If it breaks in the first 10 years we'll replace it. After that you're on your own though.",
+      "Our ingredients and materials are chosen with care, creating products that feel good, look good, and do good—both for you and the environment.",
   },
   {
-    name: "Exchanges",
+    name: "A Journey Towards Mindfulness",
     imageSrc:
       "https://tailwindui.com/img/ecommerce/icons/icon-exchange-simple.svg",
     description:
-      "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though.",
+      "Urban Therapy isn’t just a store, it’s a lifestyle. We believe in small, meaningful changes that lead to a more conscious, balanced way of living.",
   },
 ]
 
 const AboutPage: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+    },
+  }
+  const itemVariants = (i: number) => ({
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.05,
+        ease: "easeInOut",
+        duration: 0.5,
+      },
+    },
+  })
+
   return (
     <>
       <div className="mx-auto max-w-7xl pt-48 py-24 sm:px-2 sm:py-32 lg:px-4">
         <div className="mx-auto max-w-2xl px-4 lg:max-w-none">
           <div className="grid grid-cols-1 items-center gap-x-24 gap-y-10 lg:grid-cols-2">
-            <div className="flex flex-col space-y-12 text-sage-8">
-              <h2 className="text-3xl md:text-5xl font-thin tracking-tight">
-                Building an Urban Harmony
-              </h2>
-              <div className="text-sage-6 text-lg font-thin leading-snug flex flex-col space-y-8">
-                <p>
-                  Urban Therapy is a visionary concept store that seamlessly
-                  blends modern aesthetics with timeless elegance. We offer a
-                  curated selection of lifestyle products designed to elevate
-                  everyday living. Our focus is on enhancing the urban
-                  lifestyle, providing unique, high-quality products that
-                  resonate with individuals who value both style and
-                  functionality.
-                </p>
-                <p>
-                  Our <span className="font-bold">mission</span>: to curate
-                  products that align with urban living, emphasizing quality,
-                  innovation, and the beauty of everyday life.
-                </p>
+            <FadeInStagger className="flex flex-col space-y-6 text-sage-8">
+              <FadeIn>
+                <h2 className="text-3xl font-thin tracking-tight text-sage-10">
+                  Building an <span className="italic">Urban Harmony</span>
+                </h2>
+              </FadeIn>
+
+              <div className="text-sage-6 text-md font-thin leading-6 flex flex-col space-y-6 max-w-md">
+                <FadeIn>
+                  <p>
+                    {`At Urban Therapy, we believe in the power of intention. Our journey began with a vision to create a brand that champions sustainability and mindfulness in everyday life. Each product is a testament to our commitment to ethical practices, eco-friendly materials, and innovative design.`}
+                  </p>
+                </FadeIn>
+                <FadeIn>
+                  <p>
+                    {`We strive to inspire a community that values conscious choices, nurturing both personal well-being and the health of our planet. Join us as we share our passion for products that enhance your life while making a positive impact on the world.`}
+                  </p>
+                </FadeIn>
               </div>
-            </div>
-            {/* <div className="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100">
-                <Image
-                  alt=""
-                  src={image1}
-                  className="object-cover object-center saturate-0"
-                />
-              </div> */}
-            <div className="w-full hidden md:block">
+            </FadeInStagger>
+
+            <FadeIn className="w-full hidden md:block">
               <Image
                 alt=""
                 width={500}
                 src={image1bis}
                 className="object-cover object-center shadow-md"
               />
-            </div>
+            </FadeIn>
           </div>
         </div>
       </div>
-      {/* <div className="mx-auto max-w-7xl py-24 sm:px-2 sm:py-32 pt-0 sm:pt-0 lg:px-4">
-          <h2 className="sr-only">Our perks</h2>
-          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 px-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-            {perks.map((perk) => (
-              <div key={perk.name} className="sm:flex">
-                <div className="mt-3 sm:ml-3 sm:mt-0">
-                  <div className="sm:flex-shrink-0">
-                    <div className="flow-root">
-                      <Image alt="" src={perk.imageSrc} className="w-10" />
-                    </div>
+
+      <div className="bg-sage-12 text-sage-8">
+        <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <FadeInStagger className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-3 mt-8">
+            {incentives.map((incentive) => (
+              <FadeIn key={incentive.name}>
+                <div className="sm:flex lg:block">
+                  <div className="mt-2 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-0 max-w-sm text-md">
+                    <h3 className="text-sage-4 font-normal">
+                      {incentive.name}
+                    </h3>
+                    <p className="mt-4 text-sage-8">{incentive.description}</p>
                   </div>
-                  <h3 className="text-3xl font-thin text-sage-8">
-                    {perk.name}
-                  </h3>
-                  <p className="mt-2 text-sage-6 text-lg font-thin leading-snug">
-                    {perk.description}
-                  </p>
                 </div>
-              </div>
+              </FadeIn>
             ))}
-          </div>
-        </div> */}
-
-      <div className="bg-sage-3 text-sage-10">
-        <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-center md:text-left text-3xl md:text-5xl font-thin tracking-tight">
-              Our Values
-            </p>
-            <p className="mt-12 text-base md:text-lg font-thin leading-6 text-sage-8">
-              {`Focus allows you to plan 10 daily tasks, while also thinking ahead
-              about what's next. Forget distracting digital apps and embrace
-              these small, sturdy pieces of paper.`}
-            </p>
-          </div>
-
-          <div className="mt-11 grid grid-cols-2 items-start gap-x-6 gap-y-16 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
-            {features.map((feature) => (
-              <div key={feature.name} className="flex flex-col-reverse">
-                <div className="mt-6">
-                  {/* <h3 className="text-sm font-medium text-gray-900">
-                    {feature.name}
-                  </h3> */}
-                  <h3 className="text-lg md:text-3xl font-normal md:font-thin text-sage-10">
-                    {feature.name}
-                  </h3>
-                  {/* <p className="mt-2 text-sm text-gray-500">
-                    {feature.description}
-                  </p> */}
-                  <p className="mt-2 md:mt-4 text-sage-8 text-base md:text-md font-thin leading-6">
-                    {feature.description}
-                  </p>
-                </div>
-                <div className="bg-sage-1/85 hover:bg-sage-1 flex items-center justify-center w-full h-52 shadow-sm border-sage-5">
-                  {/* <div className="overflow-hidden rounded-lg bg-sage-1"></div> */}
-                  <Image
-                    alt={feature.imageAlt}
-                    src={feature.imageSrc}
-                    className="object-cover object-center w-20"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          </FadeInStagger>
         </div>
       </div>
 
-      <div className="content-container bg-sage-1 py-24 md:py-32 md:max-w-5xl">
-        <div className="flex flex-col md:flex-row w-full md:items-center">
-          <h2 className="text-3xl font-thin tracking-tight sm:text-5xl text-sage-8 min-w-80">
-            Our Vision
-          </h2>
-          <div className="mt-8 md:mt-0 text-sage-6 text-lg font-thin leading-snug flex flex-col space-y-8">
-            <p>
-              {`To transform urban living by offering a premium selection of
+      <div className="content-container py-24 md:py-32 md:max-w-5xl">
+        <FadeInStagger>
+          <div className="flex flex-col md:flex-row w-full md:items-center">
+            <FadeIn>
+              <h2 className="text-3xl font-thin tracking-tight text-sage-9 min-w-80">
+                Our Vision
+              </h2>
+            </FadeIn>
+            <div className="mt-8 md:mt-0 text-sage-6 text-md flex flex-col space-y-8 max-w-lg leading-6">
+              <FadeIn>
+                <p>
+                  {`To transform urban living by offering a premium selection of
                 products that seamlessly integrate with contemporary lifestyles,
                 inspiring individuals to infuse elegance into their everyday
                 lives.`}
-            </p>
-            <p>
-              {`Urban Therapy is driven by the conviction that modern
+                </p>
+              </FadeIn>
+              <FadeIn>
+                <p>
+                  {`Urban Therapy is driven by the conviction that modern
                 living should embody a perfect balance of style, comfort, and
                 practicality. Our mission is to curate products that not only
                 enhance living environments but also enrich our customers'
                 lives, enabling them to express their unique identity through
                 our thoughtfully chosen collections.`}
-            </p>
+                </p>
+              </FadeIn>
+            </div>
           </div>
-        </div>
+        </FadeInStagger>
       </div>
     </>
   )

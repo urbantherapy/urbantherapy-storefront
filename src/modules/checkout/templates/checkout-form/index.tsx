@@ -9,6 +9,7 @@ import Payment from "@modules/checkout/components/payment"
 import ProgressBar from "@modules/checkout/components/progress-bar"
 import Review from "@modules/checkout/components/review"
 import Shipping from "@modules/checkout/components/shipping"
+import { FadeIn, FadeInStagger } from "@modules/framer-motion/FadeIn"
 import { cookies } from "next/headers"
 import { CartWithCheckoutStep } from "types/global"
 
@@ -49,27 +50,27 @@ export default async function CheckoutForm() {
 
   return (
     <div>
-      <ProgressBar cart={cart} />
-      <div className="w-full grid grid-cols-1 gap-y-8">
-        <div>
+      {/* <ProgressBar cart={cart} /> */}
+      <FadeInStagger faster className="w-full grid grid-cols-1 gap-y-8">
+        <FadeIn>
           <Addresses cart={cart} customer={customer} />
-        </div>
+        </FadeIn>
 
-        <div>
+        <FadeIn>
           <Shipping
             cart={cart}
             availableShippingMethods={availableShippingMethods}
           />
-        </div>
+        </FadeIn>
 
-        <div>
+        <FadeIn>
           <Payment customer={customer} cart={cart} />
-        </div>
+        </FadeIn>
 
-        <div>
+        <FadeIn>
           <Review cart={cart} />
-        </div>
-      </div>
+        </FadeIn>
+      </FadeInStagger>
     </div>
   )
 }

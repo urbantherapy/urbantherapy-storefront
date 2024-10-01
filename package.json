@@ -44,6 +44,7 @@
     "embla-carousel-autoplay": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
     "embla-carousel-react-component": "^0.5.2",
+    "framer-motion": "^11.5.4",
     "heroicons": "^2.1.5",
     "lodash": "^4.17.21",
     "medusa-react": "^9.0.0",
@@ -56,6 +57,7 @@
     "react-dom": "^18.2.0",
     "react-instantsearch-hooks-web": "^6.29.0",
     "react-intersection-observer": "^9.3.4",
+    "sharp": "^0.33.5",
     "tailwindcss-radix": "^2.8.0",
     "webpack": "^5"
   },

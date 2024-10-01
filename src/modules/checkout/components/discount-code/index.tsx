@@ -142,7 +142,10 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
               >
                 Enter a gift card, voucher or promotional code
               </button>
-              <Tooltip content="You can add multiple gift cards, but only one discount code.">
+              <Tooltip
+                content="You can add multiple gift cards, but only one discount code."
+                className="font-normal text-sage-8 font-satoshi leading-snug p-4 pr-2 bg-aesop-1 rounded-none border-none shadow-sm"
+              >
                 <InformationCircleSolid color="#D3D6C9" />
               </Tooltip>
             </Label>
@@ -151,7 +154,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                 <div className="flex w-full gap-x-2 items-center pb-4">
                   <Input
                     label="Please enter code"
-                    className="block w-full rounded-md border border-sage-3 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-sage-8 focus:ring-sage-8"
+                    className="block w-full rounded-none border border-aesop-2 bg-aesop-1 p-2.5 text-sm text-gray-900 focus:border-sage-8 focus:ring-0"
                     name="code"
                     type="text"
                     autoFocus={false}
@@ -159,7 +162,7 @@ const DiscountCode: React.FC<DiscountCodeProps> = ({ cart }) => {
                   />
                   <SubmitButton
                     variant="secondary"
-                    className="flex items-center justify-center rounded-md bg-sage-6 px-5 py-2.5 text-sm font-medium text-white hover:bg-sage-7 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                    className="flex items-center justify-center rounded-none bg-sage-11 px-6 py-2.5 text-sm font-normal text-sage-2 hover:bg-sage-7 focus:outline-none focus:ring-4 focus:ring-primary-300"
                     data-testid="discount-apply-button"
                   >
                     Apply

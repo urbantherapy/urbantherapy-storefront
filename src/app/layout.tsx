@@ -8,6 +8,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 }
 
+const zapfhumnst = localFont({
+  src: [
+    {
+      path: "./fonts/bodoni-six-itc-bold-italic-os-5871d33e4dc4a.ttf",
+      weight: "300",
+      style: "normal",
+    },
+  ],
+})
+
 const satoshi = localFont({
   src: [
     {
@@ -75,8 +85,12 @@ const satoshi = localFont({
 
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-mode="light" className={satoshi.className}>
-      <body className="bg-sage-1">
+    <html
+      lang="en"
+      data-mode="light"
+      className={`${satoshi.className} ${zapfhumnst.className}`}
+    >
+      <body className="bg-aesop-1">
         <main className="relative">{props.children}</main>
       </body>
     </html>

@@ -73,7 +73,7 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
         >
           <Thumbnail
             thumbnail={item.thumbnail}
-            size="full"
+            // size="full"
             className="rounded-md"
           />
         </LocalizedClientLink>
@@ -83,9 +83,9 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
         <div>
           <div className="flex justify-between sm:grid sm:grid-cols-2">
             <div className="pr-6">
-              <h3 className="text-sm">
+              <h3 className="text-sm mb-2">
                 <span
-                  className="font-medium text-sage-12 hover:text-gray-800"
+                  className="text-sage-10 font-normal"
                   data-testid="product-title"
                 >
                   {item.title}
@@ -96,9 +96,9 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
                 data-testid="product-variant"
               />
             </div>
-            <p className="text-right text-sm font-medium text-sage-12">
+            <div className="text-right text-sm font-medium text-sage-12">
               <LineItemUnitPrice item={item} region={region} style="tight" />
-            </p>
+            </div>
 
             {/* <div className="text-right">
               <LineItemUnitPrice item={item} region={region} style="tight" />
@@ -140,7 +140,7 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
           </div>
         </div>
 
-        <p className="mt-4 flex space-x-2 text-sm text-sage-10">
+        {/* <p className="mt-4 flex space-x-2 text-sm text-sage-10">
           {item ? (
             <CheckIcon
               aria-hidden="true"
@@ -154,7 +154,7 @@ const ItemCart = ({ item, region, type = "full" }: ItemProps) => {
           )}
 
           <span>{item ? "In stock" : `Ships in`}</span>
-        </p>
+        </p> */}
       </div>
     </li>
   )

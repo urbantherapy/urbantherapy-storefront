@@ -30,19 +30,19 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
 
   return (
     <>
-      <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
+      <dl className="space-y-3 border-t border-aesop-1 px-4 py-4 sm:px-4 text-sage-10">
         <div className="flex items-center justify-between">
-          <dt className="text-sm flex gap-x-1 items-center">
+          <dt className="text-sm flex gap-x-1 items-center font-normal">
             Subtotal
             <Tooltip
               content="This is your cart total before shipping and taxes are applied."
-              className="font-normal text-sage-8 font-satoshi leading-snug p-4 pr-2"
+              className="font-normal text-sage-8 font-satoshi leading-snug p-4 pr-2 bg-aesop-1 rounded-none border-none shadow-sm"
             >
               <InformationCircleSolid color="#D3D6C9" />
             </Tooltip>
           </dt>
           <dd
-            className="text-sm font-medium text-gray-900"
+            className="text-sm text-sage-10 font-normal"
             data-testid="cart-subtotal"
             data-value={subtotal || 0}
           >
@@ -50,10 +50,10 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           </dd>
         </div>
         {!!discount_total && (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between font-normal">
             <dt className="text-sm">Discount</dt>
             <dd
-              className="text-sm font-medium text-green-400"
+              className="text-sm text-green-400"
               data-testid="cart-discount"
               data-value={discount_total || 0}
             >
@@ -61,10 +61,10 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
             </dd>
           </div>
         )}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between font-normal">
           <dt className="text-sm">Shipping</dt>
           <dd
-            className="text-sm font-medium text-gray-900"
+            className="text-sm text-sage-10"
             data-testid="cart-shipping"
             data-value={shipping_total || 0}
           >
@@ -72,9 +72,9 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           </dd>
         </div>
         <div className="flex items-center justify-between">
-          <dt className="text-sm">Taxes</dt>
+          <dt className="text-sm font-normal">Taxes</dt>
           <dd
-            className="text-sm font-medium text-gray-900"
+            className="text-sm font-medium text-sage-10"
             data-testid="cart-taxes"
             data-value={tax_total || 0}
           >
@@ -85,7 +85,7 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           <div className="flex items-center justify-between">
             <dt className="text-sm">Gift card</dt>
             <dd
-              className="text-sm font-medium text-green-400"
+              className="text-sm font-normal text-green-400"
               data-testid="cart-gift-card-amount"
               data-value={gift_card_total || 0}
             >
@@ -94,10 +94,10 @@ const CartTotals: React.FC<CartTotalsProps> = ({ data }) => {
           </div>
         )}
 
-        <div className="flex items-center justify-between border-t border-gray-200 pt-6">
-          <dt className="text-base font-medium">Total</dt>
+        <div className="flex items-center justify-between border-t border-aesop-1 pt-6 text-sm">
+          <dt className="text-sage-10 font-medium">Total</dt>
           <dd
-            className="text-base font-medium text-gray-900"
+            className="font-medium text-sage-10"
             data-testid="cart-total"
             data-value={total || 0}
           >

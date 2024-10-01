@@ -33,7 +33,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   ]
 
   return (
-    <div className="w-full text-primary">
+    <div className="w-full text-primary mt-4">
       <Accordion type="multiple">
         {tabs.map((tab, i) => (
           <Accordion.Item

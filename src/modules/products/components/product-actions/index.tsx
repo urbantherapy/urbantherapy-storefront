@@ -2,7 +2,7 @@
 
 import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
-import { Button } from "@medusajs/ui"
+import { Button, clx } from "@medusajs/ui"
 import { isEqual } from "lodash"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -14,6 +14,7 @@ import OptionSelect from "@modules/products/components/option-select"
 
 import MobileActions from "../mobile-actions"
 import ProductPrice from "../product-price"
+import { formatAmount } from "@lib/util/prices"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -35,6 +36,7 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
 
   const countryCode = useParams().countryCode as string
 
@@ -128,12 +130,22 @@ export default function ProductActions({
 
     await addToCart({
       variantId: variant.id,
+      // quantity: selectedQuantity,
       quantity: 1,
       countryCode,
     })
 
     setIsAdding(false)
   }
+
+  const price = variant
+    ? formatAmount({
+        amount:
+          variant.prices.find((p) => p.currency_code === region.currency_code)
+            ?.amount || 0,
+        region,
+      })
+    : null
 
   return (
     <>
@@ -148,35 +160,77 @@ export default function ProductActions({
                       option={option}
                       current={options[option.id]}
                       updateOption={updateOptions}
-                      title={option.title}
+                      title={option.title + "s"}
                       data-testid="product-options"
                       disabled={!!disabled || isAdding}
                     />
                   </div>
                 )
               })}
-              <Divider />
             </div>
           )}
         </div>
 
-        <ProductPrice product={product} variant={variant} region={region} />
+        {/* <ProductPrice product={product} variant={variant} region={region} /> */}
+        <div className="flex space-x-1">
+          {/* <div className="flex items-center h-full">
+            <label htmlFor="quantity" className="sr-only">
+              Quantity
+            </label>
+            <select
+              id="quantity"
+              name="quantity"
+              value={selectedQuantity}
+              onChange={(e) => {
+                console.log(parseInt(e.target.value))
+                return setSelectedQuantity(parseInt(e.target.value))
+              }}
+              className="block text-left text-base font-medium leading-5 text-gray-700 focus:border-sage-9 focus:outline-none focus:ring-0 focus:ring-sage-9 sm:text-sm bg-aesop-0"
+            >
+              {Array.from(
+                { length: Math.min(variant?.inventory_quantity || 10, 10) },
+                (_, i) => (
+                  <option value={i + 1} key={i}>
+                    {i + 1}
+                  </option>
+                )
+              )}
+            </select>
+          </div> */}
+          <Button
+            onClick={handleAddToCart}
+            disabled={!inStock || !variant || !!disabled || isAdding}
+            variant="secondary"
+            className={clx(
+              "rounded-none !shadow-none px-4 py-2 w-full text-sm p-4 font-normal",
+              {
+                "bg-sage-12 text-sage-1 hover:bg-sage-11": !(
+                  !inStock ||
+                  !variant ||
+                  !!disabled ||
+                  isAdding
+                ),
+                "!bg-aesop-2/25 !text-sage-10/25 cursor-not-allowed": !!(
+                  !inStock ||
+                  !variant ||
+                  !!disabled ||
+                  isAdding
+                ),
+              }
+            )}
+            isLoading={isAdding}
+            data-testid="add-product-button"
+          >
+            {!variant
+              ? "Add to your cart"
+              : !inStock
+              ? "Out of Stock"
+              : "Add to Cart"}{" "}
+            {""}— {price && price}
+          </Button>
+        </div>
 
-        <Button
-          onClick={handleAddToCart}
-          disabled={!inStock || !variant || !!disabled || isAdding}
-          variant="secondary"
-          className="bg-sage-6 rounded-md px-4 py-2 text-sage-1 w-full hover:bg-sage-7 text-base font-normal"
-          isLoading={isAdding}
-          data-testid="add-product-button"
-        >
-          {!variant
-            ? "Select variant"
-            : !inStock
-            ? "Out of Stock"
-            : "Add to Cart"}
-        </Button>
-        <MobileActions
+        {/* <MobileActions
           product={product}
           variant={variant}
           region={region}
@@ -187,7 +241,7 @@ export default function ProductActions({
           isAdding={isAdding}
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
-        />
+        /> */}
       </div>
     </>
   )
