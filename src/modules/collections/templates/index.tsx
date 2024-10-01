@@ -21,7 +21,6 @@ export default function CollectionTemplate({
   page,
   countryCode,
   categories,
-
   customAttributes,
   filters,
 }: {
@@ -30,7 +29,6 @@ export default function CollectionTemplate({
   page?: string
   countryCode: string
   categories: ProductCategoryWithChildren[]
-
   customAttributes: Array<{
     id: string
     name: string
@@ -41,8 +39,6 @@ export default function CollectionTemplate({
   filters: { [key: string]: string[] }
 }) {
   const pageNumber = page ? parseInt(page) : 1
-
-  console.log(collection, "collection", typeof collection.metadata.description)
 
   return (
     <>
@@ -79,7 +75,9 @@ export default function CollectionTemplate({
               page={pageNumber}
               collectionId={collection.id}
               collectionTitle={collection.title}
-              collectionDescription={collection.metadata.description}
+              collectionDescription={
+                collection.metadata?.description as string | undefined
+              }
               countryCode={countryCode}
               filters={filters}
               customAttributes={customAttributes}

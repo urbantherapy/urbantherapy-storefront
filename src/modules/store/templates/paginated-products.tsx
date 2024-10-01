@@ -34,7 +34,7 @@ export default async function PaginatedProducts({
   collectionDescription?: string
   productsIds?: string[]
   countryCode: string
-  filters: { [key: string]: string[] }
+  filters?: { [key: string]: string[] }
   customAttributes?: Array<{
     id: string
     name: string
@@ -88,7 +88,7 @@ export default async function PaginatedProducts({
       })
     })
 
-    return Object.entries(filters).every(([key, values]) => {
+    return Object.entries(filters ?? {}).every(([key, values]) => {
       const filterKey = key.toLowerCase()
       const filterValues = Array.isArray(values) ? values : [values]
       const attributeValue = attributeMap.get(filterKey)

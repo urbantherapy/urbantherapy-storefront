@@ -49,6 +49,7 @@ const SearchResultsTemplate = ({
                 sortBy={sortBy}
                 page={pageNumber}
                 countryCode={countryCode}
+                filters={{}}
               />
             </div>
           </>
