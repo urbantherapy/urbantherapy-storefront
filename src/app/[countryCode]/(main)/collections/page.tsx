@@ -2,6 +2,7 @@ import { Fulfillment, Product } from "@medusajs/medusa"
 import { Metadata } from "next"
 import Image from "next/image"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Loading from "./loading"
 
 import { getCollectionsList, getProductsList, getRegion } from "@lib/data"
 
@@ -122,6 +123,7 @@ export default async function CollectionsPage({
 
   return (
     <>
+      {/* <Loading /> */}
       <div className="max-w-5xl mx-auto my-40">
         <CollectionsCarousel />
       </div>
