@@ -30,6 +30,10 @@ const nextConfig = withStoreConfig({
         protocol: "https",
         hostname: "medusa-server-testing.s3.us-east-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "urban-therapy-medusa.s3.ap-southeast-2.amazonaws.com",
+      },
     ],
   },
 })
